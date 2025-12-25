@@ -3,7 +3,13 @@ document.getElementById('submitBtn').addEventListener('click', () => {
   const gpu = document.getElementById('gpu').value;
 
   if (!cpu || !gpu) {
-    alert('Please select CPU and GPU');
+    Swal.fire({
+  title: 'Configuration sent!',
+  text: 'We will contact you shortly with a custom offer.',
+  icon: 'success',
+  confirmButtonText: 'OK'
+});
+
     return;
   }
 
