@@ -1,22 +1,47 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Configurator PC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom PC Builder</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<h1>Configurator PC personalizat</h1>
+  <main class="container">
+    <h1>Build Your Custom PC</h1>
+    <p class="subtitle">Choose your components and request a custom offer</p>
 
-<select id="cpu">
-  <option value="i5-12400f">Intel i5-12400F</option>
-  <option value="i5-13400f">Intel i5-13400F</option>
-</select>
+    <form id="configurator">
+      <label>
+        CPU
+        <select id="cpu">
+          <option value="">Select CPU</option>
+          <option>Intel i5-12400F</option>
+          <option>Intel i7-12700F</option>
+        </select>
+      </label>
 
-<button onclick="calculate()">Calculează oferta</button>
+      <label>
+        GPU
+        <select id="gpu">
+          <option value="">Select GPU</option>
+          <option>RTX 3060</option>
+          <option>RTX 4060</option>
+        </select>
+      </label>
 
-<p id="result"></p>
+      <label>
+        Budget (optional)
+        <input type="number" placeholder="Max budget (EUR)" />
+      </label>
 
-<script src="app.js"></script>
+      <button type="button" id="submitBtn">
+        Request Offer
+      </button>
+    </form>
+  </main>
+
+  <script src="app.js"></script>
 </body>
 </html>
