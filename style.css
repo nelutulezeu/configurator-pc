@@ -56,6 +56,106 @@ button {
   cursor: pointer;
 }
 
+/* Normal input styling */
+select {
+  padding: 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* Invalid field */
+.invalid {
+  border: 2px solid #f87171; /* red */
+  background-color: #fee2e2; /* light red background */
+}
+
+.field-card {
+  background: #020617;
+  padding: 1rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.field-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.field-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.field-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.field-card select {
+  padding: 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: #020617;
+  color: #f8fafc;
+}
+
+/* invalid state still works */
+.field-card select.invalid {
+  border: 2px solid #f87171;
+  background: #fee2e2;
+  color: #020617;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.button-row {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* Make buttons equal width */
+.button-row button {
+  flex: 1;
+  padding: 0.9rem;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Optional styles */
+#submitBtn {
+  background: #22c55e;
+  color: #020617;
+}
+
+#pdfBtn {
+  background: #38bdf8;
+  color: #020617;
+}
+
+@media (max-width: 480px) {
+  .button-row {
+    flex-direction: column;
+  }
+}
+
+
 /* TABLET */
 @media (min-width: 768px) {
   .container {
@@ -69,3 +169,81 @@ button {
     max-width: 900px;
   }
 }
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-footer {
+  margin-top: auto;
+}
+
+.site-footer {
+  margin-top: 3rem;
+  padding: 1.2rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  border-top: 1px solid #1e293b;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+
+.footer-separator {
+  opacity: 0.5;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.footer-text {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-link {
+  color: #38bdf8;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+/*SCROLL BAR*/
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* track */
+::-webkit-scrollbar-track {
+  background: #020617;
+}
+
+/* thumb */
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 8px;
+  border: 2px solid #020617;
+}
+
+/* hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #38bdf8;
+}
+
+
