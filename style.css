@@ -15,6 +15,7 @@ body {
   justify-content: center;
   align-items: center;
   padding-top: 1rem;
+overscroll-behavior: contain;
 }
 
 body.swal2-shown {
@@ -23,6 +24,44 @@ body.swal2-shown {
 
 .swal2-container {
   overflow-y: auto !important;
+}
+
+.swal2-popup .swal2-input,
+.swal2-popup .swal2-textarea {
+  background: #020617;              /* same as your inputs */
+  border: 1px solid #334155;         /* same border */
+  border-radius: 0.5rem;
+  color: #f8fafc;
+  padding: 0.75rem 0.75rem;
+  font-size: 0.95rem;
+  width: 100%;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.swal2-popup .swal2-textarea {
+  height: 30rem;
+  resize: vertical;
+}
+
+.swal2-popup .swal2-input::placeholder,
+.swal2-popup .swal2-textarea::placeholder {
+  color: #94a3b8;
+  opacity: 1;
+}
+
+.swal2-popup .swal2-input:focus,
+.swal2-popup .swal2-textarea:focus {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
+}
+
+.swal2-popup .swal2-validation-message {
+  color: #f87171;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
 }
 
 
