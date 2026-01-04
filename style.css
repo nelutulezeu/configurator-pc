@@ -18,7 +18,6 @@ body {
 }
 
 .container {
-  position: relative;
   max-width: 480px;
   display: flex;
   flex-direction: column;
@@ -378,7 +377,6 @@ select,
   border-radius: 50%;
 }
 
-
 .spec-icon img {
   width: 100%;
   height: 100%;
@@ -391,49 +389,23 @@ select,
   opacity: 1;
 }
 
-.lang-switcher {
-  position: absolute;
-  top: -2rem;
-  right: -4rem;
-  z-index: 1000;
-
-  display: inline-flex;
-  align-items: center;
+.lang-options {
+  display: flex;
+  gap: 8px;
+  opacity: 1;
 }
 
-.lang-active,
-.lang-options button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-}
-
-.lang-active img,
 .lang-options img {
   width: 28px;
   height: auto;
   display: block;
 }
 
-.lang-options {
-  position: absolute;
-  top: 0;
-  right: 110%;
-  display: flex;
-  gap: 8px;
-
-  opacity: 0;
-  transform: translateX(10px);
-  pointer-events: none;
-
-  transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-.lang-switcher.open .lang-options {
-  opacity: 1;
-  transform: translateX(0);
-  pointer-events: auto;
+.lang-options button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
 
 .lang-options button:hover img {
