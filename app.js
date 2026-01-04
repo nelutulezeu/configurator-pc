@@ -43,6 +43,8 @@ function openSelectSweetAlert(select) {
   });
 
   Swal.fire({
+  heightAuto: false,
+  scrollbarPadding: false,
     title: label,
     html,
     showConfirmButton: false,
