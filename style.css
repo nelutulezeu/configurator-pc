@@ -402,6 +402,8 @@ select,
 }
 
 .lang-options button {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   background: none;
   border: none;
   cursor: pointer;
