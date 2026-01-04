@@ -17,6 +17,15 @@ body {
   padding-top: 1rem;
 }
 
+body.swal2-shown {
+  overflow-y: auto !important;
+}
+
+.swal2-container {
+  overflow-y: auto !important;
+}
+
+
 .container {
   max-width: 480px;
   display: flex;
