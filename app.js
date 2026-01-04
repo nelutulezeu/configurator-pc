@@ -384,7 +384,6 @@ document.querySelectorAll('.tab-button').forEach(btn => {
 // select language
 document.querySelectorAll('.lang-options button').forEach(btn => {
   btn.addEventListener('click', () => {
-    const img = btn.querySelector('img');
 
     // TODO: call your localization switch here
     // setLanguage(btn.dataset.lang);
