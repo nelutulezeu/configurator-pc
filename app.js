@@ -395,4 +395,68 @@ document.querySelectorAll('.lang-options button').forEach(btn => {
 
 
 
+
+document.getElementById('contact_link').addEventListener('click', (e) => {
+  e.preventDefault();
+
+  Swal.fire({
+    title: 'Contact us',
+    html: `
+      <input type="text" id="contact-name" class="swal2-input" placeholder="Your name">
+      <input type="email" id="contact-email" type="email" class="swal2-input" placeholder="Your email">
+      <textarea id="contact-message"
+        class="swal2-textarea"
+        placeholder="Your message"
+        rows="4"></textarea>
+    `,
+    confirmButtonText: 'Send message',
+    showCancelButton: true,
+    cancelButtonText: 'Cancel',
+
+    background: '#0f172a',
+    color: '#f8fafc',
+    confirmButtonColor: '#38bdf8',
+    backdrop: 'rgba(2, 6, 23, 0.85)',
+
+    heightAuto: false,
+    scrollbarPadding: false,
+
+    preConfirm: () => {
+      const name = document.getElementById('contact-name').value.trim();
+      const email = document.getElementById('contact-email').value.trim();
+      const message = document.getElementById('contact-message').value.trim();
+
+      if (!name || !email || !message) {
+        Swal.showValidationMessage('Please fill in all fields');
+        return false;
+      }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        Swal.showValidationMessage('Please enter a valid email address');
+        return false;
+      }
+
+      return { name, email, message };
+    }
+  }).then((result) => {
+    if (!result.isConfirmed) return;
+
+    // 🚀 PLACEHOLDER for now
+    console.log('Contact form data:', result.value);
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Message sent!',
+      text: 'We’ll get back to you shortly.',
+      background: '#0f172a',
+      color: '#f8fafc',
+      confirmButtonColor: '#38bdf8',
+      backdrop: 'rgba(2, 6, 23, 0.85)',
+      heightAuto: false,
+      scrollbarPadding: false
+    });
+  });
+});
+
+
 });
