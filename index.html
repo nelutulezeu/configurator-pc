@@ -12,10 +12,213 @@
 <body>
 
   <main class="container">
+
+<div class="lang-switcher" id="langSwitcher">
+  <button class="lang-active" id="langToggle">
+    <img src="RO.png" alt="Romania" class="field-icon" data-author="Romania icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/romania"/>
+  </button>
+
+  <div class="lang-options">
+    <button data-lang="en">
+      <img src="UK.png" alt="UK" class="field-icon" data-author="United kingdom icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/united-kingdom"/>
+    </button>
+    <button data-lang="ro">
+      <img src="RO.png" alt="Romania" class="field-icon" data-author="Romania icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/romania"/>
+    </button>
+    <button data-lang="hu">
+      <img src="HU.png" alt="Hungary" class="field-icon" data-author="Hungary icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/hungary"/>
+    </button>
+    <button data-lang="rs">
+      <img src="RS.png" alt="Serbia" class="field-icon" data-author="Serbia icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/serbia"/>
+    </button>
+  </div>
+</div>
+
     <h1>Build Your Custom PC</h1>
     <p class="subtitle">Choose your components and request a custom offer</p>
 
+<div class="configurator-tabs">
+  <button class="tab-button active" data-tab="predefined">Predefined Builds</button>
+  <button class="tab-button" data-tab="custom">Custom Build</button>
+</div>
+
     <form id="configurator">
+
+<div class="tab-content active" id="predefined">
+<div class="form-grid">
+<div class="field-card">
+  <div class="field-header">
+    <img src="cpu.png" alt="CPU" class="field-icon" data-author="Technology icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/technology"/>
+    <span class="field-label">CPU</span>
+    <button class="spec-icon"
+      title="View specifications"
+      aria-label="View specifications"
+      hidden
+    >
+     <img src="open-in-new-window.png" alt="" />
+    </button>
+  </div>
+
+  <select id="cpu" class="required" data-label="CPU">
+    <option value="">Select CPU</option>
+  </select>
+</div>
+
+<div class="field-card">
+  <div class="field-header">
+    <img src="motherboard.png" alt="Motherboard" class="field-icon" data-author="Hardware icons created by kerismaker - Flaticon" data-url="https://www.flaticon.com/free-icons/hardware"/>
+    <span class="field-label">Motherboard</span>
+    <button class="spec-icon"
+      title="View specifications"
+      aria-label="View specifications"
+      hidden
+    >
+     <img src="open-in-new-window.png" alt="" />
+    </button>
+  </div>
+
+  <select id="motherboard" class="required" data-label="Motherboard">
+    <option value="">Select Motherboard</option>
+  </select>
+</div>
+
+<div class="field-card">
+  <div class="field-header">
+    <img src="ram-memory.png" alt="RAM Memory" class="field-icon" data-author="Ram icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/ram"/>
+    <span class="field-label">RAM Memory</span>
+    <button class="spec-icon"
+      title="View specifications"
+      aria-label="View specifications"
+      hidden
+    >
+     <img src="open-in-new-window.png" alt="" />
+    </button>
+  </div>
+
+  <select id="ram" class="required" data-label="RAM Memory">
+    <option value="">Select RAM Memory</option>
+  </select>
+</div>
+
+<div class="field-card">
+  <div class="field-header">
+    <img src="gpu.png" alt="GPU" class="field-icon" data-author="Graphics card icons created by Triangle Squad - Flaticon" data-url="https://www.flaticon.com/free-icons/graphics-card"/>
+    <span class="field-label">GPU</span>
+    <button class="spec-icon"
+      title="View specifications"
+      aria-label="View specifications"
+      hidden
+    >
+     <img src="open-in-new-window.png" alt="" />
+    </button>
+  </div>
+
+  <select id="gpu" class="required" data-label="GPU">
+    <option value="">Select GPU</option>
+  </select>
+</div>
+
+<div class="field-card">
+  <div class="field-header">
+    <img src="cooling-fan.png" alt="Cooling Fan" class="field-icon" data-author="Computer icons created by Rabit Jes - Flaticon" data-url="https://www.flaticon.com/free-icons/computer"/>
+    <span class="field-label">Cooling Fan</span>
+    <button class="spec-icon"
+      title="View specifications"
+      aria-label="View specifications"
+      hidden
+    >
+     <img src="open-in-new-window.png" alt="" />
+    </button>
+  </div>
+
+  <select id="cooling" class="required" data-label="Cooling">
+    <option value="">Select Cooling Fan</option>
+  </select>
+</div>
+
+<div class="field-card">
+  <div class="field-header">
+    <img src="ssd.png" alt="SSD" class="field-icon" data-author="Ssd icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/ssd"/>
+    <span class="field-label">SSD Memory</span>
+    <button class="spec-icon"
+      title="View specifications"
+      aria-label="View specifications"
+      hidden
+    >
+     <img src="open-in-new-window.png" alt="" />
+    </button>
+  </div>
+
+  <select id="ssd" class="required" data-label="SSD Memory">
+    <option value="">Select SSD Memory</option>
+  </select>
+</div>
+
+<div class="field-card">
+  <div class="field-header">
+    <img src="power-source.png" alt="Power Source" class="field-icon" data-author="Psu icons created by Vectors Tank - Flaticon" data-url="https://www.flaticon.com/free-icons/psu"/>
+    <span class="field-label">Power Source</span>
+    <button class="spec-icon"
+      title="View specifications"
+      aria-label="View specifications"
+      hidden
+    >
+     <img src="open-in-new-window.png" alt="" />
+    </button>
+  </div>
+
+  <select id="psu" class="required" data-label="Power Source">
+    <option value="">Select Power Source</option>
+  </select>
+</div>
+
+<div class="field-card">
+  <div class="field-header">
+    <img src="pc-case.png" alt="PC Case" class="field-icon" data-author="Pc case icons created by Fahrul Oktaviana - Flaticon" data-url="https://www.flaticon.com/free-icons/pc-case"/>
+    <span class="field-label">PC Case</span>
+    <button class="spec-icon"
+      title="View specifications"
+      aria-label="View specifications"
+      hidden
+    >
+     <img src="open-in-new-window.png" alt="" />
+    </button>
+  </div>
+
+  <select id="pcc" class="required" data-label="PC Case">
+    <option value="">Select PC Case</option>
+  </select>
+</div>
+
+<div class="form-divider">
+  <span>Your info</span>
+</div>
+<div class="field-card">
+  <div class="field-header no-icon">
+    <span class="field-label">Phone number</span>
+  </div>
+
+  <input type="tel" id="input-tel-pred" placeholder="Phone number (Optional)" data-label="Phone number"/>
+</div>
+<div class="field-card">
+  <div class="field-header no-icon">
+    <span class="field-label">Email</span>
+  </div>
+
+  <input type="email" id="input-email-pred" placeholder="Email address" class="required" data-label="Email"/>
+</div>
+</div>
+<div class="button-row">
+      <button type="button" class="submitBtn">
+        Request Offer
+      </button>
+      <button type="button" id="pdfBtn">
+	Download Offer (PDF)
+      </button>
+</div>
+</div>
+
+<div class="tab-content" id="custom">
 <div class="form-grid">
 <div class="field-card">
   <div class="field-header">
@@ -23,11 +226,8 @@
     <span class="field-label">CPU</span>
   </div>
 
-  <select id="cpu" class="required" data-label="CPU">
-    <option value="">Select CPU</option>
-    <option>Intel i5-12400F</option>
-    <option>Intel i7-12700F</option>
-  </select>
+  <input type="text" maxlength="45" id="input-text-cpu" placeholder="Product name" class="required" data-label="CPU">
+  <input type="url" id="input-url-cpu" placeholder="Optional product link" class="optional-link" />
 </div>
 
 <div class="field-card">
@@ -36,11 +236,8 @@
     <span class="field-label">Motherboard</span>
   </div>
 
-  <select id="motherboard" class="required" data-label="Motherboard">
-    <option value="">Select Motherboard</option>
-    <option>Gigabyte B550M DS3H</option>
-    <option>MSI PRO B760M-P</option>
-  </select>
+  <input type="text" maxlength="45" id="input-text-mb" placeholder="Product name" class="required" data-label="Motherboard">
+  <input type="url" id="input-url-mb" placeholder="Optional product link" class="optional-link" />
 </div>
 
 <div class="field-card">
@@ -49,11 +246,8 @@
     <span class="field-label">RAM Memory</span>
   </div>
 
-  <select id="ram" class="required" data-label="RAM Memory">
-    <option value="">Select RAM Memory</option>
-    <option>Corsair VENGEANCE® LPX 32GB</option>
-    <option>Kingston FURY Beast 32GB</option>
-  </select>
+  <input type="text" maxlength="45" id="input-text-ram" placeholder="Product name" class="required" data-label="RAM Memory">
+  <input type="url" id="input-url-ram" placeholder="Optional product link" class="optional-link" />
 </div>
 
 <div class="field-card">
@@ -62,11 +256,8 @@
     <span class="field-label">GPU</span>
   </div>
 
-  <select id="gpu" class="required" data-label="GPU">
-    <option value="">Select GPU</option>
-    <option>RTX 3060</option>
-    <option>RTX 4060</option>
-  </select>
+  <input type="text" id="input-text-gpu" placeholder="Product name" class="required" data-label="GPU">
+  <input type="url" id="input-url-gpu" placeholder="Optional product link" class="optional-link" />
 </div>
 
 <div class="field-card">
@@ -75,11 +266,8 @@
     <span class="field-label">Cooling Fan</span>
   </div>
 
-  <select id="cooling-fan" class="required" data-label="Cooling">
-    <option value="">Select Cooling Fan</option>
-    <option>Cooler procesor cu lichid ID-Cooling FX360 Pro Negru</option>
-    <option>Cooler procesor DeepCool AK620 DIGITAL</option>
-  </select>
+  <input type="text" id="input-text-cool" placeholder="Product name" class="required" data-label="Cooling">
+  <input type="url" id="input-url-cool" placeholder="Optional product link" class="optional-link" />
 </div>
 
 <div class="field-card">
@@ -88,11 +276,8 @@
     <span class="field-label">SSD Memory</span>
   </div>
 
-  <select id="ssd" class="required" data-label="SSD Memory">
-    <option value="">Select SSD Memory</option>
-    <option>SSD Kingston NV3 1TB</option>
-    <option>SSD Samsung 990 EVO Plus PCIe 4.0 NVMe M.2 2TB</option>
-  </select>
+  <input type="text" id="input-text-ssd" placeholder="Product name" class="required" data-label="SSD Memory">
+  <input type="url" id="input-url-ssd" placeholder="Optional product link" class="optional-link" />
 </div>
 
 <div class="field-card">
@@ -101,11 +286,8 @@
     <span class="field-label">Power Source</span>
   </div>
 
-  <select id="power-source" class="required" data-label="Power Source">
-    <option value="">Select Power Source</option>
-    <option>Corsair CX750 750 Watt</option>
-    <option>Deepcool PF750 750W</option>
-  </select>
+  <input type="text" id="input-text-pow" placeholder="Product name" class="required" data-label="Power Source">
+  <input type="url" id="input-url-pow" placeholder="Optional product link" class="optional-link" />
 </div>
 
 <div class="field-card">
@@ -114,30 +296,126 @@
     <span class="field-label">PC Case</span>
   </div>
 
-  <select id="pc-case" class="required" data-label="PC Case">
-    <option value="">Select PC Case</option>
-    <option>Pro Gaming ELITE BLACK ATX</option>
-    <option>Pro Gaming Hive ATX</option>
-  </select>
-</div>
-      <label>
-        Budget (optional)
-        <input type="number" placeholder="Max budget (EUR)" />
-      </label>
+  <input type="text" id="input-text-pcc" placeholder="Product name" class="required" data-label="PC Case">
+  <input type="url" id="input-url-pcc" placeholder="Optional product link" class="optional-link" />
 </div>
 
+<div class="form-divider">
+  <span>Your info</span>
+</div>
+<div class="field-card">
+  <div class="field-header no-icon">
+    <span class="field-label">Phone number</span>
+  </div>
+
+  <input type="tel" id="input-tel-cus" placeholder="Phone number (Optional)" data-label="Phone number"/>
+</div>
+<div class="field-card">
+  <div class="field-header no-icon">
+    <span class="field-label">Email</span>
+  </div>
+
+  <input type="email" id="input-email-cus" placeholder="Email address" class="required" data-label="Email"/>
+</div>
+</div>
 <div class="button-row">
-      <button type="button" id="submitBtn">
+      <button type="button" class="submitBtn">
         Request Offer
       </button>
-      <button type="button" id="pdfBtn">
-	Download Offer (PDF)
-      </button>
 </div>
+</div>
+
     </form>
   </main>
 
   <script src="app.js"></script>
+
+
+<script type="application/json" id="components-data">
+{
+  "cpu": {
+    "Intel": [
+      { "name": "Intel i5-12400F", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
+      { "name": "Intel i7-12700F", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
+    ],
+    "AMD":[
+      { "name": "Intel i5-12400F", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
+      { "name": "Intel i7-12700F", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
+    ]
+  },
+  "motherboard": {
+    "Gigabyte":[
+      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
+      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
+    ],
+    "ASUS":[
+      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
+      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
+    ]
+  },
+  "ram": {
+    "Kingston": [
+      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
+      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
+    ],
+    "Corsair": [
+      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
+      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
+    ]
+  },
+  "gpu": {
+    "NVidia": [
+      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
+      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
+    ],
+    "AMD": [
+      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
+      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
+    ]
+  },
+  "cooling": {
+    "Gigabyte":[
+      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
+      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
+    ],
+    "ASUS":[
+      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
+      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
+    ]
+  },
+  "ssd": {
+    "Kingston": [
+      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
+      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
+    ],
+    "Corsair": [
+      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
+      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
+    ]
+  },
+  "psu": {
+    "Gigabyte":[
+      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
+      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
+    ],
+    "ASUS":[
+      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
+      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
+    ]
+  },
+  "pcc": {
+    "Intel": [
+      { "name": "Intel i5-12400F", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
+      { "name": "Intel i7-12700F", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
+    ],
+    "AMD":[
+      { "name": "Intel i5-12400F", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
+      { "name": "Intel i7-12700F", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
+    ]
+  }
+}
+</script>
+
 
 <footer class="site-footer">
   <div class="footer-content">
