@@ -381,33 +381,17 @@ document.querySelectorAll('.tab-button').forEach(btn => {
   });
 });
 
-const langSwitcher = document.getElementById('langSwitcher');
-const langToggle = document.getElementById('langToggle');
-const activeImg = langToggle.querySelector('img');
-
-langToggle.addEventListener('click', (e) => {
-  e.stopPropagation();
-  langSwitcher.classList.toggle('open');
-});
-
 // select language
-langSwitcher.querySelectorAll('.lang-options button').forEach(btn => {
+document.querySelectorAll('.lang-options button').forEach(btn => {
   btn.addEventListener('click', () => {
     const img = btn.querySelector('img');
-    activeImg.src = img.src;
-    activeImg.alt = img.alt;
 
     // TODO: call your localization switch here
     // setLanguage(btn.dataset.lang);
 
-    langSwitcher.classList.remove('open');
   });
 });
 
-// close when clicking outside
-document.addEventListener('click', () => {
-  langSwitcher.classList.remove('open');
-});
 
 
 });
