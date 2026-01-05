@@ -15,7 +15,7 @@ body {
   justify-content: center;
   align-items: center;
   padding-top: 1rem;
-overscroll-behavior: contain;
+  overscroll-behavior: contain;
 }
 
 body.swal2-shown {
@@ -38,6 +38,7 @@ body.swal2-shown {
   box-sizing: border-box;
   margin-left: auto;
   margin-right: auto;
+  height: 3em;
 }
 
 .swal2-popup .swal2-textarea {
@@ -64,6 +65,24 @@ body.swal2-shown {
   margin-top: 0.25rem;
 }
 
+.swal2-popup .swal2-confirm,
+.swal2-popup .swal2-cancel {
+  flex: 1;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  color: #020617;
+}
+
+.swal2-cancel {
+background: #f87171;   /* rose-400 */
+color: #020617;
+}
+
+.swal2-cancel:hover {
+background: #ef4444
+}
 
 .container {
   max-width: 480px;
@@ -304,6 +323,11 @@ select,
 
 .swal-dark a:hover {
   color: #38bdf8;
+}
+
+.swal-dark .swal2-html-container {
+  font-size: 0.85rem; /* try 0.8–0.9rem */
+  line-height: 1.4;
 }
 
 .form-divider {
