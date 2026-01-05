@@ -43,8 +43,8 @@ function openSelectSweetAlert(select) {
   });
 
   Swal.fire({
-  heightAuto: false,
-  scrollbarPadding: false,
+    heightAuto: false,
+    scrollbarPadding: false,
     title: label,
     html,
     showConfirmButton: false,
@@ -206,10 +206,12 @@ function handleSubmit() {
 
     if (!valid) {
       Swal.fire({
-backdrop: 'rgba(2, 6, 23, 0.85)',
-  background: '#0f172a',
-  color: '#f8fafc',
-  confirmButtonColor: '#38bdf8',
+        heightAuto: false,
+        scrollbarPadding: false,
+        backdrop: 'rgba(2, 6, 23, 0.85)',
+        background: '#0f172a',
+        color: '#f8fafc',
+        confirmButtonColor: '#38bdf8',
         title: 'Incomplete selection',
         text: 'Please fill all required fields.',
         icon: 'warning'
@@ -218,10 +220,12 @@ backdrop: 'rgba(2, 6, 23, 0.85)',
     }
 
     Swal.fire({
-backdrop: 'rgba(2, 6, 23, 0.85)',
-  background: '#0f172a',
-  color: '#f8fafc',
-  confirmButtonColor: '#38bdf8',
+      heightAuto: false,
+      scrollbarPadding: false,
+      backdrop: 'rgba(2, 6, 23, 0.85)',
+      background: '#0f172a',
+      color: '#f8fafc',
+      confirmButtonColor: '#38bdf8',
       title: 'Configuration sent!',
       text: 'Your configuration was sent, well get back to you soon. Thank you!',
       icon: 'success'
@@ -258,10 +262,12 @@ console.log(requiredFields);
 
     if (!valid) {
       Swal.fire({
-backdrop: 'rgba(2, 6, 23, 0.85)',
-  background: '#0f172a',
-  color: '#f8fafc',
-  confirmButtonColor: '#38bdf8',
+        heightAuto: false,
+        scrollbarPadding: false,
+        backdrop: 'rgba(2, 6, 23, 0.85)',
+        background: '#0f172a',
+        color: '#f8fafc',
+        confirmButtonColor: '#38bdf8',
         title: 'Incomplete selection',
         text: 'Please fill all required fields.',
         icon: 'warning'
@@ -361,8 +367,11 @@ document.getElementById('iconAttributionLink').addEventListener('click', (e) => 
     color: '#f8fafc',
     confirmButtonColor: '#38bdf8',
     backdrop: 'rgba(2, 6, 23, 0.85)',
+    heightAuto: false,
+    scrollbarPadding: false,
     customClass: {
-      popup: 'swal-dark'
+      popup: 'swal-dark',
+      confirmButton: 'button-row'
     }
   });
 });
@@ -409,7 +418,7 @@ document.getElementById('contact_link').addEventListener('click', (e) => {
         placeholder="Your message"
         rows="4"></textarea>
     `,
-    confirmButtonText: 'Send message',
+    confirmButtonText: 'Send',
     showCancelButton: true,
     cancelButtonText: 'Cancel',
 
@@ -441,7 +450,7 @@ document.getElementById('contact_link').addEventListener('click', (e) => {
   }).then((result) => {
     if (!result.isConfirmed) return;
 
-    // 🚀 PLACEHOLDER for now
+    // PLACEHOLDER for now
     console.log('Contact form data:', result.value);
 
     Swal.fire({
