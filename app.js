@@ -467,5 +467,34 @@ document.getElementById('contact_link').addEventListener('click', (e) => {
   });
 });
 
+// TRANSLATION
+document.querySelectorAll('.lang-options button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const lang = btn.dataset.lang;
+    loadLanguage(lang);
+  });
+});
+
+let i18n = {};
+let currentLang = 'en';
+
+async function loadLanguage(lang) {
+  const res = await fetch(`lang/${lang}.json`);
+  i18n = await res.json();
+  currentLang = lang;
+
+  applyTranslations();
+}
+
+function getTranslation(key) {
+  return key.split('.').reduce((obj, k) => obj?.[k], i18n) || key;
+}
+
+function applyTranslations() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    el.textContent = getTranslation(key);
+  });
+}
 
 });
