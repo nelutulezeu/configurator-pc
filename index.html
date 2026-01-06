@@ -12,13 +12,18 @@
 <body>
 
   <main class="container">
-
-    <h1>Build Your Custom PC</h1>
-    <p class="subtitle">Choose your components and request a custom offer</p>
+<h1 class="site-title">
+  <img
+    src="images/logo/site-logo.png"
+    alt="Build Your Custom PC"
+    class="site-logo"
+  />
+</h1>
+    <p class="subtitle" data-i18n="subtitle">Choose your components and request a custom offer</p>
 
 <div class="configurator-tabs">
-  <button class="tab-button active" data-tab="predefined">Predefined Builds</button>
-  <button class="tab-button" data-tab="custom">Custom Build</button>
+  <button class="tab-button active" data-tab="predefined" data-i18n="buttons.predef_button">Predefined Builds</button>
+  <button class="tab-button" data-tab="custom" data-i18n="buttons.custom_button">Custom Build</button>
 </div>
 
     <form id="configurator">
@@ -28,144 +33,112 @@
 <div class="field-card">
   <div class="field-header">
     <img src="images/icons/cpu.png" alt="CPU" class="field-icon" data-author="Technology icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/technology"/>
-    <span class="field-label">CPU</span>
-    <button class="spec-icon"
-      title="View specifications"
-      aria-label="View specifications"
-      hidden
-    >
+    <span class="field-label" data-i18n="cpu_title">CPU</span>
+    <button class="spec-icon" title="View specifications" aria-label="View specifications" data-i18n="buttons.spec_button" hidden>
      <img src="images/misc/open-in-new-window.png" alt="" />
     </button>
   </div>
 
   <select id="cpu" class="required" data-label="CPU">
-    <option value="">Select CPU</option>
+    <option value="" data-i18n="select_cpu">Select CPU</option>
   </select>
 </div>
 
 <div class="field-card">
   <div class="field-header">
     <img src="images/icons/motherboard.png" alt="Motherboard" class="field-icon" data-author="Hardware icons created by kerismaker - Flaticon" data-url="https://www.flaticon.com/free-icons/hardware"/>
-    <span class="field-label">Motherboard</span>
-    <button class="spec-icon"
-      title="View specifications"
-      aria-label="View specifications"
-      hidden
-    >
+    <span class="field-label" data-i18n="motherboard_title">Motherboard</span>
+    <button class="spec-icon" title="View specifications" aria-label="View specifications" data-i18n="buttons.spec_button" hidden>
      <img src="images/misc/open-in-new-window.png" alt="" />
     </button>
   </div>
 
   <select id="motherboard" class="required" data-label="Motherboard">
-    <option value="">Select Motherboard</option>
+    <option value="" data-i18n="select_motherboard">Select Motherboard</option>
   </select>
 </div>
 
 <div class="field-card">
   <div class="field-header">
     <img src="images/icons/ram-memory.png" alt="RAM Memory" class="field-icon" data-author="Ram icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/ram"/>
-    <span class="field-label">RAM Memory</span>
-    <button class="spec-icon"
-      title="View specifications"
-      aria-label="View specifications"
-      hidden
-    >
+    <span class="field-label" data-i18n="ram_title">RAM Memory</span>
+    <button class="spec-icon" title="View specifications" aria-label="View specifications" data-i18n="buttons.spec_button" hidden>
      <img src="images/misc/open-in-new-window.png" alt="" />
     </button>
   </div>
 
   <select id="ram" class="required" data-label="RAM Memory">
-    <option value="">Select RAM Memory</option>
+    <option value="" data-i18n="select_ram">Select RAM Memory</option>
   </select>
 </div>
 
 <div class="field-card">
   <div class="field-header">
     <img src="images/icons/gpu.png" alt="GPU" class="field-icon" data-author="Graphics card icons created by Triangle Squad - Flaticon" data-url="https://www.flaticon.com/free-icons/graphics-card"/>
-    <span class="field-label">GPU</span>
-    <button class="spec-icon"
-      title="View specifications"
-      aria-label="View specifications"
-      hidden
-    >
+    <span class="field-label" data-i18n="gpu_title">GPU</span>
+    <button class="spec-icon" title="View specifications" aria-label="View specifications" data-i18n="buttons.spec_button" hidden>
      <img src="images/misc/open-in-new-window.png" alt="" />
     </button>
   </div>
 
   <select id="gpu" class="required" data-label="GPU">
-    <option value="">Select GPU</option>
+    <option value="" data-i18n="select_gpu">Select GPU</option>
   </select>
 </div>
 
 <div class="field-card">
   <div class="field-header">
     <img src="images/icons/cooling-fan.png" alt="Cooling Fan" class="field-icon" data-author="Computer icons created by Rabit Jes - Flaticon" data-url="https://www.flaticon.com/free-icons/computer"/>
-    <span class="field-label">Cooling Fan</span>
-    <button class="spec-icon"
-      title="View specifications"
-      aria-label="View specifications"
-      hidden
-    >
+    <span class="field-label" data-i18n="cooling_title">Cooling Fan</span>
+    <button class="spec-icon" title="View specifications" aria-label="View specifications" data-i18n="buttons.spec_button" hidden>
      <img src="images/misc/open-in-new-window.png" alt="" />
     </button>
   </div>
 
   <select id="cooling" class="required" data-label="Cooling">
-    <option value="">Select Cooling Fan</option>
+    <option value="" data-i18n="select_cooling">Select Cooling Fan</option>
   </select>
 </div>
 
 <div class="field-card">
   <div class="field-header">
     <img src="images/icons/ssd.png" alt="SSD" class="field-icon" data-author="Ssd icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/ssd"/>
-    <span class="field-label">SSD Memory</span>
-    <button class="spec-icon"
-      title="View specifications"
-      aria-label="View specifications"
-      hidden
-    >
+    <span class="field-label" data-i18n="ssd_title">SSD Memory</span>
+    <button class="spec-icon" title="View specifications" aria-label="View specifications" data-i18n="buttons.spec_button" hidden>
      <img src="images/misc/open-in-new-window.png" alt="" />
     </button>
   </div>
 
   <select id="ssd" class="required" data-label="SSD Memory">
-    <option value="">Select SSD Memory</option>
+    <option value="" data-i18n="select_ssd">Select SSD Memory</option>
   </select>
 </div>
 
 <div class="field-card">
   <div class="field-header">
     <img src="images/icons/power-source.png" alt="Power Source" class="field-icon" data-author="Psu icons created by Vectors Tank - Flaticon" data-url="https://www.flaticon.com/free-icons/psu"/>
-    <span class="field-label">Power Source</span>
-    <button class="spec-icon"
-      title="View specifications"
-      aria-label="View specifications"
-      hidden
-    >
+    <span class="field-label" data-i18n="psu_title">Power Source</span>
+    <button class="spec-icon" title="View specifications" aria-label="View specifications" data-i18n="buttons.spec_button" hidden>
      <img src="images/misc/open-in-new-window.png" alt="" />
     </button>
   </div>
 
   <select id="psu" class="required" data-label="Power Source">
-    <option value="">Select Power Source</option>
+    <option value="" data-i18n="select_psu">Select Power Source</option>
   </select>
 </div>
 
 <div class="field-card">
   <div class="field-header">
     <img src="images/icons/pc-case.png" alt="PC Case" class="field-icon" data-author="Pc case icons created by Fahrul Oktaviana - Flaticon" data-url="https://www.flaticon.com/free-icons/pc-case"/>
-    <span class="field-label">PC Case</span>
-    <button class="spec-icon"
-      title="View specifications"
-      aria-label="View specifications"
-      hidden
-    >
+    <span class="field-label" data-i18n="pc_case_title">PC Case</span>
+    <button class="spec-icon" title="View specifications" aria-label="View specifications" data-i18n="buttons.spec_button" hidden>
      <img src="images/misc/open-in-new-window.png" alt="" />
     </button>
   </div>
 
   <select id="pcc" class="required" data-label="PC Case">
-    <option value="">Select PC Case</option>
+    <option value="" data-i18n="select_pc_case">Select PC Case</option>
   </select>
 </div>
 
@@ -174,24 +147,24 @@
 </div>
 <div class="field-card">
   <div class="field-header no-icon">
-    <span class="field-label">Phone number</span>
+    <span class="field-label" data-i18n="inputs.phone_no_title">Phone number</span>
   </div>
 
-  <input type="tel" id="input-tel-pred" placeholder="Phone number (Optional)" data-label="Phone number"/>
+  <input type="tel" id="input-tel-pred" data-i18n="inputs.phone_no_plchld" placeholder="Phone number (Optional)" data-label="Phone number"/>
 </div>
 <div class="field-card">
   <div class="field-header no-icon">
-    <span class="field-label">Email</span>
+    <span class="field-label" data-i18n="inputs.email_title">Email</span>
   </div>
 
-  <input type="email" id="input-email-pred" placeholder="Email address" class="required" data-label="Email"/>
+  <input type="email" id="input-email-pred" data-i18n="inputs.email_plchld" placeholder="Email address" class="required" data-label="Email"/>
 </div>
 </div>
 <div class="button-row">
-      <button type="button" class="submitBtn">
+      <button type="button" class="submitBtn" data-i18n="buttons.request_offer_btn">
         Request Offer
       </button>
-      <button type="button" id="pdfBtn">
+      <button type="button" id="pdfBtn" data-i18n="buttons.download_pdf_btn">
 	Download Offer (PDF)
       </button>
 </div>
@@ -202,81 +175,81 @@
 <div class="field-card">
   <div class="field-header">
     <img src="images/icons/cpu.png" alt="CPU" class="field-icon" data-author="Technology icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/technology"/>
-    <span class="field-label">CPU</span>
+    <span class="field-label" data-i18n="cpu_title">CPU</span>
   </div>
 
-  <input type="text" maxlength="45" id="input-text-cpu" placeholder="Product name" class="required" data-label="CPU">
-  <input type="url" id="input-url-cpu" placeholder="Optional product link" class="optional-link" />
+  <input type="text" maxlength="45" id="input-text-cpu" data-i18n="inputs.prd_name_plchld" placeholder="Product name" class="required" data-label="CPU">
+  <input type="url" id="input-url-cpu" data-i18n="inputs.opt_prd_link_plchld" placeholder="Optional product link" class="optional-link" />
 </div>
 
 <div class="field-card">
   <div class="field-header">
     <img src="images/icons/motherboard.png" alt="Motherboard" class="field-icon" data-author="Hardware icons created by kerismaker - Flaticon" data-url="https://www.flaticon.com/free-icons/hardware"/>
-    <span class="field-label">Motherboard</span>
+    <span class="field-label" data-i18n="motherboard_title">Motherboard</span>
   </div>
 
-  <input type="text" maxlength="45" id="input-text-mb" placeholder="Product name" class="required" data-label="Motherboard">
-  <input type="url" id="input-url-mb" placeholder="Optional product link" class="optional-link" />
+  <input type="text" maxlength="45" id="input-text-mb" data-i18n="inputs.prd_name_plchld" placeholder="Product name" class="required" data-label="Motherboard">
+  <input type="url" id="input-url-mb" data-i18n="inputs.opt_prd_link_plchld" placeholder="Optional product link" class="optional-link" />
 </div>
 
 <div class="field-card">
   <div class="field-header">
     <img src="images/icons/ram-memory.png" alt="RAM Memory" class="field-icon" data-author="Ram icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/ram"/>
-    <span class="field-label">RAM Memory</span>
+    <span class="field-label" data-i18n="ram_title">RAM Memory</span>
   </div>
 
-  <input type="text" maxlength="45" id="input-text-ram" placeholder="Product name" class="required" data-label="RAM Memory">
-  <input type="url" id="input-url-ram" placeholder="Optional product link" class="optional-link" />
+  <input type="text" maxlength="45" id="input-text-ram" data-i18n="inputs.prd_name_plchld" placeholder="Product name" class="required" data-label="RAM Memory">
+  <input type="url" id="input-url-ram" data-i18n="inputs.opt_prd_link_plchld" placeholder="Optional product link" class="optional-link" />
 </div>
 
 <div class="field-card">
   <div class="field-header">
     <img src="images/icons/gpu.png" alt="GPU" class="field-icon" data-author="Graphics card icons created by Triangle Squad - Flaticon" data-url="https://www.flaticon.com/free-icons/graphics-card"/>
-    <span class="field-label">GPU</span>
+    <span class="field-label" data-i18n="gpu_title">GPU</span>
   </div>
 
-  <input type="text" id="input-text-gpu" placeholder="Product name" class="required" data-label="GPU">
-  <input type="url" id="input-url-gpu" placeholder="Optional product link" class="optional-link" />
+  <input type="text" id="input-text-gpu" data-i18n="inputs.prd_name_plchld" placeholder="Product name" class="required" data-label="GPU">
+  <input type="url" id="input-url-gpu" data-i18n="inputs.opt_prd_link_plchld" placeholder="Optional product link" class="optional-link" />
 </div>
 
 <div class="field-card">
   <div class="field-header">
     <img src="images/icons/cooling-fan.png" alt="Cooling Fan" class="field-icon" data-author="Computer icons created by Rabit Jes - Flaticon" data-url="https://www.flaticon.com/free-icons/computer"/>
-    <span class="field-label">Cooling Fan</span>
+    <span class="field-label" data-i18n="cooling_title">Cooling Fan</span>
   </div>
 
-  <input type="text" id="input-text-cool" placeholder="Product name" class="required" data-label="Cooling">
-  <input type="url" id="input-url-cool" placeholder="Optional product link" class="optional-link" />
+  <input type="text" id="input-text-cool" data-i18n="inputs.prd_name_plchld" placeholder="Product name" class="required" data-label="Cooling">
+  <input type="url" id="input-url-cool" data-i18n="inputs.opt_prd_link_plchld" placeholder="Optional product link" class="optional-link" />
 </div>
 
 <div class="field-card">
   <div class="field-header">
     <img src="images/icons/ssd.png" alt="SSD" class="field-icon" data-author="Ssd icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/ssd"/>
-    <span class="field-label">SSD Memory</span>
+    <span class="field-label" data-i18n="ssd_title">SSD Memory</span>
   </div>
 
-  <input type="text" id="input-text-ssd" placeholder="Product name" class="required" data-label="SSD Memory">
-  <input type="url" id="input-url-ssd" placeholder="Optional product link" class="optional-link" />
+  <input type="text" id="input-text-ssd" data-i18n="inputs.prd_name_plchld" placeholder="Product name" class="required" data-label="SSD Memory">
+  <input type="url" id="input-url-ssd" data-i18n="inputs.opt_prd_link_plchld" placeholder="Optional product link" class="optional-link" />
 </div>
 
 <div class="field-card">
   <div class="field-header">
     <img src="images/icons/power-source.png" alt="Power Source" class="field-icon" data-author="Psu icons created by Vectors Tank - Flaticon" data-url="https://www.flaticon.com/free-icons/psu"/>
-    <span class="field-label">Power Source</span>
+    <span class="field-label" data-i18n="psu_title">Power Source</span>
   </div>
 
-  <input type="text" id="input-text-pow" placeholder="Product name" class="required" data-label="Power Source">
-  <input type="url" id="input-url-pow" placeholder="Optional product link" class="optional-link" />
+  <input type="text" id="input-text-pow" data-i18n="inputs.prd_name_plchld" placeholder="Product name" class="required" data-label="Power Source">
+  <input type="url" id="input-url-pow" data-i18n="inputs.opt_prd_link_plchld" placeholder="Optional product link" class="optional-link" />
 </div>
 
 <div class="field-card">
   <div class="field-header">
     <img src="images/icons/pc-case.png" alt="PC Case" class="field-icon" data-author="Pc case icons created by Fahrul Oktaviana - Flaticon" data-url="https://www.flaticon.com/free-icons/pc-case"/>
-    <span class="field-label">PC Case</span>
+    <span class="field-label" data-i18n="pc_case_title">PC Case</span>
   </div>
 
-  <input type="text" id="input-text-pcc" placeholder="Product name" class="required" data-label="PC Case">
-  <input type="url" id="input-url-pcc" placeholder="Optional product link" class="optional-link" />
+  <input type="text" id="input-text-pcc" data-i18n="inputs.prd_name_plchld" placeholder="Product name" class="required" data-label="PC Case">
+  <input type="url" id="input-url-pcc" data-i18n="inputs.opt_prd_link_plchld" placeholder="Optional product link" class="optional-link" />
 </div>
 
 <div class="form-divider">
@@ -284,21 +257,21 @@
 </div>
 <div class="field-card">
   <div class="field-header no-icon">
-    <span class="field-label">Phone number</span>
+    <span class="field-label" data-i18n="inputs.phone_no_title">Phone number</span>
   </div>
 
-  <input type="tel" id="input-tel-cus" placeholder="Phone number (Optional)" data-label="Phone number"/>
+  <input type="tel" id="input-tel-cus" data-i18n="inputs.phone_no_plchld" placeholder="Phone number (Optional)" data-label="Phone number"/>
 </div>
 <div class="field-card">
   <div class="field-header no-icon">
-    <span class="field-label">Email</span>
+    <span class="field-label" data-i18n="inputs.email_title">Email</span>
   </div>
 
-  <input type="email" id="input-email-cus" placeholder="Email address" class="required" data-label="Email"/>
+  <input type="email" id="input-email-cus" data-i18n="inputs.email_plchld" placeholder="Email address" class="required" data-label="Email"/>
 </div>
 </div>
 <div class="button-row">
-      <button type="button" class="submitBtn">
+      <button type="button" class="submitBtn" data-i18n="buttons.request_offer_btn">
         Request Offer
       </button>
 </div>
@@ -399,8 +372,8 @@
 <footer class="site-footer">
   <div class="footer-content">
     <div class="footer-links">
-      <a href="#" id= "contact_link" class="footer-link">Contact</a>
-      <a href="#" id="iconAttributionLink" class="footer-link">Icon Attribution</a>
+      <a href="#" id= "contact_link" class="footer-link" data-i18n="links.contact">Contact</a>
+      <a href="#" id="iconAttributionLink" class="footer-link" data-i18n="links.icon_attribution">Icon Attribution</a>
     </div>
 
   <div class="lang-options">
