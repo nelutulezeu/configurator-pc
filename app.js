@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
 const jsonScript = document.getElementById('components-data');
 const componentsData = JSON.parse(jsonScript.textContent);
 
+let i18n = {};
+let currentLang = 'en';
+loadLanguage(currentLang);
+
   document
     .querySelectorAll('.field-card select')
     .forEach(enhanceSelectWithSweetAlert);
@@ -467,6 +471,7 @@ document.getElementById('contact_link').addEventListener('click', (e) => {
   });
 });
 
+
 // TRANSLATION
 document.querySelectorAll('.lang-options button').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -474,9 +479,6 @@ document.querySelectorAll('.lang-options button').forEach(btn => {
     loadLanguage(lang);
   });
 });
-
-let i18n = {};
-let currentLang = 'en';
 
 async function loadLanguage(lang) {
   const res = await fetch(`lang/${lang}.json`);
@@ -493,8 +495,25 @@ function getTranslation(key) {
 function applyTranslations() {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.dataset.i18n;
-    el.textContent = getTranslation(key);
+    const value = getTranslation(key);
+    if (!value) return;
+
+    if (
+      el.tagName === 'INPUT' ||
+      el.tagName === 'TEXTAREA'
+    ) {
+      el.placeholder = value;
+      return;
+    }
+
+    if (el.tagName === 'OPTION') {
+      el.textContent = value;
+      return;
+    }
+
+    el.textContent = value;
   });
 }
+
 
 });
