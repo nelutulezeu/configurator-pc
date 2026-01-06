@@ -590,3 +590,15 @@ select,
   height: auto;
 }
 
+[data-i18n] {
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.i18n-hidden {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+
