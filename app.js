@@ -216,8 +216,8 @@ function handleSubmit() {
         background: '#0f172a',
         color: '#f8fafc',
         confirmButtonColor: '#38bdf8',
-        title: 'Incomplete selection',
-        text: 'Please fill all required fields.',
+        title: getTranslation('alerts.incomplete_title'),
+        text: getTranslation('alerts.incomplete_text'),
         icon: 'warning'
       });
       return;
@@ -230,8 +230,8 @@ function handleSubmit() {
       background: '#0f172a',
       color: '#f8fafc',
       confirmButtonColor: '#38bdf8',
-      title: 'Configuration sent!',
-      text: 'Your configuration was sent, well get back to you soon. Thank you!',
+      title: getTranslation('alerts.success_title'),
+      text: getTranslation('alerts.success_text'),
       icon: 'success'
     });
 }
@@ -272,8 +272,8 @@ console.log(requiredFields);
         background: '#0f172a',
         color: '#f8fafc',
         confirmButtonColor: '#38bdf8',
-        title: 'Incomplete selection',
-        text: 'Please fill all required fields.',
+        title: getTranslation('alerts.incomplete_title'),
+        text: getTranslation('alerts.incomplete_text'),
         icon: 'warning'
       });
       return;
@@ -362,10 +362,10 @@ document.getElementById('iconAttributionLink').addEventListener('click', (e) => 
   html += '</ul>';
 
   Swal.fire({
-    title: 'Icon Attribution',
+    title: getTranslation('alerts.icon_attribution'),
     html,
     icon: 'info',
-    confirmButtonText: 'Close',
+    confirmButtonText: getTranslation('buttons.close'),
     width: 600,
     background: '#0f172a',
     color: '#f8fafc',
@@ -413,18 +413,14 @@ document.getElementById('contact_link').addEventListener('click', (e) => {
   e.preventDefault();
 
   Swal.fire({
-    title: 'Contact us',
+    title: getTranslation('alerts.contact_form_title'),
     html: `
-      <input type="text" id="contact-name" class="swal2-input" placeholder="Your name">
-      <input type="email" id="contact-email" type="email" class="swal2-input" placeholder="Your email">
-      <textarea id="contact-message"
-        class="swal2-textarea"
-        placeholder="Your message"
-        rows="4"></textarea>
-    `,
-    confirmButtonText: 'Send',
+      <input type="text" id="contact-name" class="swal2-input" data-i18n="inputs.contact_name" placeholder="Your name">
+      <input type="email" id="contact-email" type="email" class="swal2-input" data-i18n="inputs.contact_email" placeholder="Your email">
+      <textarea id="contact-message" class="swal2-textarea" data-i18n="inputs.contact_message" placeholder="Your message" rows="4"></textarea>`,
+    confirmButtonText: getTranslation('buttons.send'),
     showCancelButton: true,
-    cancelButtonText: 'Cancel',
+    cancelButtonText: getTranslation('buttons.cancel'),
 
     background: '#0f172a',
     color: '#f8fafc',
@@ -459,8 +455,8 @@ document.getElementById('contact_link').addEventListener('click', (e) => {
 
     Swal.fire({
       icon: 'success',
-      title: 'Message sent!',
-      text: 'We’ll get back to you shortly.',
+      title: getTranslation('alerts.contact_title'),
+      text: getTranslation('alerts.contact_text'),
       background: '#0f172a',
       color: '#f8fafc',
       confirmButtonColor: '#38bdf8',
