@@ -1,0 +1,63 @@
+{
+  "subtitle": "Alege componentele și solicită o ofertă personalizată",
+  "buttons": {
+    "predef_button": "Configurații predefinite",
+    "custom_button": "Configurație personalizată",
+    "spec_button": "Vezi specificațiile",
+    "close": "Închide",
+    "send": "Trimite",
+    "cancel": "Anulează",
+    "ok": "OK",
+    "request_offer_btn": "Solicită ofertă",
+    "download_pdf_btn": "Descarcă oferta (PDF)"
+  },
+  "alerts": {
+    "incomplete_title": "Selecție incompletă",
+    "incomplete_text": "Te rugăm să completezi toate câmpurile obligatorii.",
+    "success_title": "Configurație trimisă!",
+    "success_text": "Configurația ta a fost trimisă. Te vom contacta în curând. Mulțumim!",
+    "icon_attribution": "Atribuire pictograme",
+    "valid_email_warn": "Te rugăm să introduci o adresă de email validă",
+    "contact_title": "Mesaj trimis!",
+    "contact_text": "Te vom contacta în cel mai scurt timp.",
+    "contact_form_title": "Contactează-ne",
+    "valid_email_check": "Te rugăm să introduci o adresă de email validă",
+    "all_fields_check": "Te rugăm să completezi toate câmpurile"
+  },
+  "inputs": {
+    "contact_name": "Numele tău",
+    "contact_email": "Emailul tău",
+    "contact_message": "Mesajul tău",
+    "phone_no_title": "Număr de telefon",
+    "phone_no_plchld": "Număr de telefon (opțional)",
+    "email_title": "Email",
+    "email_plchld": "Adresă de email",
+    "prd_name_plchld": "Nume produs",
+    "opt_prd_link_plchld": "Link produs (opțional)"
+  },
+  "selects": {
+    "select_cpu": "Selectează Procesor (CPU)",
+    "select_motherboard": "Selectează placa de bază",
+    "select_ram": "Selectează memoria RAM",
+    "select_gpu": "Selectează placa video (GPU)",
+    "select_cooling": "Selectează sistemul de răcire",
+    "select_ssd": "Selectează memoria SSD",
+    "select_psu": "Selectează sursa de alimentare",
+    "select_pc_case": "Selectează carcasa PC"
+  },
+  "fields": {
+    "cpu_title": "Procesor (CPU)",
+    "motherboard_title": "Placă de bază",
+    "ram_title": "Memorie RAM",
+    "gpu_title": "Placă video (GPU)",
+    "cooling_title": "Sistem de răcire",
+    "ssd_title": "Memorie SSD",
+    "psu_title": "Sursă de alimentare",
+    "pc_case_title": "Carcasă PC"
+  },
+  "links": {
+    "specs": "Specificații",
+    "contact": "Contact",
+    "icon_attribution": "Atribuire pictograme"
+  }
+}
