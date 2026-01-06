@@ -38,7 +38,7 @@ function openSelectSweetAlert(select) {
              data-value="${item.name}"
              data-spec="${item.specUrl}">
           <span>${item.name}</span>
-          <span class="sa-spec" data-i18n="links.specs">Specs</span>
+          <span class="sa-spec">${getTranslation('links.specs')}</span>
         </div>
       `;
     });
