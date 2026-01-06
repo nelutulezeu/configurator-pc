@@ -19,8 +19,10 @@
     "icon_attribution": "Icon Attribution",
     "valid_email_warn": "Please enter a valid email address",
     "contact_title": "Message sent!",
-    "contact_text": "We’ll get back to you shortly."
-    
+    "contact_text": "We’ll get back to you shortly.",
+    "contact_form_title": "Contact us",
+    "valid_email_check": "Please enter a valid email address",
+    "all_fields_check": "Please fill in all fields"
   },
   "inputs": {
     "contact_name": "Your name",
@@ -54,6 +56,7 @@
     "pc_case_title": "PC Case"
   },
   "links": {
+    "specs": "Specs",
     "contact": "Contact",
     "icon_attribution": "Icon Attribution"
   }
