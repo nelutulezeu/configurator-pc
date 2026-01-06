@@ -5,7 +5,7 @@ const componentsData = JSON.parse(jsonScript.textContent);
 
 let i18n = {};
 let currentLang = localStorage.getItem('lang') || 'ro';
-loadLanguage(currentLang);
+loadLanguage(currentLang, false);
 
   document
     .querySelectorAll('.field-card select')
@@ -473,45 +473,63 @@ document.querySelectorAll('.lang-options button').forEach(btn => {
   btn.addEventListener('click', () => {
     const lang = btn.dataset.lang;
 
-    loadLanguage(lang);
+    loadLanguage(lang, true);
     localStorage.setItem('lang', lang);
   });
 });
 
-async function loadLanguage(lang) {
+async function loadLanguage(lang, animate = false) {
   const res = await fetch(`lang/${lang}.json`);
   i18n = await res.json();
   currentLang = lang;
 
-  applyTranslations();
+  applyTranslations(animate);
 }
+
 
 function getTranslation(key) {
   return key.split('.').reduce((obj, k) => obj?.[k], i18n) || key;
 }
 
-function applyTranslations() {
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.dataset.i18n;
-    const value = getTranslation(key);
-    if (!value) return;
+function applyTranslations(animate = false) {
+  const elements = document.querySelectorAll('[data-i18n]');
 
-    if (
-      el.tagName === 'INPUT' ||
-      el.tagName === 'TEXTAREA'
-    ) {
-      el.placeholder = value;
-      return;
-    }
+  if (!animate) {
+    elements.forEach(el => {
+      const key = el.dataset.i18n;
+      const value = getTranslation(key);
+      if (!value) return;
 
-    if (el.tagName === 'OPTION') {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        el.placeholder = value;
+        return;
+      }
+
       el.textContent = value;
-      return;
-    }
+    });
+    return;
+  }
 
-    el.textContent = value;
-  });
+  // animate
+  elements.forEach(el => el.classList.add('i18n-hidden'));
+
+  setTimeout(() => {
+    elements.forEach(el => {
+      const key = el.dataset.i18n;
+      const value = getTranslation(key);
+      if (!value) return;
+
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        el.placeholder = value;
+      } else {
+        el.textContent = value;
+      }
+
+      el.classList.remove('i18n-hidden');
+    });
+  }, 200);
 }
+
 
 
 });
