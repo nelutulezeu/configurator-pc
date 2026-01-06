@@ -1,1 +1,60 @@
-
+{
+  "subtitle": "Choose your components and request a custom offer",
+  "buttons": {
+    "predef_button": "Predefined Builds",
+    "custom_button": "Custom Build",
+    "spec_button": "View specifications",
+    "close": "Close",
+    "send": "Send",
+    "cancel": "Cancel",
+    "ok": "OK",
+    "request_offer_btn": "Request Offer",
+    "download_pdf_btn": "Download Offer (PDF)"
+  },
+  "alerts": {
+    "incomplete_title": "Incomplete selection",
+    "incomplete_text": "Please fill all required fields.",
+    "success_title": "Configuration sent!",
+    "success_text": "Your configuration was sent, well get back to you soon. Thank you!",
+    "icon_attribution": "Icon Attribution",
+    "valid_email_warn": "Please enter a valid email address",
+    "contact_title": "Message sent!",
+    "contact_text": "We’ll get back to you shortly."
+    
+  },
+  "inputs": {
+    "contact_name": "Your name",
+    "contact_email": "Your email",
+    "contact_message": "Your message",
+    "phone_no_title": "Phone number",
+    "phone_no_plchld": "Phone number (Optional)",
+    "email_title": "Email",
+    "email_plchld": "Email address",
+    "prd_name_plchld": "Product name",
+    "opt_prd_link_plchld": "Optional product link"
+  },
+  "selects": {
+    "select_cpu": "Select CPU",
+    "select_motherboard": "Select Motherboard",
+    "select_ram": "Select RAM Memory",
+    "select_gpu": "Select GPU",
+    "select_cooling": "Select Cooling Fan",
+    "select_ssd": "Select SSD Memory",
+    "select_psu": "Select Power Source",
+    "select_pc_case": "Select PC Case"
+  },
+  "fields": {
+    "cpu_title": "CPU",
+    "motherboard_title": "Motherboard",
+    "ram_title": "RAM Memory",
+    "gpu_title": "GPU",
+    "cooling_title": "Cooling Fan",
+    "ssd_title": "SSD Memory",
+    "psu_title": "Power Source",
+    "pc_case_title": "PC Case"
+  },
+  "links": {
+    "contact": "Contact",
+    "icon_attribution": "Icon Attribution"
+  }
+}
