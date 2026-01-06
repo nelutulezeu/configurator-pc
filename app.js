@@ -1,403 +1,515 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Custom PC Builder</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+document.addEventListener('DOMContentLoaded', () => {
 
-<body>
+const jsonScript = document.getElementById('components-data');
+const componentsData = JSON.parse(jsonScript.textContent);
 
-  <main class="container">
-<h1 class="site-title">
-  <img
-    src="images/logo/site-logo.png"
-    alt="Build Your Custom PC"
-    class="site-logo"
-  />
-</h1>
-    <p class="subtitle" data-i18n="subtitle">Choose your components and request a custom offer</p>
+let i18n = {};
+let currentLang = 'en';
+loadLanguage(currentLang);
 
-<div class="configurator-tabs">
-  <button class="tab-button active" data-tab="predefined" data-i18n="buttons.predef_button">Predefined Builds</button>
-  <button class="tab-button" data-tab="custom" data-i18n="buttons.custom_button">Custom Build</button>
-</div>
+  document
+    .querySelectorAll('.field-card select')
+    .forEach(enhanceSelectWithSweetAlert);
 
-    <form id="configurator">
+function enhanceSelectWithSweetAlert(select) {
+  select.addEventListener('mousedown', (e) => {
+    e.preventDefault(); // stop native dropdown
+    openSelectSweetAlert(select);
+  });
+}
+function openSelectSweetAlert(select) {
+  const key = select.id;
+  const label = select.dataset.label || 'Select option';
+  const data = componentsData[key];
 
-<div class="tab-content active" id="predefined">
-<div class="form-grid">
-<div class="field-card">
-  <div class="field-header">
-    <img src="images/icons/cpu.png" alt="CPU" class="field-icon" data-author="Technology icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/technology"/>
-    <span class="field-label" data-i18n="fields.cpu_title">CPU</span>
-    <button class="spec-icon" title="View specifications" aria-label="View specifications" data-i18n="buttons.spec_button" hidden>
-     <img src="images/misc/open-in-new-window.png" alt="" />
-    </button>
-  </div>
+  if (!data) return;
 
-  <select id="cpu" class="required" data-label="CPU">
-    <option value="" data-i18n="selects.select_cpu">Select CPU</option>
-  </select>
-</div>
+  let html = '';
 
-<div class="field-card">
-  <div class="field-header">
-    <img src="images/icons/motherboard.png" alt="Motherboard" class="field-icon" data-author="Hardware icons created by kerismaker - Flaticon" data-url="https://www.flaticon.com/free-icons/hardware"/>
-    <span class="field-label" data-i18n="fields.motherboard_title">Motherboard</span>
-    <button class="spec-icon" title="View specifications" aria-label="View specifications" data-i18n="buttons.spec_button" hidden>
-     <img src="images/misc/open-in-new-window.png" alt="" />
-    </button>
-  </div>
+  Object.entries(data).forEach(([brand, items]) => {
+    html += `
+      <div class="sa-group">
+        <div class="sa-group-title">${brand}</div>
+    `;
 
-  <select id="motherboard" class="required" data-label="Motherboard">
-    <option value="" data-i18n="selects.select_motherboard">Select Motherboard</option>
-  </select>
-</div>
+    items.forEach(item => {
+      html += `
+        <div class="sa-option"
+             data-value="${item.name}"
+             data-spec="${item.specUrl}">
+          <span>${item.name}</span>
+          <span class="sa-spec" data-i18n="links.specs">Specs</span>
+        </div>
+      `;
+    });
 
-<div class="field-card">
-  <div class="field-header">
-    <img src="images/icons/ram-memory.png" alt="RAM Memory" class="field-icon" data-author="Ram icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/ram"/>
-    <span class="field-label" data-i18n="fields.ram_title">RAM Memory</span>
-    <button class="spec-icon" title="View specifications" aria-label="View specifications" data-i18n="buttons.spec_button" hidden>
-     <img src="images/misc/open-in-new-window.png" alt="" />
-    </button>
-  </div>
+    html += `</div>`;
+  });
 
-  <select id="ram" class="required" data-label="RAM Memory">
-    <option value="" data-i18n="selects.select_ram">Select RAM Memory</option>
-  </select>
-</div>
+  Swal.fire({
+    heightAuto: false,
+    scrollbarPadding: false,
+    title: label,
+    html,
+    showConfirmButton: false,
+    width: 650,
+    backdrop: 'rgba(2,6,23,0.85)',
+    background: '#0f172a',
+    color: '#f8fafc'
+  });
 
-<div class="field-card">
-  <div class="field-header">
-    <img src="images/icons/gpu.png" alt="GPU" class="field-icon" data-author="Graphics card icons created by Triangle Squad - Flaticon" data-url="https://www.flaticon.com/free-icons/graphics-card"/>
-    <span class="field-label" data-i18n="fields.gpu_title">GPU</span>
-    <button class="spec-icon" title="View specifications" aria-label="View specifications" data-i18n="buttons.spec_button" hidden>
-     <img src="images/misc/open-in-new-window.png" alt="" />
-    </button>
-  </div>
+  document.querySelectorAll('.sa-option').forEach(el => {
+    el.addEventListener('click', (e) => {
+      if (e.target.classList.contains('sa-spec')) {
+        e.stopPropagation();
+        window.open(el.dataset.spec, '_blank', 'noopener');
+        return;
+      }
 
-  <select id="gpu" class="required" data-label="GPU">
-    <option value="" data-i18n="selects.select_gpu">Select GPU</option>
-  </select>
-</div>
+      select.value = el.dataset.value;
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+      Swal.close();
+    });
+  });
+}
 
-<div class="field-card">
-  <div class="field-header">
-    <img src="images/icons/cooling-fan.png" alt="Cooling Fan" class="field-icon" data-author="Computer icons created by Rabit Jes - Flaticon" data-url="https://www.flaticon.com/free-icons/computer"/>
-    <span class="field-label" data-i18n="fields.cooling_title">Cooling Fan</span>
-    <button class="spec-icon" title="View specifications" aria-label="View specifications" data-i18n="buttons.spec_button" hidden>
-     <img src="images/misc/open-in-new-window.png" alt="" />
-    </button>
-  </div>
+const cpuItems = flattenComponentGroup(componentsData.cpu);
+console.log('Flattened CPU items:', cpuItems);
+  populateSelect('cpu', cpuItems);
+const motherboardItems = flattenComponentGroup(componentsData.motherboard);
+  populateSelect('motherboard', motherboardItems);
+const ramItems = flattenComponentGroup(componentsData.ram);
+  populateSelect('ram', ramItems);
+const gpuItems = flattenComponentGroup(componentsData.gpu);
+  populateSelect('gpu', gpuItems);
+const coolingItems = flattenComponentGroup(componentsData.cooling);
+  populateSelect('cooling', coolingItems);
+const ssdItems = flattenComponentGroup(componentsData.ssd);
+  populateSelect('ssd', ssdItems);
+const psuItems = flattenComponentGroup(componentsData.psu);
+  populateSelect('psu', psuItems);
+const pccItems = flattenComponentGroup(componentsData.pcc);
+  populateSelect('pcc', pccItems);
 
-  <select id="cooling" class="required" data-label="Cooling">
-    <option value="" data-i18n="selects.select_cooling">Select Cooling Fan</option>
-  </select>
-</div>
-
-<div class="field-card">
-  <div class="field-header">
-    <img src="images/icons/ssd.png" alt="SSD" class="field-icon" data-author="Ssd icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/ssd"/>
-    <span class="field-label" data-i18n="fields.ssd_title">SSD Memory</span>
-    <button class="spec-icon" title="View specifications" aria-label="View specifications" data-i18n="buttons.spec_button" hidden>
-     <img src="images/misc/open-in-new-window.png" alt="" />
-    </button>
-  </div>
-
-  <select id="ssd" class="required" data-label="SSD Memory">
-    <option value="" data-i18n="selects.select_ssd">Select SSD Memory</option>
-  </select>
-</div>
-
-<div class="field-card">
-  <div class="field-header">
-    <img src="images/icons/power-source.png" alt="Power Source" class="field-icon" data-author="Psu icons created by Vectors Tank - Flaticon" data-url="https://www.flaticon.com/free-icons/psu"/>
-    <span class="field-label" data-i18n="fields.psu_title">Power Source</span>
-    <button class="spec-icon" title="View specifications" aria-label="View specifications" data-i18n="buttons.spec_button" hidden>
-     <img src="images/misc/open-in-new-window.png" alt="" />
-    </button>
-  </div>
-
-  <select id="psu" class="required" data-label="Power Source">
-    <option value="" data-i18n="selects.select_psu">Select Power Source</option>
-  </select>
-</div>
-
-<div class="field-card">
-  <div class="field-header">
-    <img src="images/icons/pc-case.png" alt="PC Case" class="field-icon" data-author="Pc case icons created by Fahrul Oktaviana - Flaticon" data-url="https://www.flaticon.com/free-icons/pc-case"/>
-    <span class="field-label" data-i18n="fields.pc_case_title">PC Case</span>
-    <button class="spec-icon" title="View specifications" aria-label="View specifications" data-i18n="buttons.spec_button" hidden>
-     <img src="images/misc/open-in-new-window.png" alt="" />
-    </button>
-  </div>
-
-  <select id="pcc" class="required" data-label="PC Case">
-    <option value="" data-i18n="selects.select_pc_case">Select PC Case</option>
-  </select>
-</div>
-
-<div class="form-divider">
-  <span>Your info</span>
-</div>
-<div class="field-card">
-  <div class="field-header no-icon">
-    <span class="field-label" data-i18n="inputs.phone_no_title">Phone number</span>
-  </div>
-
-  <input type="tel" id="input-tel-pred" data-i18n="inputs.phone_no_plchld" placeholder="Phone number (Optional)" data-label="Phone number"/>
-</div>
-<div class="field-card">
-  <div class="field-header no-icon">
-    <span class="field-label" data-i18n="inputs.email_title">Email</span>
-  </div>
-
-  <input type="email" id="input-email-pred" data-i18n="inputs.email_plchld" placeholder="Email address" class="required" data-label="Email"/>
-</div>
-</div>
-<div class="button-row">
-      <button type="button" class="submitBtn" data-i18n="buttons.request_offer_btn">
-        Request Offer
-      </button>
-      <button type="button" id="pdfBtn" data-i18n="buttons.download_pdf_btn">
-	Download Offer (PDF)
-      </button>
-</div>
-</div>
-
-<div class="tab-content" id="custom">
-<div class="form-grid">
-<div class="field-card">
-  <div class="field-header">
-    <img src="images/icons/cpu.png" alt="CPU" class="field-icon" data-author="Technology icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/technology"/>
-    <span class="field-label" data-i18n="fields.cpu_title">CPU</span>
-  </div>
-
-  <input type="text" maxlength="45" id="input-text-cpu" data-i18n="inputs.prd_name_plchld" placeholder="Product name" class="required" data-label="CPU">
-  <input type="url" id="input-url-cpu" data-i18n="inputs.opt_prd_link_plchld" placeholder="Optional product link" class="optional-link" />
-</div>
-
-<div class="field-card">
-  <div class="field-header">
-    <img src="images/icons/motherboard.png" alt="Motherboard" class="field-icon" data-author="Hardware icons created by kerismaker - Flaticon" data-url="https://www.flaticon.com/free-icons/hardware"/>
-    <span class="field-label" data-i18n="fields.motherboard_title">Motherboard</span>
-  </div>
-
-  <input type="text" maxlength="45" id="input-text-mb" data-i18n="inputs.prd_name_plchld" placeholder="Product name" class="required" data-label="Motherboard">
-  <input type="url" id="input-url-mb" data-i18n="inputs.opt_prd_link_plchld" placeholder="Optional product link" class="optional-link" />
-</div>
-
-<div class="field-card">
-  <div class="field-header">
-    <img src="images/icons/ram-memory.png" alt="RAM Memory" class="field-icon" data-author="Ram icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/ram"/>
-    <span class="field-label" data-i18n="fields.ram_title">RAM Memory</span>
-  </div>
-
-  <input type="text" maxlength="45" id="input-text-ram" data-i18n="inputs.prd_name_plchld" placeholder="Product name" class="required" data-label="RAM Memory">
-  <input type="url" id="input-url-ram" data-i18n="inputs.opt_prd_link_plchld" placeholder="Optional product link" class="optional-link" />
-</div>
-
-<div class="field-card">
-  <div class="field-header">
-    <img src="images/icons/gpu.png" alt="GPU" class="field-icon" data-author="Graphics card icons created by Triangle Squad - Flaticon" data-url="https://www.flaticon.com/free-icons/graphics-card"/>
-    <span class="field-label" data-i18n="fields.gpu_title">GPU</span>
-  </div>
-
-  <input type="text" id="input-text-gpu" data-i18n="inputs.prd_name_plchld" placeholder="Product name" class="required" data-label="GPU">
-  <input type="url" id="input-url-gpu" data-i18n="inputs.opt_prd_link_plchld" placeholder="Optional product link" class="optional-link" />
-</div>
-
-<div class="field-card">
-  <div class="field-header">
-    <img src="images/icons/cooling-fan.png" alt="Cooling Fan" class="field-icon" data-author="Computer icons created by Rabit Jes - Flaticon" data-url="https://www.flaticon.com/free-icons/computer"/>
-    <span class="field-label" data-i18n="fields.cooling_title">Cooling Fan</span>
-  </div>
-
-  <input type="text" id="input-text-cool" data-i18n="inputs.prd_name_plchld" placeholder="Product name" class="required" data-label="Cooling">
-  <input type="url" id="input-url-cool" data-i18n="inputs.opt_prd_link_plchld" placeholder="Optional product link" class="optional-link" />
-</div>
-
-<div class="field-card">
-  <div class="field-header">
-    <img src="images/icons/ssd.png" alt="SSD" class="field-icon" data-author="Ssd icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/ssd"/>
-    <span class="field-label" data-i18n="fields.ssd_title">SSD Memory</span>
-  </div>
-
-  <input type="text" id="input-text-ssd" data-i18n="inputs.prd_name_plchld" placeholder="Product name" class="required" data-label="SSD Memory">
-  <input type="url" id="input-url-ssd" data-i18n="inputs.opt_prd_link_plchld" placeholder="Optional product link" class="optional-link" />
-</div>
-
-<div class="field-card">
-  <div class="field-header">
-    <img src="images/icons/power-source.png" alt="Power Source" class="field-icon" data-author="Psu icons created by Vectors Tank - Flaticon" data-url="https://www.flaticon.com/free-icons/psu"/>
-    <span class="field-label" data-i18n="fields.psu_title">Power Source</span>
-  </div>
-
-  <input type="text" id="input-text-pow" data-i18n="inputs.prd_name_plchld" placeholder="Product name" class="required" data-label="Power Source">
-  <input type="url" id="input-url-pow" data-i18n="inputs.opt_prd_link_plchld" placeholder="Optional product link" class="optional-link" />
-</div>
-
-<div class="field-card">
-  <div class="field-header">
-    <img src="images/icons/pc-case.png" alt="PC Case" class="field-icon" data-author="Pc case icons created by Fahrul Oktaviana - Flaticon" data-url="https://www.flaticon.com/free-icons/pc-case"/>
-    <span class="field-label" data-i18n="fields.pc_case_title">PC Case</span>
-  </div>
-
-  <input type="text" id="input-text-pcc" data-i18n="inputs.prd_name_plchld" placeholder="Product name" class="required" data-label="PC Case">
-  <input type="url" id="input-url-pcc" data-i18n="inputs.opt_prd_link_plchld" placeholder="Optional product link" class="optional-link" />
-</div>
-
-<div class="form-divider">
-  <span>Your info</span>
-</div>
-<div class="field-card">
-  <div class="field-header no-icon">
-    <span class="field-label" data-i18n="inputs.phone_no_title">Phone number</span>
-  </div>
-
-  <input type="tel" id="input-tel-cus" data-i18n="inputs.phone_no_plchld" placeholder="Phone number (Optional)" data-label="Phone number"/>
-</div>
-<div class="field-card">
-  <div class="field-header no-icon">
-    <span class="field-label" data-i18n="inputs.email_title">Email</span>
-  </div>
-
-  <input type="email" id="input-email-cus" data-i18n="inputs.email_plchld" placeholder="Email address" class="required" data-label="Email"/>
-</div>
-</div>
-<div class="button-row">
-      <button type="button" class="submitBtn" data-i18n="buttons.request_offer_btn">
-        Request Offer
-      </button>
-</div>
-</div>
-
-    </form>
-  </main>
-
-  <script src="app.js"></script>
+attachSpecIcon('cpu');
+attachSpecIcon('motherboard');
+attachSpecIcon('ram');
+attachSpecIcon('gpu');
+attachSpecIcon('cooling');
+attachSpecIcon('ssd');
+attachSpecIcon('psu');
+attachSpecIcon('pcc');
 
 
-<script type="application/json" id="components-data">
-{
-  "cpu": {
-    "Intel": [
-      { "name": "Intel i5-12400F", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
-      { "name": "Intel i7-12700F", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
-    ],
-    "AMD":[
-      { "name": "Intel i5-12400F", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
-      { "name": "Intel i7-12700F", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
-    ]
-  },
-  "motherboard": {
-    "Gigabyte":[
-      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
-      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
-    ],
-    "ASUS":[
-      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
-      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
-    ]
-  },
-  "ram": {
-    "Kingston": [
-      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
-      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
-    ],
-    "Corsair": [
-      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
-      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
-    ]
-  },
-  "gpu": {
-    "NVidia": [
-      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
-      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
-    ],
-    "AMD": [
-      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
-      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
-    ]
-  },
-  "cooling": {
-    "Gigabyte":[
-      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
-      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
-    ],
-    "ASUS":[
-      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
-      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
-    ]
-  },
-  "ssd": {
-    "Kingston": [
-      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
-      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
-    ],
-    "Corsair": [
-      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
-      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
-    ]
-  },
-  "psu": {
-    "Gigabyte":[
-      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
-      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
-    ],
-    "ASUS":[
-      { "name": "MSI PRO B760M-P", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
-      { "name": "Gigabyte B550M DS3H", "socket": "AM4", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
-    ]
-  },
-  "pcc": {
-    "Intel": [
-      { "name": "Intel i5-12400F", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
-      { "name": "Intel i7-12700F", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
-    ],
-    "AMD":[
-      { "name": "Intel i5-12400F", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" },
-      { "name": "Intel i7-12700F", "socket": "LGA1700", "specUrl": "https://www.intel.com/content/www/us/en/products/sku/134587/intel-core-i512400f-processor-18m-cache-up-to-4-40-ghz/specifications.html" }
-    ]
+async function loadComponents() {
+  try {
+    const response = await fetch('./components.json');
+    const data = await response.json();
+
+    Object.keys(data).forEach(key => {
+      const select = document.getElementById(key);
+      if (!select) return;
+
+      data[key].forEach(item => {
+        const option = document.createElement('option');
+        option.value = item;
+        option.textContent = item;
+        select.appendChild(option);
+      });
+    });
+
+  } catch (error) {
+    console.error('Failed to load components.json', error);
+
+    Swal.fire({
+      title: 'Error',
+      text: 'Failed to load configuration data.',
+      icon: 'error'
+    });
   }
 }
-</script>
+
+function flattenComponentGroup(groupedData) {
+  return Object.values(groupedData).reduce((acc, arr) => {
+    return acc.concat(arr);
+  }, []);
+}
 
 
-<footer class="site-footer">
-  <div class="footer-content">
-    <div class="footer-links">
-      <a href="#" id= "contact_link" class="footer-link" data-i18n="links.contact">Contact</a>
-      <a href="#" id="iconAttributionLink" class="footer-link" data-i18n="links.icon_attribution">Icon Attribution</a>
-    </div>
+function populateSelect(selectId, items) {
 
-  <div class="lang-options">
-    <button data-lang="en">
-      <img src="images/flags/UK.png" alt="UK" data-lang="en" class="field-icon" data-author="United kingdom icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/united-kingdom"/>
-    </button>
-    <button data-lang="ro">
-      <img src="images/flags/RO.png" alt="Romania" data-lang="ro" class="field-icon" data-author="Romania icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/romania"/>
-    </button>
-    <button data-lang="hu">
-      <img src="images/flags/HU.png" alt="Hungary" data-lang="hu" class="field-icon" data-author="Hungary icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/hungary"/>
-    </button>
-    <button data-lang="rs">
-      <img src="images/flags/RS.png" alt="Serbia" data-lang="rs" class="field-icon" data-author="Serbia icons created by Freepik - Flaticon" data-url="https://www.flaticon.com/free-icons/serbia"/>
-    </button>
-  </div>
+  const select = document.getElementById(selectId);
 
-    <div class="footer-text">
-      <span>© 2025 Custom PC Builder</span>
-      <span class="footer-separator">•</span>
-      <span>Custom-built PCs on request</span>
-    </div>
-  </div>
-</footer>
+  items.forEach(item => {
+    const option = document.createElement('option');
+    option.value = item.name;
+    option.textContent = item.name;
 
-</body>
-</html>
+    // attach metadata
+    Object.keys(item).forEach(key => {
+      if (key !== 'name') {
+        option.dataset[key] = item[key];
+      }
+    });
+
+    select.appendChild(option);
+  });
+}
+
+function attachSpecIcon(selectId) {
+  const select = document.getElementById(selectId);
+  const card = select.closest('.field-card');
+  const icon = card.querySelector('.spec-icon');
+
+  const updateIcon = () => {
+    const opt = select.selectedOptions[0];
+
+    if (opt && opt.dataset.specUrl) {
+      icon.hidden = false;
+      icon.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        window.open(opt.dataset.specUrl, '_blank', 'noopener');
+      };
+    } else {
+      icon.hidden = true;
+    }
+  };
+
+  select.addEventListener('change', updateIcon);
+  updateIcon(); 
+}
+
+
+
+function getActiveTab() {
+  return document.querySelector('.tab-content.active');
+}
+
+  const submitBtns = document.querySelectorAll('.submitBtn');
+  const pdfBtn = document.getElementById('pdfBtn');
+
+submitBtns.forEach(btn => {
+  btn.addEventListener('click', handleSubmit);
+});
+
+
+function handleSubmit() {
+    const activeTab = getActiveTab();
+    const requiredFields = activeTab.querySelectorAll('.required');
+    let valid = true;
+
+    requiredFields.forEach(field => {
+      field.classList.remove('invalid');
+
+      if (!field.value) {
+        field.classList.add('invalid');
+        valid = false;
+      }
+    });
+
+    if (!valid) {
+      Swal.fire({
+        heightAuto: false,
+        scrollbarPadding: false,
+        backdrop: 'rgba(2, 6, 23, 0.85)',
+        background: '#0f172a',
+        color: '#f8fafc',
+        confirmButtonColor: '#38bdf8',
+        title: getTranslation('alerts.incomplete_title'),
+        text: getTranslation('alerts.incomplete_text'),
+        icon: 'warning'
+      });
+      return;
+    }
+
+    Swal.fire({
+      heightAuto: false,
+      scrollbarPadding: false,
+      backdrop: 'rgba(2, 6, 23, 0.85)',
+      background: '#0f172a',
+      color: '#f8fafc',
+      confirmButtonColor: '#38bdf8',
+      title: getTranslation('alerts.success_title'),
+      text: getTranslation('alerts.success_text'),
+      icon: 'success'
+    });
+}
+
+  const requiredFields = document.querySelectorAll('.required');
+  // auto-clear invalid state
+  requiredFields.forEach(field => {
+    field.addEventListener('change', () => {
+      field.classList.remove('invalid');
+    });
+  });
+
+
+
+pdfBtn.addEventListener('click', () => {
+  const activeTab = getActiveTab();
+  const requiredFields = activeTab.querySelectorAll('.required');
+console.log(requiredFields);
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+    let valid = true;
+    let y = 45;
+
+    requiredFields.forEach(field => {
+      field.classList.remove('invalid');
+
+      if (!field.value) {
+        field.classList.add('invalid');
+        valid = false;
+      }
+    });
+
+    if (!valid) {
+      Swal.fire({
+        heightAuto: false,
+        scrollbarPadding: false,
+        backdrop: 'rgba(2, 6, 23, 0.85)',
+        background: '#0f172a',
+        color: '#f8fafc',
+        confirmButtonColor: '#38bdf8',
+        title: getTranslation('alerts.incomplete_title'),
+        text: getTranslation('alerts.incomplete_text'),
+        icon: 'warning'
+      });
+      return;
+    }
+
+  // Title
+doc.setFontSize(18);
+doc.setFont('helvetica', 'bold');
+doc.text('PC Configuration Quote', 20, 20);
+
+doc.setLineWidth(0.5);
+doc.line(20, 25, 190, 25);
+
+
+// Header
+doc.setFontSize(14);
+doc.setFont('helvetica', 'bold');
+doc.text('Selected Components', 20, 35);
+
+doc.setFontSize(12);
+doc.setFont('helvetica', 'normal');
+
+
+  // Content
+  doc.setFontSize(10);
+requiredFields.forEach(field => {
+  doc.setDrawColor(200);
+  doc.rect(20, y - 6, 170, 10); // box
+
+  doc.text(field.dataset.label, 25, y);
+  doc.text(field.value, 90, y);
+
+  y += 14;
+});
+
+  // Footer
+const date = new Date().toLocaleDateString();
+
+doc.setFontSize(10);
+doc.setTextColor(120);
+doc.text(`Date: ${date}`, 20, 285);
+
+
+  // Download
+  doc.save('pc-configuration.pdf');
+});
+
+
+document.getElementById('iconAttributionLink').addEventListener('click', (e) => {
+  e.preventDefault();
+
+  const icons = document.querySelectorAll('.field-icon');
+
+  // Map to keep unique attributions
+  const uniqueAttributions = new Map();
+
+  icons.forEach(icon => {
+    const name = icon.alt;
+    const author = icon.dataset.author;
+    const url = icon.dataset.url;
+
+    if (!author || !url) return;
+
+    const key = `${author}|${url}`;
+
+    if (!uniqueAttributions.has(key)) {
+      uniqueAttributions.set(key, {
+        name,
+        author,
+        url
+      });
+    }
+  });
+
+  let html = '<ul style="text-align:left; padding-left:1rem;">';
+
+  uniqueAttributions.forEach(item => {
+    html += `
+      <li style="margin-bottom:0.5rem;">
+        <strong>${item.name}</strong><br/>
+        <a href="${item.url}" target="_blank" rel="noopener">${item.author}</a>
+      </li>
+    `;
+  });
+
+  html += '</ul>';
+
+  Swal.fire({
+    title: getTranslation('alerts.icon_attribution'),
+    html,
+    icon: 'info',
+    confirmButtonText: getTranslation('buttons.close'),
+    width: 600,
+    background: '#0f172a',
+    color: '#f8fafc',
+    confirmButtonColor: '#38bdf8',
+    backdrop: 'rgba(2, 6, 23, 0.85)',
+    heightAuto: false,
+    scrollbarPadding: false,
+    customClass: {
+      popup: 'swal-dark',
+      confirmButton: 'button-row'
+    }
+  });
+});
+
+
+document.querySelectorAll('.tab-button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Remove active class from all buttons
+    document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Hide all tab contents
+    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+
+    // Show the selected tab
+    const tabId = btn.dataset.tab;
+    document.getElementById(tabId).classList.add('active');
+  });
+});
+
+// select language
+document.querySelectorAll('.lang-options button').forEach(btn => {
+  btn.addEventListener('click', () => {
+
+    // TODO: call your localization switch here
+    // setLanguage(btn.dataset.lang);
+
+  });
+});
+
+
+
+
+document.getElementById('contact_link').addEventListener('click', (e) => {
+  e.preventDefault();
+
+  Swal.fire({
+    title: getTranslation('alerts.contact_form_title'),
+    html: `
+      <input type="text" id="contact-name" class="swal2-input" data-i18n="inputs.contact_name" placeholder="Your name">
+      <input type="email" id="contact-email" type="email" class="swal2-input" data-i18n="inputs.contact_email" placeholder="Your email">
+      <textarea id="contact-message" class="swal2-textarea" data-i18n="inputs.contact_message" placeholder="Your message" rows="4"></textarea>`,
+    confirmButtonText: getTranslation('buttons.send'),
+    showCancelButton: true,
+    cancelButtonText: getTranslation('buttons.cancel'),
+
+    background: '#0f172a',
+    color: '#f8fafc',
+    confirmButtonColor: '#38bdf8',
+    backdrop: 'rgba(2, 6, 23, 0.85)',
+
+    heightAuto: false,
+    scrollbarPadding: false,
+
+    preConfirm: () => {
+      const name = document.getElementById('contact-name').value.trim();
+      const email = document.getElementById('contact-email').value.trim();
+      const message = document.getElementById('contact-message').value.trim();
+
+      if (!name || !email || !message) {
+        Swal.showValidationMessage('alerts.all_fields_check');
+        return false;
+      }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        Swal.showValidationMessage(getTranslation('alerts.valid_email_check');
+        return false;
+      }
+
+      return { name, email, message };
+    }
+  }).then((result) => {
+    if (!result.isConfirmed) return;
+
+    // PLACEHOLDER for now
+    console.log('Contact form data:', result.value);
+
+    Swal.fire({
+      icon: 'success',
+      title: getTranslation('alerts.contact_title'),
+      text: getTranslation('alerts.contact_text'),
+      background: '#0f172a',
+      color: '#f8fafc',
+      confirmButtonColor: '#38bdf8',
+      backdrop: 'rgba(2, 6, 23, 0.85)',
+      heightAuto: false,
+      scrollbarPadding: false
+    });
+  });
+});
+
+
+// TRANSLATION
+document.querySelectorAll('.lang-options button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const lang = btn.dataset.lang;
+    loadLanguage(lang);
+  });
+});
+
+async function loadLanguage(lang) {
+  const res = await fetch(`lang/${lang}.json`);
+  i18n = await res.json();
+  currentLang = lang;
+
+  applyTranslations();
+}
+
+function getTranslation(key) {
+  return key.split('.').reduce((obj, k) => obj?.[k], i18n) || key;
+}
+
+function applyTranslations() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    const value = getTranslation(key);
+    if (!value) return;
+
+    if (
+      el.tagName === 'INPUT' ||
+      el.tagName === 'TEXTAREA'
+    ) {
+      el.placeholder = value;
+      return;
+    }
+
+    if (el.tagName === 'OPTION') {
+      el.textContent = value;
+      return;
+    }
+
+    el.textContent = value;
+  });
+}
+
+
+});
