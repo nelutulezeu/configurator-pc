@@ -4,7 +4,7 @@ const jsonScript = document.getElementById('components-data');
 const componentsData = JSON.parse(jsonScript.textContent);
 
 let i18n = {};
-let currentLang = 'en';
+let currentLang = localStorage.getItem('lang') || 'ro';
 loadLanguage(currentLang);
 
   document
@@ -415,9 +415,9 @@ document.getElementById('contact_link').addEventListener('click', (e) => {
   Swal.fire({
     title: getTranslation('alerts.contact_form_title'),
     html: `
-      <input type="text" id="contact-name" class="swal2-input" data-i18n="inputs.contact_name" placeholder="Your name">
-      <input type="email" id="contact-email" type="email" class="swal2-input" data-i18n="inputs.contact_email" placeholder="Your email">
-      <textarea id="contact-message" class="swal2-textarea" data-i18n="inputs.contact_message" placeholder="Your message" rows="4"></textarea>`,
+      <input type="text" id="contact-name" class="swal2-input" placeholder="${getTranslation('inputs.contact_name')}">
+      <input type="email" id="contact-email" type="email" class="swal2-input" placeholder="${getTranslation('inputs.contact_email')}">
+      <textarea id="contact-message" class="swal2-textarea" placeholder="${getTranslation('inputs.contact_message')}" rows="4"></textarea>`,
     confirmButtonText: getTranslation('buttons.send'),
     showCancelButton: true,
     cancelButtonText: getTranslation('buttons.cancel'),
@@ -436,12 +436,12 @@ document.getElementById('contact_link').addEventListener('click', (e) => {
       const message = document.getElementById('contact-message').value.trim();
 
       if (!name || !email || !message) {
-        Swal.showValidationMessage('alerts.all_fields_check');
+        Swal.showValidationMessage(getTranslation('alerts.all_fields_check'));
         return false;
       }
 
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        Swal.showValidationMessage(getTranslation('alerts.valid_email_check');
+        Swal.showValidationMessage(getTranslation('alerts.valid_email_check'));
         return false;
       }
 
@@ -472,7 +472,9 @@ document.getElementById('contact_link').addEventListener('click', (e) => {
 document.querySelectorAll('.lang-options button').forEach(btn => {
   btn.addEventListener('click', () => {
     const lang = btn.dataset.lang;
+
     loadLanguage(lang);
+    localStorage.setItem('lang', lang);
   });
 });
 
