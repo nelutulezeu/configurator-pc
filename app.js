@@ -1,22 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-const jsonScript = document.getElementById('components-data');
-const componentsData = JSON.parse(jsonScript.textContent);
+  let i18n = {};
+  let currentLang = localStorage.getItem('lang') || 'ro';
+  loadLanguage(currentLang, false);
 
-let i18n = {};
-let currentLang = localStorage.getItem('lang') || 'ro';
-loadLanguage(currentLang, false);
-
+  loadComponents();
+  
   document
     .querySelectorAll('.field-card select')
     .forEach(enhanceSelectWithSweetAlert);
 
-function enhanceSelectWithSweetAlert(select) {
-  select.addEventListener('mousedown', (e) => {
-    e.preventDefault(); // stop native dropdown
-    openSelectSweetAlert(select);
-  });
-}
+  function enhanceSelectWithSweetAlert(select) {
+    select.addEventListener('mousedown', (e) => {
+      e.preventDefault(); // stop native dropdown
+      openSelectSweetAlert(select);
+    });
+  }
 function openSelectSweetAlert(select) {
   const key = select.id;
   const label = select.dataset.label || 'Select option';
@@ -73,24 +72,6 @@ function openSelectSweetAlert(select) {
   });
 }
 
-const cpuItems = flattenComponentGroup(componentsData.cpu);
-console.log('Flattened CPU items:', cpuItems);
-  populateSelect('cpu', cpuItems);
-const motherboardItems = flattenComponentGroup(componentsData.motherboard);
-  populateSelect('motherboard', motherboardItems);
-const ramItems = flattenComponentGroup(componentsData.ram);
-  populateSelect('ram', ramItems);
-const gpuItems = flattenComponentGroup(componentsData.gpu);
-  populateSelect('gpu', gpuItems);
-const coolingItems = flattenComponentGroup(componentsData.cooling);
-  populateSelect('cooling', coolingItems);
-const ssdItems = flattenComponentGroup(componentsData.ssd);
-  populateSelect('ssd', ssdItems);
-const psuItems = flattenComponentGroup(componentsData.psu);
-  populateSelect('psu', psuItems);
-const pccItems = flattenComponentGroup(componentsData.pcc);
-  populateSelect('pcc', pccItems);
-
 attachSpecIcon('cpu');
 attachSpecIcon('motherboard');
 attachSpecIcon('ram');
@@ -103,20 +84,25 @@ attachSpecIcon('pcc');
 
 async function loadComponents() {
   try {
-    const response = await fetch('./components.json');
-    const data = await response.json();
+    const response = await fetch('./json/components.json');
+    const componentsData = await response.json();
 
-    Object.keys(data).forEach(key => {
-      const select = document.getElementById(key);
-      if (!select) return;
-
-      data[key].forEach(item => {
-        const option = document.createElement('option');
-        option.value = item;
-        option.textContent = item;
-        select.appendChild(option);
-      });
-    });
+    const cpuItems = flattenComponentGroup(componentsData.cpu);
+      populateSelect('cpu', cpuItems);
+    const motherboardItems = flattenComponentGroup(componentsData.motherboard);
+      populateSelect('motherboard', motherboardItems);
+    const ramItems = flattenComponentGroup(componentsData.ram);
+      populateSelect('ram', ramItems);
+    const gpuItems = flattenComponentGroup(componentsData.gpu);
+      populateSelect('gpu', gpuItems);
+    const coolingItems = flattenComponentGroup(componentsData.cooling);
+      populateSelect('cooling', coolingItems);
+    const ssdItems = flattenComponentGroup(componentsData.ssd);
+      populateSelect('ssd', ssdItems);
+    const psuItems = flattenComponentGroup(componentsData.psu);
+      populateSelect('psu', psuItems);
+    const pccItems = flattenComponentGroup(componentsData.pcc);
+      populateSelect('pcc', pccItems);
 
   } catch (error) {
     console.error('Failed to load components.json', error);
