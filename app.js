@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .forEach(enhanceSelectWithSweetAlert);
 
   function enhanceSelectWithSweetAlert(select) {
-    select.addEventListener('click', (e) => {
+    select.addEventListener('mousedown', (e) => {
       e.preventDefault(); // stop native dropdown
       openSelectSweetAlert(select);
     });
@@ -75,28 +75,39 @@ function openSelectSweetAlert(select) {
 
   ['cpu', 'motherboard', 'ram', 'gpu', 'cooling', 'ssd', 'psu', 'pcc'].forEach(attachSpecIcon);
 
+const cpuItems = flattenComponentGroup(componentsData.cpu);
+  populateSelect('cpu', cpuItems);
+const motherboardItems = flattenComponentGroup(componentsData.motherboard);
+  populateSelect('motherboard', motherboardItems);
+const ramItems = flattenComponentGroup(componentsData.ram);
+  populateSelect('ram', ramItems);
+const gpuItems = flattenComponentGroup(componentsData.gpu);
+  populateSelect('gpu', gpuItems);
+const coolingItems = flattenComponentGroup(componentsData.cooling);
+  populateSelect('cooling', coolingItems);
+const ssdItems = flattenComponentGroup(componentsData.ssd);
+  populateSelect('ssd', ssdItems);
+const psuItems = flattenComponentGroup(componentsData.psu);
+  populateSelect('psu', psuItems);
+const pccItems = flattenComponentGroup(componentsData.pcc);
+  populateSelect('pcc', pccItems);
 
 async function loadComponents() {
   try {
     const response = await fetch('./json/components.json');
     componentsData = await response.json();
 
-    const cpuItems = flattenComponentGroup(componentsData.cpu);
-      populateSelect('cpu', cpuItems);
-    const motherboardItems = flattenComponentGroup(componentsData.motherboard);
-      populateSelect('motherboard', motherboardItems);
-    const ramItems = flattenComponentGroup(componentsData.ram);
-      populateSelect('ram', ramItems);
-    const gpuItems = flattenComponentGroup(componentsData.gpu);
-      populateSelect('gpu', gpuItems);
-    const coolingItems = flattenComponentGroup(componentsData.cooling);
-      populateSelect('cooling', coolingItems);
-    const ssdItems = flattenComponentGroup(componentsData.ssd);
-      populateSelect('ssd', ssdItems);
-    const psuItems = flattenComponentGroup(componentsData.psu);
-      populateSelect('psu', psuItems);
-    const pccItems = flattenComponentGroup(componentsData.pcc);
-      populateSelect('pcc', pccItems);
+    Object.keys(data).forEach(key => {
+      const select = document.getElementById(key);
+      if (!select) return;
+
+      data[key].forEach(item => {
+        const option = document.createElement('option');
+        option.value = item;
+        option.textContent = item;
+        select.appendChild(option);
+      });
+    });
 
   } catch (error) {
     console.error('Failed to load components.json', error);
