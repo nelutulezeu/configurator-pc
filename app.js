@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadLanguage(currentLang, false);
 
   let componentsData = {};
-  loadComponents();
+  await loadComponents();
   
   document
     .querySelectorAll('.field-card select')
@@ -97,11 +97,11 @@ async function loadComponents() {
     const response = await fetch('./json/components.json');
     componentsData = await response.json();
 
-    Object.keys(data).forEach(key => {
+    Object.keys(componentsData).forEach(key => {
       const select = document.getElementById(key);
       if (!select) return;
 
-      data[key].forEach(item => {
+      componentsData[key].forEach(item => {
         const option = document.createElement('option');
         option.value = item;
         option.textContent = item;
