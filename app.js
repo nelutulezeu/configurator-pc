@@ -480,8 +480,10 @@ function getTranslation(key) {
 
 function applyTranslations(animate = false) {
   const elements = document.querySelectorAll('[data-i18n]');
-
-  if (!animate) {
+  const d_label_elements = document.querySelectorAll('[data-label-i18n]');
+  
+  const apply = () => {
+    // Visible text & placeholders
     elements.forEach(el => {
       const key = el.dataset.i18n;
       const value = getTranslation(key);
@@ -489,11 +491,23 @@ function applyTranslations(animate = false) {
 
       if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
         el.placeholder = value;
-        return;
+      } else {
+        el.textContent = value;
       }
-
-      el.textContent = value;
     });
+
+    // 🔹 data-label translation
+    d_label_elements.forEach(el => {
+      const key = el.dataset.labelI18n;
+      const value = getTranslation(key);
+      if (value) {
+        el.dataset.label = value;
+      }
+    });
+  };
+
+  if (!animate) {
+    apply();
     return;
   }
 
