@@ -142,14 +142,14 @@ function attachSpecIcon(selectId) {
   const icon = card.querySelector('.spec-icon');
 
   const updateIcon = () => {
-    const opt = select.selectedOptions[0];
+    const specUrl = select.dataset.specUrl;
 
-    if (opt && opt.dataset.specUrl) {
+    if (specUrl) {
       icon.hidden = false;
       icon.onclick = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        window.open(opt.dataset.specUrl, '_blank', 'noopener');
+        window.open(specUrl, '_blank', 'noopener');
       };
     } else {
       icon.hidden = true;
@@ -160,6 +160,7 @@ function attachSpecIcon(selectId) {
   select.addEventListener('change', updateIcon);
   updateIcon();
 }
+
 
 function getActiveTab() {
   return document.querySelector('.tab-content.active');
