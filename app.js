@@ -496,7 +496,6 @@ function applyTranslations(animate = false) {
       }
     });
 
-    // 🔹 data-label translation
     d_label_elements.forEach(el => {
       const key = el.dataset.labelI18n;
       const value = getTranslation(key);
@@ -525,6 +524,14 @@ function applyTranslations(animate = false) {
       } else {
         el.textContent = value;
       }
+
+      d_label_elements.forEach(el => {
+        const key = el.dataset.labelI18n;
+        const value = getTranslation(key);
+        if (value) {
+          el.dataset.label = value;
+        }
+      });
 
       el.classList.remove('i18n-hidden');
     });
