@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .forEach(enhanceSelectWithSweetAlert);
 
   function enhanceSelectWithSweetAlert(select) {
-    select.addEventListener('mousedown', (e) => {
+    select.addEventListener('click', (e) => {
       e.preventDefault(); // stop native dropdown
       openSelectSweetAlert(select);
     });
@@ -73,14 +73,7 @@ function openSelectSweetAlert(select) {
   });
 }
 
-attachSpecIcon('cpu');
-attachSpecIcon('motherboard');
-attachSpecIcon('ram');
-attachSpecIcon('gpu');
-attachSpecIcon('cooling');
-attachSpecIcon('ssd');
-attachSpecIcon('psu');
-attachSpecIcon('pcc');
+  ['cpu', 'motherboard', 'ram', 'gpu', 'cooling', 'ssd', 'psu', 'pcc'].forEach(attachSpecIcon);
 
 
 async function loadComponents() {
@@ -384,18 +377,6 @@ document.querySelectorAll('.tab-button').forEach(btn => {
   });
 });
 
-// select language
-document.querySelectorAll('.lang-options button').forEach(btn => {
-  btn.addEventListener('click', () => {
-
-    // TODO: call your localization switch here
-    // setLanguage(btn.dataset.lang);
-
-  });
-});
-
-
-
 
 document.getElementById('contact_link').addEventListener('click', (e) => {
   e.preventDefault();
@@ -480,12 +461,13 @@ function getTranslation(key) {
 }
 
 function applyTranslations(animate = false) {
-  const elements = document.querySelectorAll('[data-i18n]');
-  const d_label_elements = document.querySelectorAll('[data-label-i18n]');
-  
-  const apply = () => {
-    // Visible text & placeholders
-    elements.forEach(el => {
+  const textNodes = document.querySelectorAll('[data-i18n]');
+  const attrNodes = document.querySelectorAll(
+    '[data-i18n-aria], [data-i18n-title], [data-label-i18n]'
+  );
+
+  const applyText = () => {
+    textNodes.forEach(el => {
       const key = el.dataset.i18n;
       const value = getTranslation(key);
       if (!value) return;
@@ -494,50 +476,48 @@ function applyTranslations(animate = false) {
         el.placeholder = value;
       } else {
         el.textContent = value;
-      }
-    });
-
-    d_label_elements.forEach(el => {
-      const key = el.dataset.labelI18n;
-      const value = getTranslation(key);
-      if (value) {
-        el.dataset.label = value;
       }
     });
   };
 
+  const applyAttributes = () => {
+    attrNodes.forEach(el => {
+      if (el.dataset.i18nAria) {
+        const val = getTranslation(el.dataset.i18nAria);
+        if (val) el.setAttribute('aria-label', val);
+      }
+
+      if (el.dataset.i18nTitle) {
+        const val = getTranslation(el.dataset.i18nTitle);
+        if (val) el.setAttribute('title', val);
+      }
+
+      if (el.dataset.labelI18n) {
+        const val = getTranslation(el.dataset.labelI18n);
+        if (val) el.dataset.label = val;
+      }
+    });
+  };
+
+  const applyAll = () => {
+    applyText();
+    applyAttributes();
+  };
+
   if (!animate) {
-    apply();
+    applyAll();
     return;
   }
 
-  // animate
-  elements.forEach(el => el.classList.add('i18n-hidden'));
-  
+  // animation phase
+  textNodes.forEach(el => el.classList.add('i18n-hidden'));
+
   setTimeout(() => {
-    elements.forEach(el => {
-      const key = el.dataset.i18n;
-      const value = getTranslation(key);
-      if (!value) return;
-
-      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-        el.placeholder = value;
-      } else {
-        el.textContent = value;
-      }
-
-      d_label_elements.forEach(el => {
-        const key = el.dataset.labelI18n;
-        const value = getTranslation(key);
-        if (value) {
-          el.dataset.label = value;
-        }
-      });
-
-      el.classList.remove('i18n-hidden');
-    });
+    applyAll();
+    textNodes.forEach(el => el.classList.remove('i18n-hidden'));
   }, 200);
 }
+
 
 
 
