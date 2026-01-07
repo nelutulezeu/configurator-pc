@@ -512,7 +512,7 @@ function applyTranslations(animate = false) {
 
   // animate
   elements.forEach(el => el.classList.add('i18n-hidden'));
-  d_label_elements.forEach(el => el.classList.add('i18n-hidden'));
+  d_label_elements.forEach(el_l => el_l.classList.add('i18n-hidden'));
   
   setTimeout(() => {
     elements.forEach(el => {
@@ -526,15 +526,16 @@ function applyTranslations(animate = false) {
         el.textContent = value;
       }
 
-      d_label_elements.forEach(el => {
-        const key = el.dataset.labelI18n;
+      d_label_elements.forEach(el_l => {
+        const key = el_l.dataset.labelI18n;
         const value = getTranslation(key);
         if (value) {
-          el.dataset.label = value;
+          el_l.dataset.label = value;
         }
       });
 
       el.classList.remove('i18n-hidden');
+      el_l.classList.remove('i18n-hidden');
     });
   }, 200);
 }
