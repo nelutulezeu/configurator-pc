@@ -100,13 +100,25 @@ async function loadComponents() {
     Object.keys(componentsData).forEach(key => {
       const select = document.getElementById(key);
       if (!select) return;
+      
+      const items = componentsData[key];
 
-      componentsData[key].forEach(item => {
-        const option = document.createElement('option');
-        option.value = item;
-        option.textContent = item;
-        select.appendChild(option);
-      });
+      // Check if items is an array or object
+      if (Array.isArray(items)) {
+        items.forEach(item => {
+          const option = document.createElement('option');
+          option.value = item;
+          option.textContent = item;
+          select.appendChild(option);
+        });
+      } else if (typeof items === 'object') {
+        Object.entries(items).forEach(([value, text]) => {
+          const option = document.createElement('option');
+          option.value = value;
+          option.textContent = text;
+          select.appendChild(option);
+        });
+      }
     });
 
   } catch (error) {
