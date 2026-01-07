@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentLang = localStorage.getItem('lang') || 'ro';
   loadLanguage(currentLang, false);
 
+  let componentsData = {};
   loadComponents();
   
   document
@@ -85,7 +86,7 @@ attachSpecIcon('pcc');
 async function loadComponents() {
   try {
     const response = await fetch('./json/components.json');
-    const componentsData = await response.json();
+    componentsData = await response.json();
 
     const cpuItems = flattenComponentGroup(componentsData.cpu);
       populateSelect('cpu', cpuItems);
