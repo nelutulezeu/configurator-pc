@@ -512,7 +512,8 @@ function applyTranslations(animate = false) {
 
   // animate
   elements.forEach(el => el.classList.add('i18n-hidden'));
-
+  d_label_elements.forEach(el => el.classList.add('i18n-hidden'));
+  
   setTimeout(() => {
     elements.forEach(el => {
       const key = el.dataset.i18n;
