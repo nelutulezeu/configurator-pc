@@ -142,26 +142,24 @@ function attachSpecIcon(selectId) {
   const icon = card.querySelector('.spec-icon');
 
   const updateIcon = () => {
-    const specUrl = select.dataset.specUrl;
+    const opt = select.selectedOptions[0];
 
-    if (specUrl) {
+    if (opt && opt.dataset.specUrl) {
       icon.hidden = false;
       icon.onclick = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        window.open(specUrl, '_blank', 'noopener');
+        window.open(opt.dataset.specUrl, '_blank', 'noopener');
       };
     } else {
       icon.hidden = true;
+      icon.onclick = null;
     }
   };
 
   select.addEventListener('change', updateIcon);
   updateIcon();
 }
-
-
-
 
 function getActiveTab() {
   return document.querySelector('.tab-content.active');
