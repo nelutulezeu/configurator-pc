@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadLanguage(currentLang, false);
 
   let componentsData = {};
-  await loadComponents();
+  loadComponents();
   
   document
     .querySelectorAll('.field-card select')
