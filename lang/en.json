@@ -20,7 +20,9 @@
     "icon_attribution": "Icon Attribution",
     "valid_email_warn": "Please enter a valid email address",
     "contact_title": "Message sent!",
+    "contact_title_error": "Message was not sent!",
     "contact_text": "We’ll get back to you shortly.",
+    "contact_text_error": "Please check your internet connection or try again later.",
     "contact_form_title": "Contact us",
     "valid_email_check": "Please enter a valid email address",
     "all_fields_check": "Please fill in all fields"
@@ -64,5 +66,6 @@
   }
 
 }
+
 
 
