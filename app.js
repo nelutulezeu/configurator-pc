@@ -73,8 +73,6 @@ function openSelectSweetAlert(select) {
   });
 }
 
-  ['cpu', 'motherboard', 'ram', 'gpu', 'cooling', 'ssd', 'psu', 'pcc'].forEach(attachSpecIcon);
-
 async function loadComponents() {
   try {
     const response = await fetch('./json/components.json');
@@ -90,6 +88,8 @@ async function loadComponents() {
       populateSelect(key, items);
     });
 
+    attachSpecIconsDynamically();
+
   } catch (error) {
     console.error('Failed to load components.json', error);
 
@@ -101,13 +101,6 @@ async function loadComponents() {
   }
 }
 
-/**
- * Populates a <select> element.
- * - items can be:
- *   1. Array of strings
- *   2. Array of objects {name, specUrl}
- *   3. Object with keys as categories, values as array of {name, specUrl}
- */
 function populateSelect(selectId, items) {
   const select = document.getElementById(selectId);
   if (!select) return;
@@ -123,7 +116,7 @@ function populateSelect(selectId, items) {
     if (typeof item === 'object' && item.name) {
       option.value = item.name;
       option.textContent = item.name;
-      option.dataset.specUrl = item.specUrl || '';
+      option.dataset.specUrl = item.spec_url || '';
     } else {
       option.value = item;
       option.textContent = item;
@@ -133,30 +126,36 @@ function populateSelect(selectId, items) {
   });
 }
 
-function attachSpecIcon(selectId) {
-  const select = document.getElementById(selectId);
-  const card = select.closest('.field-card');
-  const icon = card.querySelector('.spec-icon');
+function attachSpecIconsDynamically() {
+  document.querySelectorAll('.field-card select').forEach(select => {
+    const card = select.closest('.field-card');
+    if (!card) return;
 
-  const updateIcon = () => {
-    const opt = select.selectedOptions[0];
+    const icon = card.querySelector('.spec-icon');
+    if (!icon) return;
 
-    if (opt && opt.dataset.specUrl) {
-      icon.hidden = false;
-      icon.onclick = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        window.open(opt.dataset.specUrl, '_blank', 'noopener');
-      };
-    } else {
-      icon.hidden = true;
-    }
-  };
+    const updateIcon = () => {
+      const opt = select.selectedOptions[0];
+      const url = opt?.dataset.specUrl || '';
+      icon.hidden = !url;
 
-  select.addEventListener('change', updateIcon);
-  updateIcon(); 
+      // remove previous handler to avoid duplicates
+      icon.onclick = url
+        ? e => {
+            e.preventDefault();
+            e.stopPropagation();
+            window.open(url, '_blank', 'noopener');
+          }
+        : null;
+    };
+
+    // update icon when selection changes
+    select.addEventListener('change', updateIcon);
+
+    // initialize icon state
+    updateIcon();
+  });
 }
-
 
 function getActiveTab() {
   return document.querySelector('.tab-content.active');
