@@ -1,4 +1,5 @@
 {
+  "your_info": "Informațiile tale",
   "subtitle": "Alege componentele și solicită o ofertă personalizată",
   "buttons": {
     "predef_button": "Configurații predefinite",
@@ -62,4 +63,5 @@
   }
 
 }
+
 
