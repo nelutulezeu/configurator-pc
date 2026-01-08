@@ -78,7 +78,7 @@ function openSelectSweetAlert(select) {
 async function loadComponents() {
   try {
     const response = await fetch('./json/components.json');
-    const componentsData = await response.json();
+    componentsData = await response.json();
 
     Object.keys(componentsData).forEach(key => {
       const select = document.getElementById(key);
