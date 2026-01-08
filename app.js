@@ -185,9 +185,7 @@ function getActiveTab() {
 submitBtns.forEach(btn => {
   btn.addEventListener('click', handleSubmit);
 });
-pdfBtn.forEach(btn => {
-  btn.addEventListener('click', handlePDF);
-});
+pdfBtn.addEventListener('click', handlePDF);
 
 function handleSubmit() {
   if (!validateRequiredFields()) {
