@@ -1,4 +1,5 @@
 {
+  "your_info": "Your info",
   "subtitle": "Choose your components and request a custom offer",
   "buttons": {
     "predef_button": "Predefined Builds",
@@ -62,3 +63,4 @@
   }
 
 }
+
