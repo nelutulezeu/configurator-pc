@@ -9,7 +9,7 @@
     "cancel": "Cancel",
     "ok": "OK",
     "request_offer_btn": "Request Offer",
-    "download_pdf_btn": "Download Offer (PDF)"
+    "download_offer_btn": "Download Configuration (PDF)"
   },
   "alerts": {
     "incomplete_title": "Incomplete selection",
@@ -60,4 +60,5 @@
     "contact": "Contact",
     "icon_attribution": "Icon Attribution"
   }
+
 }
