@@ -38,7 +38,7 @@ function openSelectSweetAlert(select) {
               item => `
             <div class="sa-option" 
                  data-value="${item.name}" 
-                 data-spec="${item.specUrl || ''}">
+                 data-spec="${item.spec_url || ''}">
               ${item.name}
             </div>
           `
