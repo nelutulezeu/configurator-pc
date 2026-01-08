@@ -28,6 +28,7 @@
   "inputs": {
     "contact_name": "Numele tău",
     "contact_email": "Emailul tău",
+    "contact_subject": "Subiect",
     "contact_message": "Mesajul tău",
     "phone_no_title": "Număr de telefon",
     "phone_no_plchld": "Număr de telefon (opțional)",
@@ -63,5 +64,6 @@
   }
 
 }
+
 
 
