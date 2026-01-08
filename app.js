@@ -104,7 +104,7 @@ async function loadComponents() {
       }
 
       
-      const flat_items = flattenComponentGroup(componentsData[key] || {});
+      const flat_items = flattenComponentGroup(key || {});
       populateSelect(key, flat_items);
     });
 
