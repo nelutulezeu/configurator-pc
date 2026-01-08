@@ -105,16 +105,22 @@ async function loadComponents() {
   }
 }
 
-// Flattens arrays or objects into a simple array
 function flattenComponentGroup(data) {
   if (!data) return [];
-  if (Array.isArray(data)) return data;
-  if (typeof data === 'object') {
-    // If object values are arrays, flatten them
-    return Object.values(data).flatMap(value => Array.isArray(value) ? value : [value]);
+  if (Array.isArray(data)) {
+    // Recursively flatten arrays
+    return data.flatMap(item => {
+      if (typeof item === 'object') return flattenComponentGroup(item);
+      return [item];
+    });
   }
-  return [];
+  if (typeof data === 'object') {
+    // If it's an object, recursively flatten its values
+    return Object.values(data).flatMap(value => flattenComponentGroup(value));
+  }
+  return [data];
 }
+
 
 // Populates a select element given an array of items
 function populateSelect(selectId, items) {
