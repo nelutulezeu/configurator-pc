@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .forEach(enhanceSelectWithSweetAlert);
 
   function enhanceSelectWithSweetAlert(select) {
-    select.addEventListener('mousedown', (e) => {
+    select.addEventListener('click', (e) => {
       e.preventDefault(); // stop native dropdown
       openSelectSweetAlert(select);
     });
