@@ -432,7 +432,7 @@ document.getElementById('contact_link').addEventListener('click', (e) => {
       message: message,
     };
 
-    emailjs.send("service_c724rvh", "template_l0x88cs", templateParams)
+    emailjs.send("service_c724rvh", "template_jlihdun", templateParams)
     .then(function(response) {
       console.log("SUCCESS", response);
       Swal.fire({
