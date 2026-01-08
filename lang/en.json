@@ -28,6 +28,7 @@
   "inputs": {
     "contact_name": "Your name",
     "contact_email": "Your email",
+    "contact_subject": "Subject",
     "contact_message": "Your message",
     "phone_no_title": "Phone number",
     "phone_no_plchld": "Phone number (Optional)",
@@ -63,4 +64,5 @@
   }
 
 }
+
 
