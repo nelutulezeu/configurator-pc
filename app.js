@@ -107,8 +107,6 @@ async function loadComponents() {
     attachSpecIconsDynamically();
 
   } catch (error) {
-    console.error('Failed to load components.json', error);
-
     Swal.fire({
       title: 'Error',
       text: 'Failed to load configuration data.',
@@ -437,7 +435,6 @@ document.getElementById('contact_link').addEventListener('click', (e) => {
 
     emailjs.send("service_c724rvh", "template_jlihdun", templateParams)
     .then(function(response) {
-      console.log("SUCCESS", response);
       Swal.fire({
         icon: 'success',
         title: getTranslation('alerts.contact_title'),
@@ -450,12 +447,18 @@ document.getElementById('contact_link').addEventListener('click', (e) => {
         scrollbarPadding: false
       });
     }, function(error) {
-      console.log("FAILED", error);
-      alert("Failed to send offer request.");
+      Swal.fire({
+        icon: 'warning',
+        title: getTranslation('alerts.contact_title_error'),
+        text: getTranslation('alerts.contact_text_error'),
+        background: '#0f172a',
+        color: '#f8fafc',
+        confirmButtonColor: '#38bdf8',
+        backdrop: 'rgba(2, 6, 23, 0.85)',
+        heightAuto: false,
+        scrollbarPadding: false
+      });
     });
-    
-    // PLACEHOLDER for now
-    console.log('Contact form data:', result.value);
   });
 });
 
