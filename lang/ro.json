@@ -9,7 +9,7 @@
     "cancel": "Anulează",
     "ok": "OK",
     "request_offer_btn": "Solicită ofertă",
-    "download_pdf_btn": "Descarcă configurația (PDF)"
+    "download_offer_btn": "Descarcă configurația (PDF)"
   },
   "alerts": {
     "incomplete_title": "Selecție incompletă",
@@ -62,3 +62,4 @@
   }
 
 }
+
