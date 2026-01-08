@@ -78,7 +78,7 @@ function openSelectSweetAlert(select) {
 async function loadComponents() {
   try {
     const response = await fetch('./json/components.json');
-    componentsData = await response.json();
+    componentsData = await response.json(); // assign to outer variable
 
     Object.keys(componentsData).forEach(key => {
       const select = document.getElementById(key);
@@ -87,10 +87,10 @@ async function loadComponents() {
       const items = componentsData[key];
       if (!items) return;
 
-      // Flatten the items (handles arrays or objects)
+      // Flatten the items (preserve objects with name/specUrl)
       const flatItems = flattenComponentGroup(items);
 
-      // Populate the select element
+      // Populate the <select> element
       populateSelect(key, flatItems);
     });
 
@@ -105,35 +105,61 @@ async function loadComponents() {
   }
 }
 
+/**
+ * Flattens an array or object, **preserving objects with name/specUrl**
+ * Returns a flat array of either strings or objects with {name, specUrl} fields.
+ */
 function flattenComponentGroup(data) {
   if (!data) return [];
+
   if (Array.isArray(data)) {
-    // Recursively flatten arrays
     return data.flatMap(item => {
       if (typeof item === 'object') return flattenComponentGroup(item);
       return [item];
     });
   }
+
   if (typeof data === 'object') {
-    // If it's an object, recursively flatten its values
-    return Object.values(data).flatMap(value => flattenComponentGroup(value));
+    return Object.values(data).flatMap(value => {
+      // If the value is an object with a name, keep it as-is
+      if (value && typeof value === 'object' && 'name' in value) return [value];
+
+      // Otherwise, recursively flatten
+      if (typeof value === 'object' || Array.isArray(value)) return flattenComponentGroup(value);
+
+      // Primitive value
+      return [value];
+    });
   }
+
+  // Primitive value
   return [data];
 }
 
-
-// Populates a select element given an array of items
+/**
+ * Populates a <select> element given an array of items
+ * Items can be either strings or objects with {name, specUrl}
+ */
 function populateSelect(selectId, items) {
   const select = document.getElementById(selectId);
   if (!select) return;
 
   items.forEach(item => {
     const option = document.createElement('option');
-    option.value = item;
-    option.textContent = item;
+
+    if (typeof item === 'object' && item.name) {
+      option.value = item.name;
+      option.textContent = item.name;
+      option.dataset.specUrl = item.specUrl || '';
+    } else {
+      option.value = item;
+      option.textContent = item;
+    }
+
     select.appendChild(option);
   });
 }
+
 
 function attachSpecIcon(selectId) {
   const select = document.getElementById(selectId);
