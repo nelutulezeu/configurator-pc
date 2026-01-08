@@ -200,16 +200,51 @@ function handleSubmit() {
     });
     return;
   }
-    Swal.fire({
-      heightAuto: false,
-      scrollbarPadding: false,
-      backdrop: 'rgba(2, 6, 23, 0.85)',
-      background: '#0f172a',
-      color: '#f8fafc',
-      confirmButtonColor: '#38bdf8',
-      title: getTranslation('alerts.success_title'),
-      text: getTranslation('alerts.success_text'),
-      icon: 'success'
+
+  const capturedData = captureFormData();
+
+  emailjs.init({
+    publicKey: 'YIAghefyjq-VmlTVB',
+    blockHeadless: true,
+    limitRate: {
+      id: 'contact-form',
+      throttle: 10000,
+    },
+  });
+  
+    const templateParams = {
+      from_name: capturedData.find(data => data.fieldName === 'Name')?.fieldValue,
+      from_email: capturedData.find(data => data.fieldName === 'Email')?.fieldValue,
+      phone: capturedData.find(data => data.fieldName === 'Phone')?.fieldValue,
+      info: capturedData.find(data => data.fieldName === 'Informations')?.fieldValue,
+      rows: capturedData.map(data => ({ field: data.fieldName, value: data.fieldValue }))
+    };
+
+    emailjs.send("service_c724rvh", "template_9v5f4fl", templateParams)
+    .then(function(response) {
+      Swal.fire({
+        heightAuto: false,
+        scrollbarPadding: false,
+        backdrop: 'rgba(2, 6, 23, 0.85)',
+        background: '#0f172a',
+        color: '#f8fafc',
+        confirmButtonColor: '#38bdf8',
+        title: getTranslation('alerts.success_title'),
+        text: getTranslation('alerts.success_text'),
+        icon: 'success'
+      });
+    }, function(error) {
+      Swal.fire({
+        icon: 'warning',
+        title: getTranslation('alerts.contact_title_error'),
+        text: getTranslation('alerts.contact_text_error'),
+        background: '#0f172a',
+        color: '#f8fafc',
+        confirmButtonColor: '#38bdf8',
+        backdrop: 'rgba(2, 6, 23, 0.85)',
+        heightAuto: false,
+        scrollbarPadding: false
+      });
     });
 }
 
@@ -286,6 +321,36 @@ function validateRequiredFields() {
   });
   
   return valid;
+}
+
+function captureFormData() {
+  const formData = [];
+
+  // Loop through each .field-card
+  document.querySelectorAll('.field-card').forEach(fieldCard => {
+    const fieldLabel = fieldCard.querySelector('.field-label');
+    const fieldName = fieldLabel ? fieldLabel.getAttribute('data-label-en') : '';
+
+    // Check for a select field
+    const select = fieldCard.querySelector('select');
+    if (select) {
+      const selectedOption = select.options[select.selectedIndex];
+      const fieldValue = selectedOption ? selectedOption.value : '';
+      if (fieldValue) {
+        formData.push({ fieldName, fieldValue });
+      }
+    }
+    // Check for an input field (text, email, tel, etc.)
+    const input = fieldCard.querySelector('input');
+    if (input) {
+      const fieldValue = input.value.trim();
+      if (fieldValue) {
+        formData.push({ fieldName, fieldValue });
+      }
+    }
+  });
+
+  return formData;
 }
 
 document.getElementById('iconAttributionLink').addEventListener('click', (e) => {
