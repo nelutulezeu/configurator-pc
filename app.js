@@ -391,6 +391,7 @@ document.getElementById('contact_link').addEventListener('click', (e) => {
     html: `
       <input type="text" id="contact-name" class="swal2-input" placeholder="${getTranslation('inputs.contact_name')}">
       <input type="email" id="contact-email" type="email" class="swal2-input" placeholder="${getTranslation('inputs.contact_email')}">
+       <input type="text" id="contact-subject" class="swal2-input" placeholder="${getTranslation('inputs.contact_subject')}">
       <textarea id="contact-message" class="swal2-textarea" placeholder="${getTranslation('inputs.contact_message')}" rows="4"></textarea>`,
     confirmButtonText: getTranslation('buttons.send'),
     showCancelButton: true,
@@ -407,9 +408,10 @@ document.getElementById('contact_link').addEventListener('click', (e) => {
     preConfirm: () => {
       const name = document.getElementById('contact-name').value.trim();
       const email = document.getElementById('contact-email').value.trim();
+      const subject = document.getElementById('contact-subject').value.trim();
       const message = document.getElementById('contact-message').value.trim();
 
-      if (!name || !email || !message) {
+      if (!name || !email || !subject || !message) {
         Swal.showValidationMessage(getTranslation('alerts.all_fields_check'));
         return false;
       }
@@ -419,16 +421,17 @@ document.getElementById('contact_link').addEventListener('click', (e) => {
         return false;
       }
 
-      return { name, email, message };
+      return { name, email, subject, message };
     }
   }).then((result) => {
     if (!result.isConfirmed) return;
 
-    const { name, email, message } = result.value;
+    const { name, email, subject, message } = result.value;
   
     const templateParams = {
       from_name: name,
       from_email: email,
+      subject: subject,
       message: message,
     };
 
