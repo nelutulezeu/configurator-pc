@@ -37,7 +37,11 @@
     "email_title": "Email",
     "email_plchld": "Adresă de email",
     "prd_name_plchld": "Nume produs",
-    "opt_prd_link_plchld": "Link produs (opțional)"
+    "opt_prd_link_plchld": "Link produs (Opțional)",
+    "name_title": "Nume",
+    "name_plchld": "Nume (Opțional)",
+    "add_msg_title": "Informații Adiționale",
+    "add_msg_plchld": "Informații Adiționale (Opțional)"
   },
   "selects": {
     "select_cpu": "Selectează Procesor (CPU)",
@@ -66,6 +70,7 @@
   }
 
 }
+
 
 
 
