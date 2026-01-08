@@ -374,14 +374,16 @@ document.getElementById('iconAttributionLink').addEventListener('click', (e) => 
 
 document.querySelectorAll('.tab-button').forEach(btn => {
   btn.addEventListener('click', () => {
-    // Remove active class from all buttons
+
+    document
+      .querySelectorAll('.required.invalid')
+      .forEach(el => el.classList.remove('invalid'));
+
     document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
-    // Hide all tab contents
     document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
 
-    // Show the selected tab
     const tabId = btn.dataset.tab;
     document.getElementById(tabId).classList.add('active');
   });
