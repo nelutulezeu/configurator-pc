@@ -80,17 +80,13 @@ async function loadComponents() {
     const response = await fetch('./json/components.json');
     const componentsData = await response.json();
 
-    // Get keys dynamically from the JSON
-    const componentKeys = Object.keys(componentsData);
-
-    componentKeys.forEach(key => {
+    Object.keys(componentsData).forEach(key => {
       const select = document.getElementById(key);
-      if (!select) return; // skip if no matching select element
+      if (!select) return;
 
       const items = componentsData[key];
-      if (!items) return;
 
-      // If it's an array, just append options
+      // Check if items is an array or object
       if (Array.isArray(items)) {
         items.forEach(item => {
           const option = document.createElement('option');
@@ -98,25 +94,19 @@ async function loadComponents() {
           option.textContent = item;
           select.appendChild(option);
         });
-      } 
-      // If it's an object, flatten its values
-      else if (typeof items === 'object') {
-        Object.values(items).forEach(value => {
-          if (Array.isArray(value)) {
-            value.forEach(subItem => {
-              const option = document.createElement('option');
-              option.value = subItem;
-              option.textContent = subItem;
-              select.appendChild(option);
-            });
-          } else {
-            const option = document.createElement('option');
-            option.value = value;
-            option.textContent = value;
-            select.appendChild(option);
-          }
+      } else if (typeof items === 'object') {
+        Object.entries(items).forEach(([value, text]) => {
+          const option = document.createElement('option');
+          option.value = value;
+          option.textContent = text;
+          select.appendChild(option);
         });
       }
+
+      
+      const items = flattenComponentGroup(componentsData[key] || {});
+
+      populateSelect(key, items);
     });
 
   } catch (error) {
@@ -129,6 +119,7 @@ async function loadComponents() {
     });
   }
 }
+
 
 // Call after DOM is ready
 document.addEventListener('DOMContentLoaded', loadComponents);
