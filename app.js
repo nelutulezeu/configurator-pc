@@ -112,7 +112,9 @@ async function loadComponents() {
     Swal.fire({
       title: 'Error',
       text: 'Failed to load configuration data.',
-      icon: 'error'
+      icon: 'error',
+      heightAuto: false,
+      scrollbarPadding: false
     });
   }
 }
@@ -183,24 +185,13 @@ function getActiveTab() {
 submitBtns.forEach(btn => {
   btn.addEventListener('click', handleSubmit);
 });
-
+pdfBtn.forEach(btn => {
+  btn.addEventListener('click', handlePDF);
+});
 
 function handleSubmit() {
-    const activeTab = getActiveTab();
-    const requiredFields = activeTab.querySelectorAll('.required');
-    let valid = true;
-
-    requiredFields.forEach(field => {
-      field.classList.remove('invalid');
-
-      if (!field.value) {
-        field.classList.add('invalid');
-        valid = false;
-      }
-    });
-
-    if (!valid) {
-      Swal.fire({
+  if (!validateRequiredFields()) {
+    Swal.fire({
         heightAuto: false,
         scrollbarPadding: false,
         backdrop: 'rgba(2, 6, 23, 0.85)',
@@ -210,10 +201,9 @@ function handleSubmit() {
         title: getTranslation('alerts.incomplete_title'),
         text: getTranslation('alerts.incomplete_text'),
         icon: 'warning'
-      });
-      return;
-    }
-
+    });
+    return;
+  }
     Swal.fire({
       heightAuto: false,
       scrollbarPadding: false,
@@ -227,91 +217,80 @@ function handleSubmit() {
     });
 }
 
-  const requiredFields = document.querySelectorAll('.required');
-  // auto-clear invalid state
-  requiredFields.forEach(field => {
-    field.addEventListener('change', () => {
-      field.classList.remove('invalid');
+function handlePDF() {
+  if (!validateRequiredFields()) {
+    Swal.fire({
+          heightAuto: false,
+          scrollbarPadding: false,
+          backdrop: 'rgba(2, 6, 23, 0.85)',
+          background: '#0f172a',
+          color: '#f8fafc',
+          confirmButtonColor: '#38bdf8',
+          title: getTranslation('alerts.incomplete_title'),
+          text: getTranslation('alerts.incomplete_text'),
+          icon: 'warning'
     });
-  });
-
-
-
-pdfBtn.addEventListener('click', () => {
-  const activeTab = getActiveTab();
-  const requiredFields = activeTab.querySelectorAll('.required');
-console.log(requiredFields);
+    return;
+  }
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
-    let valid = true;
-    let y = 45;
-
-    requiredFields.forEach(field => {
-      field.classList.remove('invalid');
-
-      if (!field.value) {
-        field.classList.add('invalid');
-        valid = false;
-      }
-    });
-
-    if (!valid) {
-      Swal.fire({
-        heightAuto: false,
-        scrollbarPadding: false,
-        backdrop: 'rgba(2, 6, 23, 0.85)',
-        background: '#0f172a',
-        color: '#f8fafc',
-        confirmButtonColor: '#38bdf8',
-        title: getTranslation('alerts.incomplete_title'),
-        text: getTranslation('alerts.incomplete_text'),
-        icon: 'warning'
-      });
-      return;
-    }
-
+  let y = 45;
+  
   // Title
-doc.setFontSize(18);
-doc.setFont('helvetica', 'bold');
-doc.text('PC Configuration Quote', 20, 20);
-
-doc.setLineWidth(0.5);
-doc.line(20, 25, 190, 25);
-
-
-// Header
-doc.setFontSize(14);
-doc.setFont('helvetica', 'bold');
-doc.text('Selected Components', 20, 35);
-
-doc.setFontSize(12);
-doc.setFont('helvetica', 'normal');
-
-
+  doc.setFontSize(18);
+  doc.setFont('helvetica', 'bold');
+  doc.text('PC Configuration Quote', 20, 20);
+  
+  doc.setLineWidth(0.5);
+  doc.line(20, 25, 190, 25);
+  
+  // Header
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.text('Selected Components', 20, 35);
+  
+  doc.setFontSize(12);
+  doc.setFont('helvetica', 'normal');
+  
   // Content
   doc.setFontSize(10);
-requiredFields.forEach(field => {
+  requiredFields.forEach(field => {
   doc.setDrawColor(200);
   doc.rect(20, y - 6, 170, 10); // box
-
+  
   doc.text(field.dataset.label, 25, y);
   doc.text(field.value, 90, y);
-
+  
   y += 14;
-});
-
+  });
+  
   // Footer
-const date = new Date().toLocaleDateString();
-
-doc.setFontSize(10);
-doc.setTextColor(120);
-doc.text(`Date: ${date}`, 20, 285);
-
-
+  const date = new Date().toLocaleDateString();
+  
+  doc.setFontSize(10);
+  doc.setTextColor(120);
+  doc.text(`Date: ${date}`, 20, 285);
+  
+  
   // Download
   doc.save('pc-configuration.pdf');
-});
+}
 
+function validateRequiredFields() {
+  const activeTab = getActiveTab();
+  const requiredFields = activeTab.querySelectorAll('.required');
+  let valid = true;
+
+  requiredFields.forEach(field => {
+    field.classList.remove('invalid');
+    if (!field.value) {
+      field.classList.add('invalid');
+      valid = false;
+    }
+  });
+  
+  return valid;
+}
 
 document.getElementById('iconAttributionLink').addEventListener('click', (e) => {
   e.preventDefault();
@@ -371,6 +350,13 @@ document.getElementById('iconAttributionLink').addEventListener('click', (e) => 
   });
 });
 
+const requiredFields = document.querySelectorAll('.required');
+  // auto-clear invalid state
+  requiredFields.forEach(field => {
+    field.addEventListener('change', () => {
+      field.classList.remove('invalid');
+  });
+});
 
 document.querySelectorAll('.tab-button').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -461,12 +447,20 @@ document.querySelectorAll('.lang-options button').forEach(btn => {
 
 async function loadLanguage(lang, animate = false) {
   const res = await fetch(`lang/${lang}.json`);
+  if (!res.ok){
+      Swal.fire({
+        title: 'Error',
+        text: 'Failed to load language data.',
+        icon: 'error',
+        heightAuto: false,
+        scrollbarPadding: false
+    });
+  }
   i18n = await res.json();
   currentLang = lang;
 
   applyTranslations(animate);
 }
-
 
 function getTranslation(key) {
   return key.split('.').reduce((obj, k) => obj?.[k], i18n) || key;
