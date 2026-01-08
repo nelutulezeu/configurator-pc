@@ -85,27 +85,13 @@ async function loadComponents() {
       if (!select) return;
 
       const items = componentsData[key];
+      if (!items) return;
 
-      // Check if items is an array or object
-      if (Array.isArray(items)) {
-        items.forEach(item => {
-          const option = document.createElement('option');
-          option.value = item;
-          option.textContent = item;
-          select.appendChild(option);
-        });
-      } else if (typeof items === 'object') {
-        Object.entries(items).forEach(([value, text]) => {
-          const option = document.createElement('option');
-          option.value = value;
-          option.textContent = text;
-          select.appendChild(option);
-        });
-      }
+      // Flatten the items (handles arrays or objects)
+      const flatItems = flattenComponentGroup(items);
 
-      
-      const flat_items = flattenComponentGroup(key || {});
-      populateSelect(key, flat_items);
+      // Populate the select element
+      populateSelect(key, flatItems);
     });
 
   } catch (error) {
@@ -119,34 +105,26 @@ async function loadComponents() {
   }
 }
 
-
-// Call after DOM is ready
-document.addEventListener('DOMContentLoaded', loadComponents);
-
-
-function flattenComponentGroup(groupedData) {
-  return Object.values(groupedData).reduce((acc, arr) => {
-    return acc.concat(arr);
-  }, []);
+// Flattens arrays or objects into a simple array
+function flattenComponentGroup(data) {
+  if (!data) return [];
+  if (Array.isArray(data)) return data;
+  if (typeof data === 'object') {
+    // If object values are arrays, flatten them
+    return Object.values(data).flatMap(value => Array.isArray(value) ? value : [value]);
+  }
+  return [];
 }
 
-
+// Populates a select element given an array of items
 function populateSelect(selectId, items) {
-
   const select = document.getElementById(selectId);
+  if (!select) return;
 
   items.forEach(item => {
     const option = document.createElement('option');
-    option.value = item.name;
-    option.textContent = item.name;
-
-    // attach metadata
-    Object.keys(item).forEach(key => {
-      if (key !== 'name') {
-        option.dataset[key] = item[key];
-      }
-    });
-
+    option.value = item;
+    option.textContent = item;
     select.appendChild(option);
   });
 }
