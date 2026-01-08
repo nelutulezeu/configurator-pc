@@ -21,28 +21,32 @@ function openSelectSweetAlert(select) {
   const key = select.id;
   const label = select.dataset.label || 'Select option';
   const data = componentsData[key];
-
   if (!data) return;
 
   let html = '';
 
-  Object.entries(data).forEach(([brand, items]) => {
+  Object.entries(data).forEach(([groupName, items]) => {
     html += `
       <div class="sa-group">
-        <div class="sa-group-title">${brand}</div>
-    `;
-
-    items.forEach(item => {
-      html += `
-        <div class="sa-option"
-             data-value="${item.name}"
-             data-spec="${item.specUrl}">
-          <span>${item.name}</span>
+        <div class="sa-group-title" style="cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
+          <span>${groupName}</span>
+          <span class="sa-toggle">+</span>
         </div>
-      `;
-    });
-
-    html += `</div>`;
+        <div class="sa-group-options" style="max-height:0; overflow:hidden; transition:max-height 0.3s ease; padding-left:10px; margin-top:5px;">
+          ${items
+            .map(
+              item => `
+            <div class="sa-option" 
+                 data-value="${item.name}" 
+                 data-spec="${item.specUrl || ''}">
+              ${item.name}
+            </div>
+          `
+            )
+            .join('')}
+        </div>
+      </div>
+    `;
   });
 
   Swal.fire({
@@ -57,14 +61,26 @@ function openSelectSweetAlert(select) {
     color: '#f8fafc'
   });
 
-  document.querySelectorAll('.sa-option').forEach(el => {
-    el.addEventListener('click', (e) => {
-      if (e.target.classList.contains('sa-spec')) {
-        e.stopPropagation();
-        window.open(el.dataset.spec, '_blank', 'noopener');
-        return;
-      }
+  // Handle smooth group expand/collapse
+  document.querySelectorAll('.sa-group-title').forEach(title => {
+    const toggle = title.querySelector('.sa-toggle');
+    const options = title.nextElementSibling;
 
+    title.addEventListener('click', () => {
+      const isOpen = options.style.maxHeight && options.style.maxHeight !== '0px';
+      if (isOpen) {
+        options.style.maxHeight = '0';
+        toggle.textContent = '+';
+      } else {
+        options.style.maxHeight = options.scrollHeight + 'px';
+        toggle.textContent = '−';
+      }
+    });
+  });
+
+  // Handle option selection
+  document.querySelectorAll('.sa-option').forEach(el => {
+    el.addEventListener('click', e => {
       select.value = el.dataset.value;
       select.dataset.specUrl = el.dataset.spec || '';
       select.dispatchEvent(new Event('change', { bubbles: true }));
