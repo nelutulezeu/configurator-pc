@@ -292,7 +292,7 @@ function validateRequiredFields() {
 
 document.getElementById('iconAttributionLink').addEventListener('click', (e) => {
   e.preventDefault();
-
+  
   const icons = document.querySelectorAll('.field-icon');
 
   // Map to keep unique attributions
@@ -377,6 +377,8 @@ document.querySelectorAll('.tab-button').forEach(btn => {
 document.getElementById('contact_link').addEventListener('click', (e) => {
   e.preventDefault();
 
+  emailjs.init("YIAghefyjq-VmlTVB"); 
+  
   Swal.fire({
     title: getTranslation('alerts.contact_form_title'),
     html: `
@@ -415,20 +417,35 @@ document.getElementById('contact_link').addEventListener('click', (e) => {
   }).then((result) => {
     if (!result.isConfirmed) return;
 
+    const { name, email, message } = result.value;
+  
+    const templateParams = {
+      from_name: name,
+      from_email: email,
+      message: message,
+    };
+
+    emailjs.send("service_c724rvh", "template_l0x88cs", templateParams)
+    .then(function(response) {
+      console.log("SUCCESS", response);
+      Swal.fire({
+        icon: 'success',
+        title: getTranslation('alerts.contact_title'),
+        text: getTranslation('alerts.contact_text'),
+        background: '#0f172a',
+        color: '#f8fafc',
+        confirmButtonColor: '#38bdf8',
+        backdrop: 'rgba(2, 6, 23, 0.85)',
+        heightAuto: false,
+        scrollbarPadding: false
+      });
+    }, function(error) {
+      console.log("FAILED", error);
+      alert("Failed to send offer request.");
+    });
+    
     // PLACEHOLDER for now
     console.log('Contact form data:', result.value);
-
-    Swal.fire({
-      icon: 'success',
-      title: getTranslation('alerts.contact_title'),
-      text: getTranslation('alerts.contact_text'),
-      background: '#0f172a',
-      color: '#f8fafc',
-      confirmButtonColor: '#38bdf8',
-      backdrop: 'rgba(2, 6, 23, 0.85)',
-      heightAuto: false,
-      scrollbarPadding: false
-    });
   });
 });
 
