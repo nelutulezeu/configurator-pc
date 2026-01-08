@@ -37,7 +37,11 @@
     "email_title": "Email",
     "email_plchld": "Email address",
     "prd_name_plchld": "Product name",
-    "opt_prd_link_plchld": "Optional product link"
+    "opt_prd_link_plchld": "Optional product link",
+    "name_title": "Name",
+    "name_plchld": "Name (Optional)",
+    "add_msg_title": "Additional Informations",
+    "add_msg_plchld": "Additional Informations (Optional)"
   },
   "selects": {
     "select_cpu": "Select CPU",
@@ -66,6 +70,7 @@
   }
 
 }
+
 
 
 
