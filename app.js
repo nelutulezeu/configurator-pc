@@ -377,7 +377,14 @@ document.querySelectorAll('.tab-button').forEach(btn => {
 document.getElementById('contact_link').addEventListener('click', (e) => {
   e.preventDefault();
 
-  emailjs.init("YIAghefyjq-VmlTVB"); 
+  emailjs.init({
+  publicKey: 'YIAghefyjq-VmlTVB',
+  blockHeadless: true,
+  limitRate: {
+    id: 'contact-form',
+    throttle: 10000,
+  },
+});
   
   Swal.fire({
     title: getTranslation('alerts.contact_form_title'),
