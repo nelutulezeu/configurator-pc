@@ -104,9 +104,8 @@ async function loadComponents() {
       }
 
       
-      const items = flattenComponentGroup(componentsData[key] || {});
-
-      populateSelect(key, items);
+      const flat_items = flattenComponentGroup(componentsData[key] || {});
+      populateSelect(key, flat_items);
     });
 
   } catch (error) {
