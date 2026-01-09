@@ -220,6 +220,8 @@ function handleSubmit() {
       rows: capturedData.map(data => `${data.fieldName}: ${data.fieldValue}`).join('<br>') ,
     };
 
+  console.log(templateParams);
+
     emailjs.send("service_c724rvh", "template_9v5f4fl", templateParams)
     .then(function(response) {
       Swal.fire({
