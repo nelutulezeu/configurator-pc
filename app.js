@@ -383,8 +383,9 @@ function clearFormFields() {
     select.value = '';
   });
 
-  document.querySelectorAll('.spec-icon').forEach(button => {
-    button.style.display = '';  // You can set this to '' if you want to reset to original state
+  document.querySelectorAll('.spec-icon').forEach(icon => {
+    icon.hidden = true; 
+    icon.onclick = null;
   });
 }
 
