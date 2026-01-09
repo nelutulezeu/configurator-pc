@@ -207,7 +207,7 @@ function handleSubmit() {
     publicKey: 'YIAghefyjq-VmlTVB',
     blockHeadless: true,
     limitRate: {
-      id: 'contact-form',
+      id: 'offer-form',
       throttle: 10000,
     },
   });
@@ -217,7 +217,7 @@ function handleSubmit() {
       from_email: capturedData.find(data => data.fieldName === 'Email')?.fieldValue,
       phone: capturedData.find(data => data.fieldName === 'Phone')?.fieldValue,
       info: capturedData.find(data => data.fieldName === 'Informations')?.fieldValue,
-      rows: capturedData.map(data => ({ field: data.fieldName, value: data.fieldValue }))
+      rows: capturedData.map(data => ({ field: data.fieldName, value: data.fieldValue })),
     };
 
     emailjs.send("service_c724rvh", "template_9v5f4fl", templateParams)
