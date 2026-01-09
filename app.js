@@ -362,12 +362,10 @@ function captureFormData(activeTab) {
     }
     // Check for an input field (text, email, tel, etc.)
     const input = fieldCard.querySelector('input');
-    if (input) {
-      const fieldValue = input.value.trim();
-      if (fieldValue) {
-        formData.push({ fieldName, fieldValue });
+      if (input) {
+        const fieldValue = input.value.trim() || '';  // Use an empty string if the input is empty or just whitespace
+        formData.push({ fieldName, fieldValue });  // Always add the field with its value (even if it's empty)
       }
-    }
   });
 
   return formData;
