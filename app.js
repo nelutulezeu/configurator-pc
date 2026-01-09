@@ -211,12 +211,17 @@ function handleSubmit() {
       throttle: 10000,
     },
   });
+
+  const formFields = capturedData.reduce((acc, data) => {
+    acc[data.fieldName] = data.fieldValue;
+    return acc;
+  }, {});
   
     const templateParams = {
-      from_name: capturedData.find(data => data.fieldName === 'Name')?.fieldValue,
-      from_email: capturedData.find(data => data.fieldName === 'Email')?.fieldValue,
-      phone: capturedData.find(data => data.fieldName === 'Phone')?.fieldValue,
-      info: capturedData.find(data => data.fieldName === 'Informations')?.fieldValue,
+      from_name: formFields['Name'],
+      from_email: formFields['Email'],
+      phone: formFields['Phone number'],
+      info: formFields['Informations'],
       rows: capturedData.map(data => ({ field: data.fieldName, value: data.fieldValue })),
     };
 
