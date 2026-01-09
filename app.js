@@ -186,7 +186,8 @@ submitBtns.forEach(btn => {
 pdfBtn.addEventListener('click', handlePDF);
 
 function handleSubmit() {
-  if (!validateRequiredFields()) {
+  const activeTab = getActiveTab();
+  if (!validateRequiredFields(activeTab)) {
     Swal.fire({
         heightAuto: false,
         scrollbarPadding: false,
@@ -201,7 +202,7 @@ function handleSubmit() {
     return;
   }
 
-  const capturedData = captureFormData();
+  const capturedData = captureFormData(activeTab);
 
   emailjs.init({
     publicKey: 'YIAghefyjq-VmlTVB',
@@ -211,20 +212,20 @@ function handleSubmit() {
       throttle: 10000,
     },
   });
-  
-  const templateParams = {
-    from_name: capturedData.find(data => data.fieldName === 'Name')?.fieldValue,
-    from_email: capturedData.find(data => data.fieldName === 'Email')?.fieldValue,
-    phone: capturedData.find(data => data.fieldName === 'Phone')?.fieldValue,
-    info: capturedData.find(data => data.fieldName === 'Informations')?.fieldValue,
-    rows: capturedData.filter(data => 
-      data.fieldName !== 'Name' && 
-      data.fieldName !== 'Email' && 
-      data.fieldName !== 'Phone' && 
-      data.fieldName !== 'Informations'
-    ).map(data => ({ field: data.fieldName, value: data.fieldValue })),
-  };
-  
+
+  if (activeTab.id == 'predefined') {
+    const templateParams = {
+      from_name: capturedData.find(data => data.fieldName === 'Name')?.fieldValue,
+      from_email: capturedData.find(data => data.fieldName === 'Email')?.fieldValue,
+      phone: capturedData.find(data => data.fieldName === 'Phone')?.fieldValue,
+      info: capturedData.find(data => data.fieldName === 'Informations')?.fieldValue,
+      rows: capturedData.filter(data => 
+        data.fieldName !== 'Name' && 
+        data.fieldName !== 'Email' && 
+        data.fieldName !== 'Phone' && 
+        data.fieldName !== 'Informations'
+      ).map(data => ({ field: data.fieldName, value: data.fieldValue })),
+    };
     emailjs.send("service_c724rvh", "template_9v5f4fl", templateParams)
     .then(function(response) {
       Swal.fire({
@@ -252,6 +253,20 @@ function handleSubmit() {
         scrollbarPadding: false
       });
     });
+  } else if (.id == 'custom') {
+    const templateParams = {
+      from_name: capturedData.find(data => data.fieldName === 'Name')?.fieldValue,
+      from_email: capturedData.find(data => data.fieldName === 'Email')?.fieldValue,
+      phone: capturedData.find(data => data.fieldName === 'Phone')?.fieldValue,
+      info: capturedData.find(data => data.fieldName === 'Informations')?.fieldValue,
+      rows: capturedData.filter(data => 
+        data.fieldName !== 'Name' && 
+        data.fieldName !== 'Email' && 
+        data.fieldName !== 'Phone' && 
+        data.fieldName !== 'Informations'
+      ).map(data => ({ field: data.fieldName, value: data.fieldValue })),
+    };
+  }
 }
 
 function handlePDF() {
@@ -313,8 +328,7 @@ function handlePDF() {
   doc.save('pc-configuration.pdf');
 }
 
-function validateRequiredFields() {
-  const activeTab = getActiveTab();
+function validateRequiredFields(activeTab) {
   const requiredFields = activeTab.querySelectorAll('.required');
   let valid = true;
 
@@ -329,11 +343,11 @@ function validateRequiredFields() {
   return valid;
 }
 
-function captureFormData() {
+function captureFormData(activeTab) {
   const formData = [];
 
-  // Loop through each .field-card
-  document.querySelectorAll('.field-card').forEach(fieldCard => {
+  // Loop through each .field-card in the active tab
+  activeTab.querySelectorAll('.field-card').forEach(fieldCard => {
     const fieldLabel = fieldCard.querySelector('.field-label');
     const fieldName = fieldLabel ? fieldLabel.getAttribute('data-label-en') : '';
 
@@ -358,6 +372,7 @@ function captureFormData() {
 
   return formData;
 }
+
 
 function clearFormFields() {
   // Reset all input fields
