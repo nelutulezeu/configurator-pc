@@ -253,7 +253,7 @@ function handleSubmit() {
         scrollbarPadding: false
       });
     });
-  } else if (.id == 'custom') {
+  } else if (activeTab.id == 'custom') {
     const templateParams = {
       from_name: capturedData.find(data => data.fieldName === 'Name')?.fieldValue,
       from_email: capturedData.find(data => data.fieldName === 'Email')?.fieldValue,
@@ -375,14 +375,16 @@ function captureFormData(activeTab) {
 
 
 function clearFormFields() {
-  // Reset all input fields
   document.querySelectorAll('.field-card input').forEach(input => {
     input.value = '';
   });
 
-  // Reset all select fields
   document.querySelectorAll('.field-card select').forEach(select => {
     select.value = '';
+  });
+
+  document.querySelectorAll('.spec-icon').forEach(button => {
+    button.style.display = '';  // You can set this to '' if you want to reset to original state
   });
 }
 
