@@ -215,18 +215,16 @@ function handleSubmit() {
   const templateParams = {
     from_name: capturedData.find(data => data.fieldName === 'Name')?.fieldValue,
     from_email: capturedData.find(data => data.fieldName === 'Email')?.fieldValue,
-    phone: capturedData.find(data => data.fieldName === 'Phone number')?.fieldValue,
-    info: capturedData.find(data => data.fieldName === 'Additional Informations')?.fieldValue,
+    phone: capturedData.find(data => data.fieldName === 'Phone')?.fieldValue,
+    info: capturedData.find(data => data.fieldName === 'Informations')?.fieldValue,
     rows: capturedData.filter(data => 
       data.fieldName !== 'Name' && 
       data.fieldName !== 'Email' && 
-      data.fieldName !== 'Phone number' && 
-      data.fieldName !== 'Additional Informations'
+      data.fieldName !== 'Phone' && 
+      data.fieldName !== 'Informations'
     ).map(data => ({ field: data.fieldName, value: data.fieldValue })),
   };
-
-  console.log(templateParams);
-
+  
     emailjs.send("service_c724rvh", "template_9v5f4fl", templateParams)
     .then(function(response) {
       Swal.fire({
@@ -240,6 +238,7 @@ function handleSubmit() {
         text: getTranslation('alerts.success_text'),
         icon: 'success'
       });
+      clearFormFields();
     }, function(error) {
       Swal.fire({
         icon: 'warning',
@@ -359,6 +358,19 @@ function captureFormData() {
 
   return formData;
 }
+
+function clearFormFields() {
+  // Reset all input fields
+  document.querySelectorAll('.field-card input').forEach(input => {
+    input.value = '';
+  });
+
+  // Reset all select fields
+  document.querySelectorAll('.field-card select').forEach(select => {
+    select.value = '';
+  });
+}
+
 
 document.getElementById('iconAttributionLink').addEventListener('click', (e) => {
   e.preventDefault();
