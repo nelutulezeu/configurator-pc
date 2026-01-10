@@ -215,6 +215,7 @@ function handleSubmit() {
 
   if (activeTab.id == 'predefined') {
     const templateParams = {
+      tab: '',
       from_name: capturedData.find(data => data.fieldName === 'Name ')?.fieldValue,
       from_email: capturedData.find(data => data.fieldName === 'Email ')?.fieldValue,
       phone: capturedData.find(data => data.fieldName === 'Phone ')?.fieldValue,
@@ -256,15 +257,16 @@ function handleSubmit() {
     });
   } else if (activeTab.id == 'custom') {
     const templateParams = {
-      from_name: capturedData.find(data => data.fieldName === 'Name')?.fieldValue,
-      from_email: capturedData.find(data => data.fieldName === 'Email')?.fieldValue,
-      phone: capturedData.find(data => data.fieldName === 'Phone')?.fieldValue,
-      info: capturedData.find(data => data.fieldName === 'Informations')?.fieldValue,
+      tab: '1',
+      from_name: capturedData.find(data => data.fieldName === 'Name ')?.fieldValue,
+      from_email: capturedData.find(data => data.fieldName === 'Email ')?.fieldValue,
+      phone: capturedData.find(data => data.fieldName === 'Phone ')?.fieldValue,
+      info: capturedData.find(data => data.fieldName === 'Informations ')?.fieldValue,
       rows: capturedData.filter(data => 
-        data.fieldName !== 'Name' && 
-        data.fieldName !== 'Email' && 
-        data.fieldName !== 'Phone' && 
-        data.fieldName !== 'Informations'
+        data.fieldName !== 'Name ' && 
+        data.fieldName !== 'Email ' && 
+        data.fieldName !== 'Phone ' && 
+        data.fieldName !== 'Informations '
       ).map(data => ({ field: data.fieldName, value: data.fieldValue })),
     };
     console.log(templateParams);
@@ -348,34 +350,38 @@ function validateRequiredFields(activeTab) {
 function captureFormData(activeTab) {
   const formData = [];
 
-  // Loop through each .field-card in the active tab
   activeTab.querySelectorAll('.field-card').forEach(fieldCard => {
-    const fieldLabel = fieldCard.querySelector('.field-label');
-    const fieldName = fieldLabel ? fieldLabel.getAttribute('data-label-en') : '';
+    const labelEl = fieldCard.querySelector('.field-label');
+    const baseFieldName = labelEl?.getAttribute('data-label-en') || '';
 
-    // Check for a select field
-    const select = fieldCard.querySelector('select');
-    if (select) {
-      const selectedOption = select.options[select.selectedIndex];
-      const fieldValue = selectedOption ? selectedOption.value : '';
-      if (fieldValue) {
-        formData.push({ fieldName, fieldValue });
-      }
-    }
-    const inputs = fieldCard.querySelectorAll('input');  // Select all input elements in the field card
-    inputs.forEach(input => {
-      const fieldValue = input.value.trim() || '';  // Use empty string if input is empty or just whitespace
-      // Always push, even if the fieldValue is empty
+    fieldCard.querySelectorAll('select').forEach(select => {
       formData.push({
-        fieldName: fieldName + " " + (input.getAttribute('data-input-name') || ''),  // Add extra identifier if needed (e.g., data-input-name, name, or id)
-        fieldValue
+        field: baseFieldName,
+        value: select.value || ''
       });
+    });
+
+    fieldCard.querySelectorAll('input').forEach(input => {
+      // skip component/type inputs (handled elsewhere if needed)
+      if (input.dataset.component) return;
+
+      formData.push({
+        field: baseFieldName,
+        value: input.value.trim() || ''
+      });
+    });
+  });
+
+  activeTab.querySelectorAll('[data-component][data-type]').forEach(el => {
+    formData.push({
+      component: el.dataset.component,
+      type: el.dataset.type,
+      value: el.value.trim() || ''
     });
   });
 
   return formData;
 }
-
 
 function clearFormFields() {
   document.querySelectorAll('.field-card input').forEach(input => {
