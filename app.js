@@ -226,6 +226,7 @@ function handleSubmit() {
         data.fieldName !== 'Informations'
       ).map(data => ({ field: data.fieldName, value: data.fieldValue })),
     };
+    console.log(templateParams);
     emailjs.send("service_c724rvh", "template_9v5f4fl", templateParams)
     .then(function(response) {
       Swal.fire({
@@ -360,12 +361,15 @@ function captureFormData(activeTab) {
         formData.push({ fieldName, fieldValue });
       }
     }
-    // Check for an input field (text, email, tel, etc.)
-    const input = fieldCard.querySelector('input');
-      if (input) {
-        const fieldValue = input.value.trim() || '';  // Use an empty string if the input is empty or just whitespace
-        formData.push({ fieldName, fieldValue });  // Always add the field with its value (even if it's empty)
-      }
+    const inputs = fieldCard.querySelectorAll('input');  // Select all input elements in the field card
+    inputs.forEach(input => {
+      const fieldValue = input.value.trim() || '';  // Use empty string if input is empty or just whitespace
+      // Always push, even if the fieldValue is empty
+      formData.push({
+        fieldName: fieldName + " " + (input.getAttribute('data-input-name') || input.name || input.id),  // Add extra identifier if needed (e.g., data-input-name, name, or id)
+        fieldValue
+      });
+    });
   });
 
   return formData;
