@@ -256,21 +256,17 @@ function handleSubmit() {
       });
     });
   } else if (activeTab.id == 'custom') {
-    const templateParams = {
-      tab: '1',
-      from_name: capturedData.find(d => d.field === 'Name')?.value || '',
-      from_email: capturedData.find(d => d.field === 'Email')?.value || '',
-      phone: capturedData.find(d => d.field === 'Phone')?.value || '',
-      info: capturedData.find(d => d.field === 'Informations')?.value || '',
+
+    const tableRows = buildComponentTableRows(
+      capturedData.filter(d => d.component && d.type) // only component/type rows
+    );
     
-      rows: capturedData
-        .filter(d =>
-          !['Name', 'Email', 'Phone', 'Informations'].includes(d.field)
-        )
-        .map(d => ({
-          field: d.field,
-          value: d.value
-        }))
+    const templateParams = {
+      from_name: capturedData.find(d => d.fieldName === 'Name')?.value,
+      from_email: capturedData.find(d => d.fieldName === 'Email')?.value,
+      phone: capturedData.find(d => d.fieldName === 'Phone')?.value,
+      info: capturedData.find(d => d.fieldName === 'Informations')?.value,
+      rows: tableRows
     };
     console.log(templateParams);
   }
@@ -365,7 +361,6 @@ function captureFormData(activeTab) {
     });
 
     fieldCard.querySelectorAll('input').forEach(input => {
-      // skip component/type inputs (handled elsewhere if needed)
       if (input.dataset.component) return;
 
       formData.push({
@@ -385,6 +380,32 @@ function captureFormData(activeTab) {
 
   return formData;
 }
+
+function buildComponentTableRows(formData) {
+  const map = {};
+
+  formData.forEach(({ component, type, value }) => {
+    if (!component || !type) return;
+
+    // initialize component row if not exists
+    if (!map[component]) {
+      map[component] = {
+        component,
+        product: '',
+        link: ''
+      };
+    }
+
+    if (type.toLowerCase() === 'product') {
+      map[component].product = value;
+    } else if (type.toLowerCase() === 'link') {
+      map[component].link = value;
+    }
+  });
+
+  return Object.values(map);
+}
+
 
 function clearFormFields() {
   document.querySelectorAll('.field-card input').forEach(input => {
