@@ -366,7 +366,7 @@ function captureFormData(activeTab) {
       const fieldValue = input.value.trim() || '';  // Use empty string if input is empty or just whitespace
       // Always push, even if the fieldValue is empty
       formData.push({
-        fieldName: fieldName + " " + (input.getAttribute('data-input-name') || input.name || input.id),  // Add extra identifier if needed (e.g., data-input-name, name, or id)
+        fieldName: fieldName + " " + (input.getAttribute('data-input-name')),  // Add extra identifier if needed (e.g., data-input-name, name, or id)
         fieldValue
       });
     });
