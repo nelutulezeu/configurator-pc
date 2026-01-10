@@ -267,6 +267,7 @@ function handleSubmit() {
         data.fieldName !== 'Informations'
       ).map(data => ({ field: data.fieldName, value: data.fieldValue })),
     };
+    console.log(templateParams);
   }
 }
 
