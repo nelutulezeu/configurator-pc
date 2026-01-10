@@ -258,16 +258,19 @@ function handleSubmit() {
   } else if (activeTab.id == 'custom') {
     const templateParams = {
       tab: '1',
-      from_name: capturedData.find(data => data.fieldName === 'Name ')?.fieldValue,
-      from_email: capturedData.find(data => data.fieldName === 'Email ')?.fieldValue,
-      phone: capturedData.find(data => data.fieldName === 'Phone ')?.fieldValue,
-      info: capturedData.find(data => data.fieldName === 'Informations ')?.fieldValue,
-      rows: capturedData.filter(data => 
-        data.fieldName !== 'Name ' && 
-        data.fieldName !== 'Email ' && 
-        data.fieldName !== 'Phone ' && 
-        data.fieldName !== 'Informations '
-      ).map(data => ({ field: data.fieldName, value: data.fieldValue })),
+      from_name: capturedData.find(d => d.field === 'Name')?.value || '',
+      from_email: capturedData.find(d => d.field === 'Email')?.value || '',
+      phone: capturedData.find(d => d.field === 'Phone')?.value || '',
+      info: capturedData.find(d => d.field === 'Informations')?.value || '',
+    
+      rows: capturedData
+        .filter(d =>
+          !['Name', 'Email', 'Phone', 'Informations'].includes(d.field)
+        )
+        .map(d => ({
+          field: d.field,
+          value: d.value
+        }))
     };
     console.log(templateParams);
   }
