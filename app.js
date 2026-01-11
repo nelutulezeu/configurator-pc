@@ -216,16 +216,16 @@ function handleSubmit() {
   if (activeTab.id == 'predefined') {
     const templateParams = {
       tab: '',
-      from_name: capturedData.find(data => data.fieldName === 'Name ')?.fieldValue,
-      from_email: capturedData.find(data => data.fieldName === 'Email ')?.fieldValue,
-      phone: capturedData.find(data => data.fieldName === 'Phone ')?.fieldValue,
-      info: capturedData.find(data => data.fieldName === 'Informations ')?.fieldValue,
+      from_name: capturedData.find(data => data.field === 'Name')?.value,
+      from_email: capturedData.find(data => data.field === 'Email')?.value,
+      phone: capturedData.find(data => data.field === 'Phone')?.value,
+      info: capturedData.find(data => data.field === 'Informations')?.value,
       rows: capturedData.filter(data => 
-        data.fieldName !== 'Name ' && 
-        data.fieldName !== 'Email ' && 
-        data.fieldName !== 'Phone ' && 
-        data.fieldName !== 'Informations '
-      ).map(data => ({ field: data.fieldName, value: data.fieldValue })),
+        data.field !== 'Name' && 
+        data.field !== 'Email' && 
+        data.field !== 'Phone' && 
+        data.field !== 'Informations'
+      ).map(data => ({ field: data.field, value: data.value })),
     };
     console.log(templateParams);
     emailjs.send("service_c724rvh", "template_9v5f4fl", templateParams)
@@ -262,10 +262,10 @@ function handleSubmit() {
     );
     
     const templateParams = {
-      from_name: capturedData.find(d => d.fieldName === 'Name')?.value,
-      from_email: capturedData.find(d => d.fieldName === 'Email')?.value,
-      phone: capturedData.find(d => d.fieldName === 'Phone')?.value,
-      info: capturedData.find(d => d.fieldName === 'Informations')?.value,
+      from_name: capturedData.find(d => d.field === 'Name')?.value,
+      from_email: capturedData.find(d => d.field === 'Email')?.value,
+      phone: capturedData.find(d => d.field === 'Phone')?.value,
+      info: capturedData.find(d => d.field === 'Informations')?.value,
       rows: tableRows
     };
     console.log(templateParams);
