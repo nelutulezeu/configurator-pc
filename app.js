@@ -215,7 +215,7 @@ function handleSubmit() {
 
   if (activeTab.id == 'predefined') {
     const templateParams = {
-      tab: '',
+      tab: '1',
       from_name: capturedData.find(data => data.field === 'Name')?.value,
       from_email: capturedData.find(data => data.field === 'Email')?.value,
       phone: capturedData.find(data => data.field === 'Phone')?.value,
