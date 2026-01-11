@@ -256,11 +256,9 @@ function handleSubmit() {
       });
     });
   } else if (activeTab.id == 'custom') {
-
     const tableRows = buildComponentTableRows(
       capturedData.filter(d => d.component && d.type) // only component/type rows
     );
-    
     const templateParams = {
       from_name: capturedData.find(d => d.field === 'Name')?.value,
       from_email: capturedData.find(d => d.field === 'Email')?.value,
@@ -269,6 +267,33 @@ function handleSubmit() {
       rows: tableRows
     };
     console.log(templateParams);
+    emailjs.send("service_c724rvh", "template_9v5f4fl", templateParams)
+    .then(function(response) {
+      Swal.fire({
+        heightAuto: false,
+        scrollbarPadding: false,
+        backdrop: 'rgba(2, 6, 23, 0.85)',
+        background: '#0f172a',
+        color: '#f8fafc',
+        confirmButtonColor: '#38bdf8',
+        title: getTranslation('alerts.success_title'),
+        text: getTranslation('alerts.success_text'),
+        icon: 'success'
+      });
+      clearFormFields();
+    }, function(error) {
+      Swal.fire({
+        icon: 'warning',
+        title: getTranslation('alerts.contact_title_error'),
+        text: getTranslation('alerts.contact_text_error'),
+        background: '#0f172a',
+        color: '#f8fafc',
+        confirmButtonColor: '#38bdf8',
+        backdrop: 'rgba(2, 6, 23, 0.85)',
+        heightAuto: false,
+        scrollbarPadding: false
+      });
+    });
   }
 }
 
@@ -387,7 +412,6 @@ function buildComponentTableRows(formData) {
   formData.forEach(({ component, type, value }) => {
     if (!component || !type) return;
 
-    // initialize component row if not exists
     if (!map[component]) {
       map[component] = {
         component,
