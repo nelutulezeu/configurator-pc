@@ -204,6 +204,17 @@ function handleSubmit() {
 
   const capturedData = captureFormData(activeTab);
 
+const indexed_rows = capturedData
+  .filter(d =>
+    d.field &&
+    !['Name', 'Email', 'Phone', 'Informations'].includes(d.field)
+  )
+  .map((d, i) => ({
+    index: i + 1,
+    field: d.field,
+    value: d.value
+  }));
+  
   emailjs.init({
     publicKey: 'YIAghefyjq-VmlTVB',
     blockHeadless: true,
@@ -220,12 +231,7 @@ function handleSubmit() {
       from_email: capturedData.find(data => data.field === 'Email')?.value,
       phone: capturedData.find(data => data.field === 'Phone')?.value,
       info: capturedData.find(data => data.field === 'Informations')?.value,
-      rows: capturedData.filter(data => 
-        data.field !== 'Name' && 
-        data.field !== 'Email' && 
-        data.field !== 'Phone' && 
-        data.field !== 'Informations'
-      ).map(data => ({ field: data.field, value: data.value })),
+      rows: indexed_rows,
     };
     console.log(templateParams);
     emailjs.send("service_c724rvh", "template_9v5f4fl", templateParams)
@@ -257,7 +263,7 @@ function handleSubmit() {
     });
   } else if (activeTab.id == 'custom') {
     const tableRows = buildComponentTableRows(
-      capturedData.filter(d => d.component && d.type) // only component/type rows
+      capturedData.filter(d => d.component && d.type)
     );
     const templateParams = {
       from_name: capturedData.find(d => d.field === 'Name')?.value,
@@ -351,8 +357,6 @@ function handlePDF() {
   doc.setTextColor(120);
   doc.text(`Date: ${date}`, 20, 285);
   
-  
-  // Download
   doc.save('pc-configuration.pdf');
 }
 
@@ -414,6 +418,7 @@ function buildComponentTableRows(formData) {
 
     if (!map[component]) {
       map[component] = {
+        index: i + 1, 
         component,
         product: '',
         link: ''
