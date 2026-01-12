@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
       openSelectSweetAlert(select);
     });
   }
+
+attachSwalTextareaEditor();
+  
 function openSelectSweetAlert(select) {
   const key = select.id;
   const label = select.dataset.label || 'Select option';
@@ -718,6 +721,40 @@ function applyTranslations(animate = false) {
   }, 200);
 }
 
+function attachSwalTextareaEditor() {
+  document.querySelectorAll('.swal-editor').forEach(el => {
+    el.addEventListener('click', async e => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const label =
+        el.closest('.field-card')
+          ?.querySelector('.field-label')
+          ?.textContent
+          ?.trim() || 'Message';
+
+      const { value } = await Swal.fire({
+        title: label,
+        input: 'textarea',
+        inputValue: el.value || '',
+        inputPlaceholder: 'Write your message here...',
+        inputAttributes: {
+          style: 'min-height:150px; resize:vertical;'
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        cancelButtonText: 'Cancel',
+        heightAuto: false,
+        scrollbarPadding: false
+      });
+
+      if (value !== undefined) {
+        el.value = value;
+        el.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    });
+  });
+}
 
 
 
