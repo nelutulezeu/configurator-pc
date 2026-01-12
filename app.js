@@ -432,7 +432,10 @@ function buildComponentTableRows(formData) {
     }
   });
 
-  return Object.values(map);
+  return Object.values(map).map((row, i) => ({
+    index: i + 1,
+    ...row
+  }));
 }
 
 
