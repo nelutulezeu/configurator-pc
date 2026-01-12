@@ -736,6 +736,7 @@ function attachSwalTextareaEditor() {
           style: 'min-height:150px; resize:vertical;'
         },
         showCancelButton: true,
+        background: '#0f172a',
         backdrop: 'rgba(2, 6, 23, 0.85)',
         confirmButtonColor: '#38bdf8',
         confirmButtonText: getTranslation('buttons.save'),
