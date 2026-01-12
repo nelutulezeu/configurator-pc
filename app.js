@@ -727,23 +727,19 @@ function attachSwalTextareaEditor() {
       e.preventDefault();
       e.stopPropagation();
 
-      const label =
-        el.closest('.field-card')
-          ?.querySelector('.field-label')
-          ?.textContent
-          ?.trim() || 'Message';
-
       const { value } = await Swal.fire({
-        title: label,
+        title: getTranslation('inputs.add_msg_title'),
         input: 'textarea',
         inputValue: el.value || '',
-        inputPlaceholder: 'Write your message here...',
+        inputPlaceholder: getTranslation('inputs.add_msg_plchld'),
         inputAttributes: {
           style: 'min-height:150px; resize:vertical;'
         },
         showCancelButton: true,
-        confirmButtonText: 'Save',
-        cancelButtonText: 'Cancel',
+        backdrop: 'rgba(2, 6, 23, 0.85)',
+        confirmButtonColor: '#38bdf8',
+        confirmButtonText: getTranslation('buttons.save'),
+        cancelButtonText: getTranslation('buttons.cancel'),
         heightAuto: false,
         scrollbarPadding: false
       });
