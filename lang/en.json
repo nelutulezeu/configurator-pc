@@ -9,6 +9,7 @@
     "send": "Send",
     "cancel": "Cancel",
     "ok": "OK",
+    "save": "Save",
     "request_offer_btn": "Request Offer",
     "download_offer_btn": "Download Configuration (PDF)"
   },
@@ -40,8 +41,8 @@
     "opt_prd_link_plchld": "Optional product link",
     "name_title": "Name",
     "name_plchld": "Name (Optional)",
-    "add_msg_title": "Additional Informations",
-    "add_msg_plchld": "Additional Informations (Optional)"
+    "add_msg_title": "Additional Information",
+    "add_msg_plchld": "Additional Information (Optional)"
   },
   "selects": {
     "select_cpu": "Select CPU",
@@ -70,6 +71,7 @@
   }
 
 }
+
 
 
 
