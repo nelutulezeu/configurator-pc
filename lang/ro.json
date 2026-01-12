@@ -9,6 +9,7 @@
     "send": "Trimite",
     "cancel": "Anulează",
     "ok": "OK",
+    "save": "Salvează",
     "request_offer_btn": "Solicită ofertă",
     "download_offer_btn": "Descarcă configurația (PDF)"
   },
@@ -70,6 +71,7 @@
   }
 
 }
+
 
 
 
