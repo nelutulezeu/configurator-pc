@@ -418,7 +418,6 @@ function buildComponentTableRows(formData) {
 
     if (!map[component]) {
       map[component] = {
-        index: i + 1, 
         component,
         product: '',
         link: ''
