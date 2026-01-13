@@ -723,37 +723,64 @@ function applyTranslations(animate = false) {
 }
 
 function attachSwalTextareaEditor() {
-  document.querySelectorAll('.swal-editor').forEach(el => {
-    el.addEventListener('click', async e => {
-      e.preventDefault();
-      e.stopPropagation();
+  const MAX_CHARS = 500;
 
-      const { value } = await Swal.fire({
-        title: getTranslation('inputs.add_msg_title'),
-        input: 'textarea',
-        inputValue: el.value || '',
-        inputPlaceholder: getTranslation('inputs.add_msg_plchld'),
-        inputAttributes: {
-          style: 'min-height:60px; resize:vertical;'
-        },
-        showCancelButton: true,
-        background: '#0f172a',
-        color: '#f8fafc',
-        backdrop: 'rgba(2, 6, 23, 0.85)',
-        confirmButtonColor: '#38bdf8',
-        confirmButtonText: getTranslation('buttons.save'),
-        cancelButtonText: getTranslation('buttons.cancel'),
-        heightAuto: false,
-        scrollbarPadding: false
+  document.querySelectorAll('.swal-editor:not([data-swal-bound])')
+    .forEach(el => {
+      el.dataset.swalBound = 'true';
+
+      el.addEventListener('click', async e => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const { value } = await Swal.fire({
+          title: getTranslation('inputs.add_msg_title'),
+          input: 'textarea',
+          inputValue: el.value || '',
+          inputPlaceholder: getTranslation('inputs.add_msg_plchld'),
+          inputAttributes: {
+            maxlength: MAX_CHARS,
+            style: 'min-height:60px; resize:vertical;'
+          },
+          showCancelButton: true,
+          background: '#0f172a',
+          color: '#f8fafc',
+          backdrop: 'rgba(2, 6, 23, 0.85)',
+          confirmButtonColor: '#38bdf8',
+          confirmButtonText: getTranslation('buttons.save'),
+          cancelButtonText: getTranslation('buttons.cancel'),
+          heightAuto: false,
+          scrollbarPadding: false,
+
+          didOpen: () => {
+            const textarea = Swal.getInput();
+
+            // Counter element
+            const counter = document.createElement('div');
+            counter.style.marginTop = '6px';
+            counter.style.fontSize = '12px';
+            counter.style.opacity = '0.7';
+            counter.style.textAlign = 'right';
+
+            textarea.after(counter);
+
+            const updateCounter = () => {
+              counter.textContent = `${textarea.value.length}/${MAX_CHARS}`;
+            };
+
+            updateCounter();
+            textarea.addEventListener('input', updateCounter);
+          }
+        });
+
+        if (value !== undefined) {
+          el.value = value;
+          el.dispatchEvent(new Event('input', { bubbles: true }));
+        }
       });
-
-      if (value !== undefined) {
-        el.value = value;
-        el.dispatchEvent(new Event('input', { bubbles: true }));
-      }
     });
-  });
 }
+
 
 
 
