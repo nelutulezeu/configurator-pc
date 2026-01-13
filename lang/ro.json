@@ -4,6 +4,8 @@
   "buttons": {
     "predef_button": "Configurații predefinite",
     "custom_button": "Configurație personalizată",
+    "services_button": "Servicii",
+    "budget_button": "Configurații de buget",
     "spec_button": "Vezi specificațiile",
     "close": "Închide",
     "send": "Trimite",
@@ -71,6 +73,7 @@
   }
 
 }
+
 
 
 
