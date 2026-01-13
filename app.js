@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+  
   let i18n = {};
   let currentLang = localStorage.getItem('lang') || 'ro';
   loadLanguage(currentLang, false);
