@@ -22,6 +22,10 @@ body.swal2-shown {
   overflow-y: auto !important;
 }
 
+.swal2-title{
+  color: #fff;
+}
+
 .swal2-container {
   overflow-y: auto !important;
 }
