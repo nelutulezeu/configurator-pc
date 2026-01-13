@@ -758,6 +758,7 @@ function attachSwalTextareaEditor() {
             // Counter element
             const counter = document.createElement('div');
             counter.style.marginTop = '6px';
+            counter.style.marginRight = '20px';
             counter.style.fontSize = '12px';
             counter.style.opacity = '0.7';
             counter.style.textAlign = 'right';
