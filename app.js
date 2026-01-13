@@ -733,7 +733,7 @@ function attachSwalTextareaEditor() {
         inputValue: el.value || '',
         inputPlaceholder: getTranslation('inputs.add_msg_plchld'),
         inputAttributes: {
-          style: 'min-height:150px; resize:vertical;'
+          style: 'min-height:100px; resize:vertical;'
         },
         showCancelButton: true,
         background: '#0f172a',
