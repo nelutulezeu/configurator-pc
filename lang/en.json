@@ -4,6 +4,8 @@
   "buttons": {
     "predef_button": "Predefined Builds",
     "custom_button": "Custom Build",
+    "services_button": "Services",
+    "budget_button": "Budget Builds",
     "spec_button": "View specifications",
     "close": "Close",
     "send": "Send",
@@ -71,6 +73,7 @@
   }
 
 }
+
 
 
 
