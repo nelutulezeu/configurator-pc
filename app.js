@@ -790,6 +790,9 @@ function attachLiveEmailValidation() {
   if (!emailInputs.length) return;
 
   emailInputs.forEach(input => {
+    const fieldCard = input.closest('.field-card');
+    const errorEl = fieldCard.querySelector('.field-error');
+
     let emailTimer;
 
     input.addEventListener('input', () => {
@@ -800,20 +803,62 @@ function attachLiveEmailValidation() {
 
         if (!value) {
           input.classList.remove('invalid-input', 'valid-input');
+          errorEl.hidden = true;
           return;
         }
 
         if (isValidEmail(value)) {
-          input.classList.remove('invalid-input');
           input.classList.add('valid-input');
+          input.classList.remove('invalid-input');
+          errorEl.hidden = true;
         } else {
-          input.classList.remove('valid-input');
           input.classList.add('invalid-input');
+          input.classList.remove('valid-input');
+          errorEl.hidden = false;
         }
       }, 300);
     });
   });
 }
+function attachLiveEmailValidation() {
+  const emailInputs = document.querySelectorAll(
+    'input[type="email"][id^="input-email"]'
+  );
+
+  if (!emailInputs.length) return;
+
+  emailInputs.forEach(input => {
+    const fieldCard = input.closest('.field-card');
+    const errorEl = fieldCard.querySelector('.field-error');
+
+    let emailTimer;
+
+    input.addEventListener('input', () => {
+      clearTimeout(emailTimer);
+
+      emailTimer = setTimeout(() => {
+        const value = input.value.trim();
+
+        if (!value) {
+          input.classList.remove('invalid-input', 'valid-input');
+          errorEl.hidden = true;
+          return;
+        }
+
+        if (isValidEmail(value)) {
+          input.classList.add('valid-input');
+          input.classList.remove('invalid-input');
+          errorEl.hidden = true;
+        } else {
+          input.classList.add('invalid-input');
+          input.classList.remove('valid-input');
+          errorEl.hidden = false;
+        }
+      }, 300);
+    });
+  });
+}
+
 
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
