@@ -509,8 +509,28 @@ select,
 
 .field-error {
   font-size: 12px;
-  color: #ef4444; /* red-500 */
+  color: #ef4444;
   white-space: nowrap;
+  margin-left: auto;
+  text-align: right;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+  100% { transform: translateX(0); }
+}
+
+.invalid-input {
+  border-color: #ef4444;
+  animation: shake 0.35s ease-in-out;
+}
+
+.valid-input {
+  border-color: #22c55e;
 }
 
 
