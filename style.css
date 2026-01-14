@@ -507,6 +507,12 @@ select,
   text-decoration: underline;
 }
 
+.field-error {
+  font-size: 12px;
+  color: #ef4444; /* red-500 */
+  white-space: nowrap;
+}
+
 
 
 
