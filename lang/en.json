@@ -44,7 +44,8 @@
     "name_title": "Name",
     "name_plchld": "Name (Optional)",
     "add_msg_title": "Additional Information",
-    "add_msg_plchld": "Additional Information (Optional)"
+    "add_msg_plchld": "Additional Information (Optional)",
+    "add_msg_maxchar": "Max 500 characters message..."
   },
   "selects": {
     "select_cpu": "Select CPU",
@@ -73,6 +74,7 @@
   }
 
 }
+
 
 
 
