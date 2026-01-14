@@ -782,30 +782,39 @@ function attachSwalTextareaEditor() {
     });
 }
 
-  function attachLiveEmailValidation() {
-    const emailInput = document.querySelectorAll('input[type="email"][id^="input-email"]');
-    if (!emailInput) return;  
+function attachLiveEmailValidation() {
+  const emailInputs = document.querySelectorAll(
+    'input[type="email"][id^="input-email"]'
+  );
+
+  if (!emailInputs.length) return;
+
+  emailInputs.forEach(input => {
     let emailTimer;
-      
-    emailInput.addEventListener('input', () => {
+
+    input.addEventListener('input', () => {
       clearTimeout(emailTimer);
+
       emailTimer = setTimeout(() => {
-        const value = emailInput.value.trim();
+        const value = input.value.trim();
+
         if (!value) {
-          emailInput.classList.remove('invalid-input', 'valid-input');
+          input.classList.remove('invalid-input', 'valid-input');
           return;
         }
-    
+
         if (isValidEmail(value)) {
-          emailInput.classList.remove('invalid-input');
-          emailInput.classList.add('valid-input');
+          input.classList.remove('invalid-input');
+          input.classList.add('valid-input');
         } else {
-          emailInput.classList.remove('valid-input');
-          emailInput.classList.add('invalid-input');
+          input.classList.remove('valid-input');
+          input.classList.add('invalid-input');
         }
       }, 300);
     });
+  });
 }
+
 
 
 
