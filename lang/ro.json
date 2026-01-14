@@ -44,7 +44,8 @@
     "name_title": "Nume",
     "name_plchld": "Nume (Opțional)",
     "add_msg_title": "Informații Adiționale",
-    "add_msg_plchld": "Informații Adiționale (Opțional)"
+    "add_msg_plchld": "Informații Adiționale (Opțional)",
+    "add_msg_maxchar": "Mesaj cu maxim 500 de caractere..."
   },
   "selects": {
     "select_cpu": "Selectează Procesor (CPU)",
@@ -73,6 +74,7 @@
   }
 
 }
+
 
 
 
