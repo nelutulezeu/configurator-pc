@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  
   let i18n = {};
   let currentLang = localStorage.getItem('lang') || 'ro';
   loadLanguage(currentLang, false);
@@ -20,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 attachSwalTextareaEditor();
+attachLiveEmailValidation();
   
 function openSelectSweetAlert(select) {
   const key = select.id;
@@ -779,6 +779,31 @@ function attachSwalTextareaEditor() {
           el.dispatchEvent(new Event('input', { bubbles: true }));
         }
       });
+    });
+}
+
+  function attachLiveEmailValidation() {
+    const emailInput = document.querySelectorAll('input[type="email"][id^="input-email"]');
+    if (!emailInput) return;  
+    let emailTimer;
+      
+    emailInput.addEventListener('input', () => {
+      clearTimeout(emailTimer);
+      emailTimer = setTimeout(() => {
+        const value = emailInput.value.trim();
+        if (!value) {
+          emailInput.classList.remove('invalid-input', 'valid-input');
+          return;
+        }
+    
+        if (isValidEmail(value)) {
+          emailInput.classList.remove('invalid-input');
+          emailInput.classList.add('valid-input');
+        } else {
+          emailInput.classList.remove('valid-input');
+          emailInput.classList.add('invalid-input');
+        }
+      }, 300);
     });
 }
 
