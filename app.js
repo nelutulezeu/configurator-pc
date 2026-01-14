@@ -737,7 +737,7 @@ function attachSwalTextareaEditor() {
           title: getTranslation('inputs.add_msg_title'),
           input: 'textarea',
           inputValue: el.value || '',
-          inputPlaceholder: getTranslation('inputs.add_msg_plchld'),
+          inputPlaceholder: getTranslation('inputs.add_msg_maxchar'),
           inputAttributes: {
             maxlength: MAX_CHARS,
             style: 'min-height:60px; resize:vertical;'
