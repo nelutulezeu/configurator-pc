@@ -185,7 +185,9 @@ function getActiveTab() {
   const pdfBtn = document.getElementById('pdfBtn');
 
 submitBtns.forEach(btn => {
-  btn.addEventListener('click', handleSubmit);
+  btn.addEventListener('click', () => {
+    runWithCaptcha(handleSubmit);
+  });
 });
 pdfBtn.addEventListener('click', handlePDF);
 
@@ -859,6 +861,45 @@ function attachLiveEmailValidation() {
   });
 }
 
+function runWithCaptcha(onSuccess) {
+  const a = Math.floor(Math.random() * 10) + 1;
+  const b = Math.floor(Math.random() * 10) + 1;
+  const correctAnswer = a + b;
+
+  Swal.fire({
+    title: getTranslation('alerts.captcha_title'),
+    html: `
+      <p>${getTranslation('alerts.captcha_prompt')}</p>
+      <strong style="font-size:1.25rem;">${a} + ${b} = ?</strong>
+      <input type="number" id="captcha-input" class="swal2-input" placeholder="${getTranslation('inputs.captcha_placeholder')}" inputmode="numeric">
+    `,
+    confirmButtonText: getTranslation('buttons.continue'),
+    showCancelButton: true,
+    cancelButtonText: getTranslation('buttons.cancel'),
+    background: '#0f172a',
+    color: '#f8fafc',
+    confirmButtonColor: '#38bdf8',
+    backdrop: 'rgba(2, 6, 23, 0.85)',
+    heightAuto: false,
+    scrollbarPadding: false,
+    preConfirm: () => {
+      const userAnswer = document.getElementById('captcha-input').value.trim();
+      if (!userAnswer) {
+        Swal.showValidationMessage(getTranslation('alerts.captcha_required'));
+        return false;
+      }
+      if (parseInt(userAnswer, 10) !== correctAnswer) {
+        Swal.showValidationMessage(getTranslation('alerts.captcha_invalid'));
+        return false;
+      }
+      return true;
+    }
+  }).then(result => {
+    if (result.isConfirmed) {
+      onSuccess();
+    }
+  });
+}
 
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
