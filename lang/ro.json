@@ -28,7 +28,9 @@
     "contact_text_error": "Te rugăm verifică conexiunea la internet sau încearcă mai târziu.",
     "contact_form_title": "Contactează-ne",
     "valid_email_check": "Te rugăm să introduci o adresă de email validă",
-    "all_fields_check": "Te rugăm să completezi toate câmpurile"
+    "all_fields_check": "Te rugăm să completezi toate câmpurile",
+    "captcha_title": "Verificare rapidă",
+    "captcha_prompt": "Ne asigurăm că ești om"
   },
   "inputs": {
     "contact_name": "Numele tău",
@@ -45,7 +47,8 @@
     "name_plchld": "Nume (Opțional)",
     "add_msg_title": "Informații Adiționale",
     "add_msg_plchld": "Informații Adiționale (Opțional)",
-    "add_msg_maxchar": "Mesaj cu maxim 500 de caractere..."
+    "add_msg_maxchar": "Mesaj cu maxim 500 de caractere...",
+    "captcha_placeholder": "Răspunsul tău"
   },
   "selects": {
     "select_cpu": "Selectează Procesor (CPU)",
@@ -74,6 +77,7 @@
   }
 
 }
+
 
 
 
