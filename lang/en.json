@@ -10,6 +10,7 @@
     "close": "Close",
     "send": "Send",
     "cancel": "Cancel",
+    "continue": "Continue",
     "ok": "OK",
     "save": "Save",
     "request_offer_btn": "Request Offer",
@@ -28,7 +29,9 @@
     "contact_text_error": "Please check your internet connection or try again later.",
     "contact_form_title": "Contact us",
     "valid_email_check": "Please enter a valid email address",
-    "all_fields_check": "Please fill in all fields"
+    "all_fields_check": "Please fill in all fields",
+    "captcha_title": "Quick check",
+    "captcha_prompt": "Just making sure you're human"
   },
   "inputs": {
     "contact_name": "Your name",
@@ -45,7 +48,8 @@
     "name_plchld": "Name (Optional)",
     "add_msg_title": "Additional Information",
     "add_msg_plchld": "Additional Information (Optional)",
-    "add_msg_maxchar": "Max 500 characters message..."
+    "add_msg_maxchar": "Max 500 characters message...",
+    "captcha_placeholder": "Your answer"
   },
   "selects": {
     "select_cpu": "Select CPU",
@@ -74,6 +78,7 @@
   }
 
 }
+
 
 
 
