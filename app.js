@@ -186,49 +186,36 @@ function getActiveTab() {
 
 submitBtns.forEach(btn => {
   btn.addEventListener('click', () => {
+    
+    if (!validateForm()) return;
+    
     runWithCaptcha(handleSubmit);
   });
 });
 pdfBtn.addEventListener('click', handlePDF);
 
 function handleSubmit() {
-  const activeTab = getActiveTab();
-  if (!validateRequiredFields(activeTab)) {
-    Swal.fire({
-        heightAuto: false,
-        scrollbarPadding: false,
-        backdrop: 'rgba(2, 6, 23, 0.85)',
-        background: '#0f172a',
-        color: '#f8fafc',
-        confirmButtonColor: '#38bdf8',
-        title: getTranslation('alerts.incomplete_title'),
-        text: getTranslation('alerts.incomplete_text'),
-        icon: 'warning'
-    });
-    return;
-  }
-
   const capturedData = captureFormData(activeTab);
-
-const indexed_rows = capturedData
-  .filter(d =>
-    d.field &&
-    !['Name', 'Email', 'Phone', 'Informations'].includes(d.field)
-  )
-  .map((d, i) => ({
-    index: i + 1,
-    field: d.field,
-    value: d.value
-  }));
   
-  emailjs.init({
-    publicKey: 'YIAghefyjq-VmlTVB',
-    blockHeadless: true,
-    limitRate: {
-      id: 'offer-form',
-      throttle: 10000,
-    },
-  });
+  const indexed_rows = capturedData
+    .filter(d =>
+      d.field &&
+      !['Name', 'Email', 'Phone', 'Informations'].includes(d.field)
+    )
+    .map((d, i) => ({
+      index: i + 1,
+      field: d.field,
+      value: d.value
+    }));
+    
+    emailjs.init({
+      publicKey: 'YIAghefyjq-VmlTVB',
+      blockHeadless: true,
+      limitRate: {
+        id: 'offer-form',
+        throttle: 10000,
+      },
+    });
 
   if (activeTab.id == 'predefined') {
     const templateParams = {
@@ -309,6 +296,40 @@ const indexed_rows = capturedData
   }
 }
 
+function validateForm() {
+  const activeTab = getActiveTab();
+  if (!validateRequiredFields(activeTab)) {
+    Swal.fire({
+        heightAuto: false,
+        scrollbarPadding: false,
+        backdrop: 'rgba(2, 6, 23, 0.85)',
+        background: '#0f172a',
+        color: '#f8fafc',
+        confirmButtonColor: '#38bdf8',
+        title: getTranslation('alerts.incomplete_title'),
+        text: getTranslation('alerts.incomplete_text'),
+        icon: 'warning'
+    });
+  }
+
+  return validateRequiredFields(activeTab);
+}
+
+function validateRequiredFields(activeTab) {
+  const requiredFields = activeTab.querySelectorAll('.required');
+  let valid = true;
+  
+  requiredFields.forEach(field => {
+    field.classList.remove('invalid');
+    if (!field.value) {
+      field.classList.add('invalid');
+      valid = false;
+    }
+  });
+  
+  return valid;
+}
+  
 function handlePDF() {
   if (!validateRequiredFields()) {
     Swal.fire({
@@ -364,21 +385,6 @@ function handlePDF() {
   doc.text(`Date: ${date}`, 20, 285);
   
   doc.save('pc-configuration.pdf');
-}
-
-function validateRequiredFields(activeTab) {
-  const requiredFields = activeTab.querySelectorAll('.required');
-  let valid = true;
-
-  requiredFields.forEach(field => {
-    field.classList.remove('invalid');
-    if (!field.value) {
-      field.classList.add('invalid');
-      valid = false;
-    }
-  });
-  
-  return valid;
 }
 
 function captureFormData(activeTab) {
