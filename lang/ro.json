@@ -10,6 +10,7 @@
     "close": "Închide",
     "send": "Trimite",
     "cancel": "Anulează",
+    "cancel": "Continuă",
     "ok": "OK",
     "save": "Salvează",
     "request_offer_btn": "Solicită ofertă",
@@ -77,6 +78,7 @@
   }
 
 }
+
 
 
 
