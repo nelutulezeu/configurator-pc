@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function enhanceSelectWithSweetAlert(select) {
     select.addEventListener('mousedown', (e) => {
       e.preventDefault(); // stop native dropdown
+
+      document.activeElement?.blur();
+      
       openSelectSweetAlert(select);
     });
   }
@@ -53,6 +56,7 @@ function openSelectSweetAlert(select) {
     `;
   });
 
+  document.activeElement?.blur();
   Swal.fire({
     heightAuto: false,
     scrollbarPadding: false,
@@ -229,6 +233,7 @@ function handleSubmit() {
     console.log(templateParams);
     emailjs.send("service_c724rvh", "template_9v5f4fl", templateParams)
     .then(function(response) {
+      document.activeElement?.blur();
       Swal.fire({
         heightAuto: false,
         scrollbarPadding: false,
@@ -242,6 +247,7 @@ function handleSubmit() {
       });
       clearFormFields();
     }, function(error) {
+      document.activeElement?.blur();
       Swal.fire({
         icon: 'warning',
         title: getTranslation('alerts.contact_title_error'),
@@ -268,6 +274,7 @@ function handleSubmit() {
     console.log(templateParams);
     emailjs.send("service_c724rvh", "template_9v5f4fl", templateParams)
     .then(function(response) {
+      document.activeElement?.blur();
       Swal.fire({
         heightAuto: false,
         scrollbarPadding: false,
@@ -281,6 +288,7 @@ function handleSubmit() {
       });
       clearFormFields();
     }, function(error) {
+      document.activeElement?.blur();
       Swal.fire({
         icon: 'warning',
         title: getTranslation('alerts.contact_title_error'),
@@ -301,6 +309,7 @@ function validateForm() {
   const valid = validateRequiredFields(activeTab);
   
   if (!valid) {
+    document.activeElement?.blur();
     Swal.fire({
         heightAuto: false,
         scrollbarPadding: false,
@@ -334,6 +343,7 @@ function validateRequiredFields(activeTab) {
 
 function handlePDF() {
   if (!validateRequiredFields()) {
+    document.activeElement?.blur();
     Swal.fire({
           heightAuto: false,
           scrollbarPadding: false,
@@ -506,7 +516,8 @@ document.getElementById('iconAttributionLink').addEventListener('click', (e) => 
   });
 
   html += '</ul>';
-
+  
+  document.activeElement?.blur();
   Swal.fire({
     title: getTranslation('alerts.icon_attribution'),
     html,
@@ -558,6 +569,7 @@ document.getElementById('contact_link').addEventListener('click', (e) => {
   },
 });
   
+  document.activeElement?.blur();
   Swal.fire({
     title: getTranslation('alerts.contact_form_title'),
     html: `
@@ -609,6 +621,7 @@ document.getElementById('contact_link').addEventListener('click', (e) => {
 
     emailjs.send("service_c724rvh", "template_jlihdun", templateParams)
     .then(function(response) {
+      document.activeElement?.blur();
       Swal.fire({
         icon: 'success',
         title: getTranslation('alerts.contact_title'),
@@ -621,6 +634,7 @@ document.getElementById('contact_link').addEventListener('click', (e) => {
         scrollbarPadding: false
       });
     }, function(error) {
+      document.activeElement?.blur();
       Swal.fire({
         icon: 'warning',
         title: getTranslation('alerts.contact_title_error'),
@@ -650,6 +664,7 @@ document.querySelectorAll('.lang-options button').forEach(btn => {
 async function loadLanguage(lang, animate = false) {
   const res = await fetch(`lang/${lang}.json`);
   if (!res.ok){
+      document.activeElement?.blur();
       Swal.fire({
         title: 'Error',
         text: 'Failed to load language data.',
@@ -831,6 +846,7 @@ function runWithCaptcha(onSuccess) {
   const b = Math.floor(Math.random() * 10) + 1;
   const correctAnswer = a + b;
 
+  document.activeElement?.blur();
   Swal.fire({
     title: getTranslation('alerts.captcha_title'),
     html: `
