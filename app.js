@@ -332,19 +332,6 @@ function validateRequiredFields(activeTab) {
   return valid;
 }
 
-function validateRequiredFieldsSilent(activeTab) {
-  const requiredFields = activeTab.querySelectorAll('.required');
-
-  requiredFields.forEach(field => {
-    if (!field.value) {
-      field.classList.add('invalid');
-    } else {
-      field.classList.remove('invalid');
-    }
-  });
-}
-
-  
 function handlePDF() {
   if (!validateRequiredFields()) {
     Swal.fire({
@@ -539,12 +526,7 @@ document.getElementById('iconAttributionLink').addEventListener('click', (e) => 
   });
 });
 
-document.querySelectorAll('.required').forEach(field => {
-  field.addEventListener('change', () => {
-    const activeTab = getActiveTab();
-    validateRequiredFieldsSilent(activeTab);
-  });
-});
+document.querySelectorAll('.required').forEach(field => { field.addEventListener('change', () => { if (field.value) { field.classList.remove('invalid'); } }); });
 
 document.querySelectorAll('.tab-button').forEach(btn => {
   btn.addEventListener('click', () => {
