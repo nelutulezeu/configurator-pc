@@ -536,11 +536,21 @@ document.getElementById('iconAttributionLink').addEventListener('click', (e) => 
   });
 });
 
-const requiredFields = document.querySelectorAll('.required');
-  // auto-clear invalid state
-  requiredFields.forEach(field => {
-    field.addEventListener('change', () => {
-      field.classList.remove('invalid');
+document.querySelectorAll('.required').forEach(field => {
+  field.addEventListener('input', () => {
+    if (!field.value) return;
+
+    field.classList.remove('invalid');
+
+    const activeTab = getActiveTab();
+    const requiredFields = activeTab.querySelectorAll('.required');
+
+    const nextMissing = Array.from(requiredFields).find(f => !f.value);
+
+    if (nextMissing) {
+      nextMissing.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      nextMissing.focus({ preventScroll: true });
+    }
   });
 });
 
