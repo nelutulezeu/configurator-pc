@@ -526,7 +526,7 @@ document.getElementById('iconAttributionLink').addEventListener('click', (e) => 
   });
 });
 
-document.querySelectorAll('.required').forEach(field => { field.addEventListener('change', () => { if (field.value) { field.classList.remove('invalid'); } }); });
+document.querySelectorAll('.required').forEach(field => { field.addEventListener('change', () => { if (field.value) { field.classList.remove('invalid'); field.focus({ preventScroll: true }); } }); });
 
 document.querySelectorAll('.tab-button').forEach(btn => {
   btn.addEventListener('click', () => {
