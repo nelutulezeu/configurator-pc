@@ -318,17 +318,29 @@ function validateForm() {
 function validateRequiredFields(activeTab) {
   const requiredFields = activeTab.querySelectorAll('.required');
   let valid = true;
-  
+  let firstInvalid = null;
+
   requiredFields.forEach(field => {
     field.classList.remove('invalid');
+
     if (!field.value) {
       field.classList.add('invalid');
       valid = false;
+
+      if (!firstInvalid) {
+        firstInvalid = field;
+      }
     }
   });
-  
+
+  if (!valid && firstInvalid) {
+    firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    firstInvalid.focus({ preventScroll: true });
+  }
+
   return valid;
 }
+
   
 function handlePDF() {
   if (!validateRequiredFields()) {
