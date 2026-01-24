@@ -332,7 +332,6 @@ function validateRequiredFields(activeTab) {
 
   if (firstInvalid) {
     firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    firstInvalid.focus({ preventScroll: true });
     return false;
   }
 
