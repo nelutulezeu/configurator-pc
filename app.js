@@ -298,7 +298,9 @@ function handleSubmit() {
 
 function validateForm() {
   const activeTab = getActiveTab();
-  if (!validateRequiredFields(activeTab)) {
+  const valid = validateRequiredFields(activeTab);
+  
+  if (!valid) {
     Swal.fire({
         heightAuto: false,
         scrollbarPadding: false,
@@ -312,7 +314,7 @@ function validateForm() {
     });
   }
 
-  return validateRequiredFields(activeTab);
+  return valid;
 }
 
 function validateRequiredFields(activeTab) {
@@ -329,6 +331,19 @@ function validateRequiredFields(activeTab) {
   
   return valid;
 }
+
+function validateRequiredFieldsSilent(activeTab) {
+  const requiredFields = activeTab.querySelectorAll('.required');
+
+  requiredFields.forEach(field => {
+    if (!field.value) {
+      field.classList.add('invalid');
+    } else {
+      field.classList.remove('invalid');
+    }
+  });
+}
+
   
 function handlePDF() {
   if (!validateRequiredFields()) {
@@ -525,10 +540,9 @@ document.getElementById('iconAttributionLink').addEventListener('click', (e) => 
 });
 
 document.querySelectorAll('.required').forEach(field => {
-  field.addEventListener('change', () => {
-    if (field.value) {
-      field.classList.remove('invalid');
-    }
+  field.addEventListener('input', () => {
+    const activeTab = getActiveTab();
+    validateRequiredFieldsSilent(activeTab);
   });
 });
 
