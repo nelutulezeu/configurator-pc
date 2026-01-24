@@ -317,25 +317,17 @@ function validateForm() {
 
 function validateRequiredFields(activeTab) {
   const requiredFields = activeTab.querySelectorAll('.required');
-  let firstInvalid = null;
-
+  let valid = true;
+  
   requiredFields.forEach(field => {
     field.classList.remove('invalid');
-
     if (!field.value) {
       field.classList.add('invalid');
-      if (!firstInvalid) {
-        firstInvalid = field;
-      }
+      valid = false;
     }
   });
-
-  if (firstInvalid) {
-    firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    return false;
-  }
-
-  return true;
+  
+  return valid;
 }
   
 function handlePDF() {
