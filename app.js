@@ -540,7 +540,7 @@ document.getElementById('iconAttributionLink').addEventListener('click', (e) => 
 });
 
 document.querySelectorAll('.required').forEach(field => {
-  field.addEventListener('input', () => {
+  field.addEventListener('change', () => {
     const activeTab = getActiveTab();
     validateRequiredFieldsSilent(activeTab);
   });
