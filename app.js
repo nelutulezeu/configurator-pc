@@ -317,7 +317,6 @@ function validateForm() {
 
 function validateRequiredFields(activeTab) {
   const requiredFields = activeTab.querySelectorAll('.required');
-  let valid = true;
   let firstInvalid = null;
 
   requiredFields.forEach(field => {
@@ -325,22 +324,20 @@ function validateRequiredFields(activeTab) {
 
     if (!field.value) {
       field.classList.add('invalid');
-      valid = false;
-
       if (!firstInvalid) {
         firstInvalid = field;
       }
     }
   });
 
-  if (!valid && firstInvalid) {
+  if (firstInvalid) {
     firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
     firstInvalid.focus({ preventScroll: true });
+    return false;
   }
 
-  return valid;
+  return true;
 }
-
   
 function handlePDF() {
   if (!validateRequiredFields()) {
@@ -538,18 +535,8 @@ document.getElementById('iconAttributionLink').addEventListener('click', (e) => 
 
 document.querySelectorAll('.required').forEach(field => {
   field.addEventListener('change', () => {
-    if (!field.value) return;
-
-    field.classList.remove('invalid');
-
-    const activeTab = getActiveTab();
-    const requiredFields = activeTab.querySelectorAll('.required');
-
-    const nextMissing = Array.from(requiredFields).find(f => !f.value);
-
-    if (nextMissing) {
-      nextMissing.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      nextMissing.focus({ preventScroll: true });
+    if (field.value) {
+      field.classList.remove('invalid');
     }
   });
 });
