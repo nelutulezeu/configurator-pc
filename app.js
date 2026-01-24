@@ -537,7 +537,7 @@ document.getElementById('iconAttributionLink').addEventListener('click', (e) => 
 });
 
 document.querySelectorAll('.required').forEach(field => {
-  field.addEventListener('input', () => {
+  field.addEventListener('change', () => {
     if (!field.value) return;
 
     field.classList.remove('invalid');
