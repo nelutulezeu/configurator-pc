@@ -199,6 +199,7 @@ submitBtns.forEach(btn => {
 pdfBtn.addEventListener('click', handlePDF);
 
 function handleSubmit() {
+  const activeTab = getActiveTab();
   const capturedData = captureFormData(activeTab);
   
   const indexed_rows = capturedData
