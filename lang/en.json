@@ -28,10 +28,12 @@
     "contact_text": "We’ll get back to you shortly.",
     "contact_text_error": "Please check your internet connection or try again later.",
     "contact_form_title": "Contact us",
-    "valid_email_check": "Please enter a valid email address",
-    "all_fields_check": "Please fill in all fields",
+    "valid_email_check": "Please enter a valid email address.",
+    "all_fields_check": "Please fill in all fields.",
     "captcha_title": "Quick check",
-    "captcha_prompt": "Just making sure you're human"
+    "captcha_prompt": "We’re just making sure you're human.",
+    "captcha_required": "Please solve the captcha to continue.",
+    "captcha_invalid": "Incorrect answer. Please try again."
   },
   "inputs": {
     "contact_name": "Your name",
@@ -78,6 +80,7 @@
   }
 
 }
+
 
 
 
