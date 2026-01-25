@@ -17,7 +17,7 @@
     "download_offer_btn": "Descarcă configurația (PDF)"
   },
   "alerts": {
-    "incomplete_title": "Selecție incompletă",
+    "incomplete_title": "Selecție incompletă!",
     "incomplete_text": "Te rugăm să completezi toate câmpurile obligatorii.",
     "success_title": "Configurație trimisă!",
     "success_text": "Configurația ta a fost trimisă. Te vom contacta în curând. Mulțumim!",
@@ -28,10 +28,12 @@
     "contact_text": "Te vom contacta în cel mai scurt timp.",
     "contact_text_error": "Te rugăm verifică conexiunea la internet sau încearcă mai târziu.",
     "contact_form_title": "Contactează-ne",
-    "valid_email_check": "Te rugăm să introduci o adresă de email validă",
-    "all_fields_check": "Te rugăm să completezi toate câmpurile",
+    "valid_email_check": "Te rugăm să introduci o adresă de email validă.",
+    "all_fields_check": "Te rugăm să completezi toate câmpurile.",
     "captcha_title": "Verificare rapidă",
-    "captcha_prompt": "Ne asigurăm că ești om"
+    "captcha_prompt": "Vrem sa ne asigurăm că ești om.",
+    "captcha_required": "Te rugăm să rezolvi captcha pentru a continua.",
+    "captcha_invalid": "Răspuns incorect. Te rugăm să încerci din nou."
   },
   "inputs": {
     "contact_name": "Numele tău",
@@ -78,6 +80,7 @@
   }
 
 }
+
 
 
 
