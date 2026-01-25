@@ -853,7 +853,8 @@ function runWithCaptcha(onSuccess) {
     html: `
       <p>${getTranslation('alerts.captcha_prompt')}</p>
       <strong style="font-size:1.25rem;">${a} + ${b} = ?</strong>
-      <input type="number" id="captcha-input" class="swal2-input" placeholder="${getTranslation('inputs.captcha_placeholder')}" inputmode="numeric">
+      <input type="text" id="captcha-input" class="swal2-input" placeholder="${getTranslation('inputs.captcha_placeholder')}" inputmode="numeric" pattern="[0-9]*">
+
     `,
     confirmButtonText: getTranslation('buttons.continue'),
     showCancelButton: true,
